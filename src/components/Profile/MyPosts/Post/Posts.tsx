@@ -59,7 +59,7 @@ const PostItemAvatar =styled.div `
 `
 
 const PostText = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   width: calc(100% - 60px);
 `
 const PostContent = styled.div`

@@ -41,7 +41,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: ${({theme})=>theme.fontFamily.Montserrat};
     color: #1B1B1B;
     background: ${({theme})=>theme.colors.bgBody};
-    padding: 20px 0;
+    padding: 0 0 30px 0;
   }
 
   input,

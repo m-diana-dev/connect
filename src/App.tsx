@@ -22,7 +22,7 @@ const App = (props: AppPropsType) => {
                     <Section>
                         <Container>
                             <Flex>
-                                <Navbar/>
+                                <Navbar friends={props.state.FriendsPage.friends}/>
                                 <MainBlock>
                                     <Routes>
                                         <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
