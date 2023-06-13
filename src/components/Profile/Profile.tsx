@@ -7,6 +7,7 @@ import banner from '../../images/banner.jpg'
 
 type ProfilePropsType = {
     posts: PostsType[]
+    addPost: (postText: string)=>void
 }
 export const Profile = (props: ProfilePropsType) => {
     return (
@@ -15,7 +16,7 @@ export const Profile = (props: ProfilePropsType) => {
                 <img src={banner}/>
             </Banner>
             <ProfileInfo/>
-            <MyPosts posts={props.posts}/>
+            <MyPosts posts={props.posts} addPost={props.addPost}/>
         </>
     )
 }

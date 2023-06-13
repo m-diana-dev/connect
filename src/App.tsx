@@ -11,6 +11,7 @@ import {Section, Container, Theme, MainBlock, Flex} from "./styles/Theme.tsx";
 
 type AppPropsType = {
     state: StateType
+    addPost: (postText: string)=>void
 }
 const App = (props: AppPropsType) => {
     // @ts-ignore
@@ -26,7 +27,7 @@ const App = (props: AppPropsType) => {
                                 <MainBlock>
                                     <Routes>
                                         <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                                        <Route path="/profile" element={<Profile posts={props.state.ProfilePage.posts}/>}/>
+                                        <Route path="/profile" element={<Profile posts={props.state.ProfilePage.posts} addPost={props.addPost}/>}/>
                                         <Route path="/messages/*" element={<Dialogs dialogs={props.state.DialogsPage.dialogs}
                                                                                     messages={props.state.DialogsPage.messages}/>}/>
                                         <Route path="/news" element={<News/>}/>

@@ -4,13 +4,20 @@ import {DialogsType, MessagesType} from "../../redux/state";
 import styled from "styled-components";
 import {H1, Textarea} from "../../styles/Theme.tsx";
 import {Button} from "../Button/Button.tsx";
+import React from "react";
 
 type DialogsPropsType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
 }
 export const Dialogs = (props: DialogsPropsType) => {
-
+    const newMessageElement = React.createRef<HTMLTextAreaElement>();
+    const sendMessageHandler = () => {
+        if (newMessageElement.current) {
+            const textMessage = newMessageElement.current.value;
+            alert(textMessage)
+        }
+    }
     return (
         <div>
             <DialogsWrapp>
@@ -24,9 +31,8 @@ export const Dialogs = (props: DialogsPropsType) => {
                     <MessageItems>
                         {props.messages.map(el => <MessageItem key={el.id} my={el.my} text={el.text}/>)}
                     </MessageItems>
-                    <Textarea/>
-                    <Button name={'Send'} callback={() => {
-                    }}/>
+                    <Textarea ref={newMessageElement}/>
+                    <Button name={'Send'} callback={sendMessageHandler}/>
                 </MessageBlock>
             </DialogsWrapp>
         </div>

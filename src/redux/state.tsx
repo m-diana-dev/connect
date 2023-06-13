@@ -44,7 +44,7 @@ export type StateType = {
     FriendsPage: FriendsPageType
 }
 
-export let state:StateType  = {
+export const state:StateType  = {
     ProfilePage: {
         posts: [
             {id: 1, likes: 12, text: 'Hello!'},
@@ -78,4 +78,9 @@ export let state:StateType  = {
             {id: 5, img:avatar5, name: 'Mikkel'},
         ]
     }
+}
+
+export const addPost = (postText: string) => {
+    const newPost = {id: 5, likes: 0, text:postText};
+    state.ProfilePage.posts.push(newPost)
 }
