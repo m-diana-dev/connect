@@ -15,7 +15,8 @@ export const MyPosts = (props: MyPostsPropsType) => {
     const AddPostHandler = () => {
         if(newPostElement.current){
             const textareaText = newPostElement.current.value;
-            props.addPost(textareaText)
+            props.addPost(textareaText);
+            newPostElement.current.value='';
         }
     }
     return (
