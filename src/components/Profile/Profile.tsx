@@ -1,13 +1,14 @@
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {PostsType} from "../../redux/state";
+import {ProfilePageType} from "../../redux/state";
 import styled from "styled-components";
 import banner from '../../images/banner.jpg'
 
 
 type ProfilePropsType = {
-    posts: PostsType[]
-    addPost: (postText: string)=>void
+    state: ProfilePageType
+    addPost: ()=>void
+    updateNewPostText: (postText: string)=>void
 }
 export const Profile = (props: ProfilePropsType) => {
     return (
@@ -16,7 +17,7 @@ export const Profile = (props: ProfilePropsType) => {
                 <img src={banner}/>
             </Banner>
             <ProfileInfo/>
-            <MyPosts posts={props.posts} addPost={props.addPost}/>
+            <MyPosts posts={props.state.posts} newPostText={props.state.newPostText} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>
         </>
     )
 }

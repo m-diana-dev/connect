@@ -29,6 +29,7 @@ export type FriendsType = {
 
 export type ProfilePageType = {
     posts: PostsType[]
+    newPostText: string
 }
 
 export type DialogsPageType = {
@@ -53,6 +54,7 @@ export const state:StateType  = {
             {id: 3, likes: 22, text: 'Knowledge is power.'},
             {id: 4, likes: 6, text: 'Fake It Until You Make It! Act As If You Had All The Confidence You Require Until It Becomes Your Reality!'},
         ],
+        newPostText: '',
     },
     DialogsPage: {
         dialogs: [
@@ -81,9 +83,13 @@ export const state:StateType  = {
     }
 }
 
-export const addPost = (postText: string) => {
-    const newPost = {id: 5, likes: 0, text:postText};
+export const addPost = () => {
+    const newPost = {id: 5, likes: 0, text:state.ProfilePage.newPostText};
     state.ProfilePage.posts.push(newPost)
-    // console.log('dfegf')
+    state.ProfilePage.newPostText = ''
+    rerenderEntireTree(state);
+}
+export const updateNewPostText = (postText: string) => {
+    state.ProfilePage.newPostText = postText;
     rerenderEntireTree(state);
 }

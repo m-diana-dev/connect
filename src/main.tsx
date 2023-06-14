@@ -4,4 +4,5 @@ import './index.css'
 import {addPost, state} from "./redux/state";
 import {rerenderEntireTree} from "./render.tsx";
 
+
 rerenderEntireTree(state);
