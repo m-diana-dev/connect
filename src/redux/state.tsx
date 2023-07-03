@@ -3,7 +3,6 @@ import avatar2 from '../images/users/avatar-2.png'
 import avatar3 from '../images/users/avatar-3.jpg'
 import avatar4 from '../images/users/avatar-4.jpg'
 import avatar5 from '../images/users/main.png'
-import {rerenderEntireTree} from "../render.tsx";
 
 
 export type PostsType = {
@@ -83,6 +82,10 @@ export const state:StateType  = {
     }
 }
 
+let rerenderEntireTree = (state: StateType) => {
+    console.log(state)
+}
+
 export const addPost = () => {
     const newPost = {id: 5, likes: 0, text:state.ProfilePage.newPostText};
     state.ProfilePage.posts.push(newPost)
@@ -92,4 +95,8 @@ export const addPost = () => {
 export const updateNewPostText = (postText: string) => {
     state.ProfilePage.newPostText = postText;
     rerenderEntireTree(state);
+}
+
+export const subscriber = (observer: (state: StateType)=>void) => {
+    rerenderEntireTree = observer;
 }

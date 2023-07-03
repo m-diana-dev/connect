@@ -3,7 +3,7 @@ import {PostsType} from "../../../redux/state";
 import styled from "styled-components";
 import {H2, Textarea} from "../../../styles/Theme.tsx";
 import {Button} from "../../Button/Button.tsx";
-import React, {ChangeEvent} from "react";
+import React from "react";
 
 
 type MyPostsPropsType = {
