@@ -5,7 +5,7 @@ import {BrowserRouter, Route, Routes,Navigate} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {StateType, updateNewPostText} from "./redux/state";
+import {StateType} from "./redux/state";
 import {Section, Container, Theme, MainBlock, Flex} from "./styles/Theme.tsx";
 
 
@@ -15,7 +15,6 @@ type AppPropsType = {
     updateNewPostText: (postText: string)=>void
 }
 const App = (props: AppPropsType) => {
-    // @ts-ignore
     return (
         <Theme>
             <BrowserRouter>
