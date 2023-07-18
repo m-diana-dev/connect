@@ -46,13 +46,23 @@ export type StateType = {
 }
 
 export type StoreType = {
-    _callSubscriber:(state: StateType)=>void
-    _state:StateType
-    getState:()=>StateType
-    subscriber:(observer: (state: StateType) => void)=>void
-    addPost:()=>void
-    updateNewPostText:(postText: string)=>void
+    _callSubscriber: (state: StateType) => void
+    _state: StateType
+    getState: () => StateType
+    subscriber: (observer: (state: StateType) => void) => void
+    // addPost:()=>void
+    // updateNewPostText:(postText: string)=>void
+    dispatch: (action: ActionType) => void
 }
+
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+export type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    postText: string
+}
+export type ActionType = AddPostActionType | UpdateNewPostTextActionType
 
 
 export const store: StoreType = {
@@ -106,20 +116,21 @@ export const store: StoreType = {
             ]
         }
     },
-    getState(){
+    getState() {
         return this._state;
     },
     subscriber(observer: (state: StateType) => void) {
         this._callSubscriber = observer;
     },
-    addPost(){
-        const newPost = {id: 5, likes: 0, text: this._state.ProfilePage.newPostText};
-        this._state.ProfilePage.posts.push(newPost)
-        this._state.ProfilePage.newPostText = ''
-        this._callSubscriber(this._state);
-    },
-    updateNewPostText(postText: string) {
-        this._state.ProfilePage.newPostText = postText;
-        this._callSubscriber(this._state);
+    dispatch(action: ActionType) {
+        if (action.type === 'ADD-POST') {
+            const newPost = {id: 5, likes: 0, text: this._state.ProfilePage.newPostText};
+            this._state.ProfilePage.posts.push(newPost)
+            this._state.ProfilePage.newPostText = ''
+            this._callSubscriber(this._state);
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.ProfilePage.newPostText = action.postText;
+            this._callSubscriber(this._state);
+        }
     }
 }

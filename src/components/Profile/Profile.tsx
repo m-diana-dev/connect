@@ -1,14 +1,14 @@
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ProfilePageType} from "../../redux/state";
+import {ActionType, ProfilePageType} from "../../redux/state";
 import styled from "styled-components";
 import banner from '../../images/banner.jpg'
 
 
 type ProfilePropsType = {
     state: ProfilePageType
-    addPost: ()=>void
-    updateNewPostText: (postText: string)=>void
+    addPost: (action: ActionType)=>void
+    updateNewPostText: (action: ActionType)=>void
 }
 export const Profile = (props: ProfilePropsType) => {
     return (

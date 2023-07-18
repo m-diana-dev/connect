@@ -6,7 +6,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 export const rerenderEntireTree = (state: StateType) => {
     root.render(
-        <App state={store.getState()} addPost={store.addPost.bind(store)} updateNewPostText={store.updateNewPostText.bind(store)}/>
+        <App state={store.getState()} addPost={store.dispatch.bind(store)} updateNewPostText={store.dispatch.bind(store)}/>
     )
 }
 rerenderEntireTree(store.getState());

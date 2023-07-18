@@ -5,14 +5,14 @@ import {BrowserRouter, Route, Routes,Navigate} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {StateType} from "./redux/state";
+import {ActionType, StateType} from "./redux/state";
 import {Section, Container, Theme, MainBlock, Flex} from "./styles/Theme.tsx";
 
 
 type AppPropsType = {
     state: StateType
-    addPost: ()=>void
-    updateNewPostText: (postText: string)=>void
+    addPost: (action: ActionType)=>void
+    updateNewPostText: (action: ActionType)=>void
 }
 const App = (props: AppPropsType) => {
     return (

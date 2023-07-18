@@ -1,5 +1,5 @@
 import {Post} from "./Post/Posts";
-import {PostsType} from "../../../redux/state";
+import {ActionType, PostsType} from "../../../redux/state";
 import styled from "styled-components";
 import {H2, Textarea} from "../../../styles/Theme.tsx";
 import {Button} from "../../Button/Button.tsx";
@@ -8,21 +8,21 @@ import React from "react";
 
 type MyPostsPropsType = {
     posts: PostsType[]
-    addPost: ()=>void
+    addPost: (action: ActionType)=>void
     newPostText: string
-    updateNewPostText: (postText: string)=>void
+    updateNewPostText: (action: ActionType)=>void
 }
 export const MyPosts = (props: MyPostsPropsType) => {
     const newPostElement = React.createRef<HTMLTextAreaElement>();
     const AddPostHandler = () => {
         if(newPostElement.current){
-            props.addPost();
+            props.addPost({type: 'ADD-POST'});
         }
     }
     const onChangeHandler = () => {
         if(newPostElement.current) {
             const textareaText = newPostElement.current.value;
-            props.updateNewPostText(textareaText);
+            props.updateNewPostText({type: 'UPDATE-NEW-POST-TEXT', postText: textareaText});
         }
     }
     return (
