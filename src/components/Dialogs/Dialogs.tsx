@@ -4,13 +4,12 @@ import {
     ActionType,
     DialogsType,
     MessagesType,
-    SendMessageActionCreator,
-    UpdateNewMessageTextActionCreator
 } from "../../redux/state";
 import styled from "styled-components";
 import {H1, Textarea} from "../../styles/Theme.tsx";
 import {Button} from "../Button/Button.tsx";
-import React, {ChangeEvent} from "react";
+import {ChangeEvent} from "react";
+import {SendMessageActionCreator, UpdateNewMessageTextActionCreator} from "../../redux/dialogs-reducer.ts";
 
 type DialogsPropsType = {
     newMessageText: string
