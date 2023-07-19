@@ -7,6 +7,8 @@ import avatar5 from '../images/users/main.png'
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SEND_MESSAGE = 'SEND-MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
 export type PostsType = {
     id: number
@@ -36,7 +38,8 @@ export type ProfilePageType = {
 
 export type DialogsPageType = {
     dialogs: DialogsType[]
-    messages: MessagesType[]
+    messages: MessagesType[],
+    newMessageText: string
 }
 export type FriendsPageType = {
     friends: FriendsType[]
@@ -53,8 +56,6 @@ export type StoreType = {
     _state: StateType
     getState: () => StateType
     subscriber: (observer: (state: StateType) => void) => void
-    // addPost:()=>void
-    // updateNewPostText:(postText: string)=>void
     dispatch: (action: ActionType) => void
 }
 
@@ -64,7 +65,18 @@ export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     postText: string
 }
-export type ActionType = AddPostActionType | UpdateNewPostTextActionType
+export type SendMessageActionType = {
+    type: 'SEND-MESSAGE'
+}
+export type UpdateNewMessageTextActionType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    messageText: string
+}
+export type ActionType =
+    AddPostActionType
+    | UpdateNewPostTextActionType
+    | SendMessageActionType
+    | UpdateNewMessageTextActionType
 
 
 export const store: StoreType = {
@@ -106,7 +118,8 @@ export const store: StoreType = {
                     my: true,
                     text: 'Urna morbi pellentesque et eget est. Sodales justo mauris id amet amet, in et vitae molestie venenat'
                 },
-            ]
+            ],
+            newMessageText: '',
         },
         FriendsPage: {
             friends: [
@@ -125,17 +138,33 @@ export const store: StoreType = {
         this._callSubscriber = observer;
     },
     dispatch(action: ActionType) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             const newPost = {id: 5, likes: 0, text: this._state.ProfilePage.newPostText};
             this._state.ProfilePage.posts.push(newPost)
             this._state.ProfilePage.newPostText = ''
             this._callSubscriber(this._state);
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.ProfilePage.newPostText = action.postText;
+            this._callSubscriber(this._state);
+        } else if (action.type === SEND_MESSAGE) {
+            const newMessage = {id: 10, my: true, text: this._state.DialogsPage.newMessageText};
+            this._state.DialogsPage.messages.push(newMessage)
+            this._state.DialogsPage.newMessageText = ''
+            this._callSubscriber(this._state);
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+            this._state.DialogsPage.newMessageText = action.messageText
             this._callSubscriber(this._state);
         }
     }
 }
 
-export const AddPostActionCreator = () => ({type: ADD_POST}as const)
-export const UpdateNewPostTextActionCreator = (postText: string):UpdateNewPostTextActionType => ({type: UPDATE_NEW_POST_TEXT, postText})
+export const AddPostActionCreator = () => ({type: ADD_POST} as const)
+export const UpdateNewPostTextActionCreator = (postText: string): UpdateNewPostTextActionType => ({
+    type: UPDATE_NEW_POST_TEXT,
+    postText
+})
+export const SendMessageActionCreator = (): SendMessageActionType => ({type: SEND_MESSAGE})
+export const UpdateNewMessageTextActionCreator = (messageText: string): UpdateNewMessageTextActionType => ({
+    type: UPDATE_NEW_MESSAGE_TEXT,
+    messageText
+})

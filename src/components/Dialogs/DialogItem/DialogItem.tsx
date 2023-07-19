@@ -7,7 +7,6 @@ export type DialogsItemPropsType = {
     name: string
 }
 export const DialogsItem = ({id, img, name}: DialogsItemPropsType) => {
-    {console.log(img)}
     return (
         <li>
             <NavLink to={"/messages/" + id}>
