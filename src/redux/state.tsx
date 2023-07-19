@@ -5,6 +5,9 @@ import avatar4 from '../images/users/avatar-4.jpg'
 import avatar5 from '../images/users/main.png'
 
 
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
 export type PostsType = {
     id: number
     likes: number
@@ -55,9 +58,8 @@ export type StoreType = {
     dispatch: (action: ActionType) => void
 }
 
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
+export type AddPostActionType = ReturnType<typeof AddPostActionCreator>
+
 export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     postText: string
@@ -134,3 +136,6 @@ export const store: StoreType = {
         }
     }
 }
+
+export const AddPostActionCreator = () => ({type: ADD_POST}as const)
+export const UpdateNewPostTextActionCreator = (postText: string):UpdateNewPostTextActionType => ({type: UPDATE_NEW_POST_TEXT, postText})
