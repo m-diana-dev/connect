@@ -1,14 +1,14 @@
-import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionType, ProfilePageType} from "../../redux/store.tsx";
 import styled from "styled-components";
 import banner from '../../images/banner.jpg'
+import {MyPostsContainer} from "./MyPosts/MyPostsContainer.tsx";
+import {AppStateType} from "../../redux/redux-store.ts";
+import {Dispatch} from "redux";
 
 
 type ProfilePropsType = {
-    state: ProfilePageType
-    addPost: (action: ActionType)=>void
-    updateNewPostText: (action: ActionType)=>void
+    state: AppStateType
+    dispatch: Dispatch
 }
 export const Profile = (props: ProfilePropsType) => {
     return (
@@ -17,7 +17,7 @@ export const Profile = (props: ProfilePropsType) => {
                 <img src={banner}/>
             </Banner>
             <ProfileInfo/>
-            <MyPosts posts={props.state.posts} newPostText={props.state.newPostText} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>
+            <MyPostsContainer state={props.state} dispatch={props.dispatch}/>
         </>
     )
 }

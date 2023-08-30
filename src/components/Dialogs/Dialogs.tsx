@@ -1,7 +1,6 @@
 import {DialogsItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./Messages/Messages";
 import {
-    ActionType,
     DialogsType,
     MessagesType,
 } from "../../redux/store.tsx";
@@ -9,22 +8,21 @@ import styled from "styled-components";
 import {H1, Textarea} from "../../styles/Theme.tsx";
 import {Button} from "../Button/Button.tsx";
 import {ChangeEvent} from "react";
-import {SendMessageActionCreator, UpdateNewMessageTextActionCreator} from "../../redux/dialogs-reducer.ts";
 
 type DialogsPropsType = {
     newMessageText: string
     dialogs: DialogsType[]
     messages: MessagesType[]
-    sendMessage:(action: ActionType) => void
-    updateNewMessageText: (action: ActionType) => void
+    sendMessage:() => void
+    updateNewMessageText: (messageText: string) => void
 }
 export const Dialogs = (props: DialogsPropsType) => {
 
     const onChangeMessageHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewMessageText(UpdateNewMessageTextActionCreator(e.currentTarget.value))
+        props.updateNewMessageText(e.currentTarget.value)
     }
     const sendMessageHandler = () => {
-        props.sendMessage(SendMessageActionCreator())
+        props.sendMessage()
     }
     return (
         <div>

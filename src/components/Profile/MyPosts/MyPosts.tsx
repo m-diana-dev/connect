@@ -1,29 +1,28 @@
 import {Post} from "./Post/Posts";
-import {ActionType, PostsType} from "../../../redux/store.tsx";
+import {PostsType} from "../../../redux/store.tsx";
 import styled from "styled-components";
 import {H2, Textarea} from "../../../styles/Theme.tsx";
 import {Button} from "../../Button/Button.tsx";
 import React from "react";
-import {AddPostActionCreator, UpdateNewPostTextActionCreator} from "../../../redux/profile-reducer.ts";
 
 
 type MyPostsPropsType = {
     posts: PostsType[]
-    addPost: (action: ActionType)=>void
+    addPost: ()=>void
     newPostText: string
-    updateNewPostText: (action: ActionType)=>void
+    updateNewPostText: (postText: string)=>void
 }
 export const MyPosts = (props: MyPostsPropsType) => {
     const newPostElement = React.createRef<HTMLTextAreaElement>();
     const AddPostHandler = () => {
         if(newPostElement.current){
-            props.addPost(AddPostActionCreator());
+            props.addPost();
         }
     }
     const onChangeHandler = () => {
         if(newPostElement.current) {
             const textareaText = newPostElement.current.value;
-            props.updateNewPostText(UpdateNewPostTextActionCreator(textareaText));
+            props.updateNewPostText(textareaText);
         }
     }
     return (

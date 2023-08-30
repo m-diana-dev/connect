@@ -10,4 +10,6 @@ const RootReducer = combineReducers({
 })
 const store = createStore(RootReducer);
 
+export type AppStateType = ReturnType<typeof RootReducer>
+
 export default store
