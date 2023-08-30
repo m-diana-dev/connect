@@ -1,9 +1,10 @@
 import {Post} from "./Post/Posts";
-import {ActionType, AddPostActionCreator, PostsType, UpdateNewPostTextActionCreator} from "../../../redux/state";
+import {ActionType, PostsType} from "../../../redux/store.tsx";
 import styled from "styled-components";
 import {H2, Textarea} from "../../../styles/Theme.tsx";
 import {Button} from "../../Button/Button.tsx";
 import React from "react";
+import {AddPostActionCreator, UpdateNewPostTextActionCreator} from "../../../redux/profile-reducer.ts";
 
 
 type MyPostsPropsType = {

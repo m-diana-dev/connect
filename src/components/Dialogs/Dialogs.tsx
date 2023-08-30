@@ -4,7 +4,7 @@ import {
     ActionType,
     DialogsType,
     MessagesType,
-} from "../../redux/state";
+} from "../../redux/store.tsx";
 import styled from "styled-components";
 import {H1, Textarea} from "../../styles/Theme.tsx";
 import {Button} from "../Button/Button.tsx";

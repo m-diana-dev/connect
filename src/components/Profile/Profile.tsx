@@ -1,6 +1,6 @@
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionType, ProfilePageType} from "../../redux/state";
+import {ActionType, ProfilePageType} from "../../redux/store.tsx";
 import styled from "styled-components";
 import banner from '../../images/banner.jpg'
 

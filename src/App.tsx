@@ -5,7 +5,7 @@ import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {ActionType, StateType} from "./redux/state";
+import {ActionType, StateType} from "./redux/store.tsx";
 import {Section, Container, Theme, MainBlock, Flex} from "./styles/Theme.tsx";
 
 

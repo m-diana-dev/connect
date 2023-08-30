@@ -2,14 +2,42 @@ import {
     ActionType, DialogsPageType,
     SendMessageActionType,
     UpdateNewMessageTextActionType,
-} from "./state.tsx";
+} from "./store.tsx";
+import avatar1 from "../images/users/avatar-1.png";
+import avatar2 from "../images/users/avatar-2.png";
+import avatar3 from "../images/users/avatar-3.jpg";
+import avatar4 from "../images/users/avatar-4.jpg";
+import avatar5 from "../images/users/main.png";
 
 
 const SEND_MESSAGE = 'SEND-MESSAGE';
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
-
-const dialogsReducer = (state: DialogsPageType, action: ActionType) => {
+const initialState: DialogsPageType = {
+    dialogs: [
+        {id: 1, img: avatar1, name: 'Anna Del'},
+        {id: 2, img: avatar2, name: 'Dima Petrov'},
+        {id: 3, img: avatar3, name: 'Lida'},
+        {id: 4, img: avatar4, name: 'Ivan Ivanov'},
+        {id: 5, img: avatar5, name: 'Mikkel'},
+    ],
+    messages: [
+        {id: 1, text: 'Hi'},
+        {id: 2, my: true, text: 'Hi!'},
+        {id: 3, text: 'Vulputate imperdiet platea quis, dictum morbiex.'},
+        {
+            id: 4,
+            text: 'Urna morbi pellentesque et eget est. Sodales justo mauris id amet amet, in et vitae molestie venenat'
+        },
+        {
+            id: 5,
+            my: true,
+            text: 'Urna morbi pellentesque et eget est. Sodales justo mauris id amet amet, in et vitae molestie venenat'
+        },
+    ],
+    newMessageText: '',
+}
+export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionType) => {
     switch (action.type) {
         case SEND_MESSAGE:
             state.messages.push({id: 10, my: true, text: state.newMessageText})
