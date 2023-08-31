@@ -5,13 +5,14 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Section, Container, Theme, MainBlock, Flex} from "./styles/Theme.tsx";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer.tsx";
+import {Navbar} from "./components/Navbar/Navbar.tsx";
+import {AppStateType} from "./redux/redux-store.ts";
 
 
-// type AppPropsType = {
-    // state: AppStateType
-    // dispatch: Dispatch
-// }
-const App = () => {
+type AppPropsType = {
+    state: AppStateType
+}
+const App = (props: AppPropsType) => {
     return (
         <Theme>
             <BrowserRouter>
@@ -20,7 +21,7 @@ const App = () => {
                     <Section>
                         <Container>
                             <Flex>
-                                {/*<Navbar friends={props.state.FriendsPage.friends}/>*/}
+                                <Navbar friends={props.state.FriendsPage.friends}/>
                                 <MainBlock>
                                     <Routes>
                                         <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
