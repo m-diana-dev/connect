@@ -8,48 +8,48 @@ import dialogsReducer from "./dialogs-reducer.ts";
 import friendsReducer from "./friends-reducer.ts";
 
 
-export type PostsType = {
+type PostsType = {
     id: number
     likes: number
     text: string
 }
-export type DialogsType = {
+type DialogsType = {
     id: number
     img: string
     name: string
 }
-export type MessagesType = {
+type MessagesType = {
     id: number
     my?: boolean
     text: string
 }
-export type FriendsType = {
+type FriendsType = {
     id: number
     img: string
     name: string
 }
 
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
 }
 
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[],
     newMessageText: string
 }
-export type FriendsPageType = {
+type FriendsPageType = {
     friends: FriendsType[]
 }
 
-export type StateType = {
+type StateType = {
     ProfilePage: ProfilePageType
     DialogsPage: DialogsPageType
     FriendsPage: FriendsPageType
 }
 
-export type StoreType = {
+type StoreType = {
     _callSubscriber: (state: StateType) => void
     _state: StateType
     getState: () => StateType
@@ -57,27 +57,27 @@ export type StoreType = {
     dispatch: (action: ActionType) => void
 }
 
-export type AddPostActionType = ReturnType<typeof AddPostActionCreator>
+type AddPostActionType = ReturnType<typeof AddPostActionCreator>
 
-export type UpdateNewPostTextActionType = {
+type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     postText: string
 }
-export type SendMessageActionType = {
+type SendMessageActionType = {
     type: 'SEND-MESSAGE'
 }
-export type UpdateNewMessageTextActionType = {
+type UpdateNewMessageTextActionType = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
     messageText: string
 }
-export type ActionType =
+type ActionType =
     AddPostActionType
     | UpdateNewPostTextActionType
     | SendMessageActionType
     | UpdateNewMessageTextActionType
 
 
-export const store: StoreType = {
+const store: StoreType = {
     _callSubscriber(state: StateType) {
         console.log(state)
     },

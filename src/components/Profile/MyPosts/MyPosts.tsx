@@ -1,17 +1,12 @@
 import {Post} from "./Post/Posts";
-import {PostsType} from "../../../redux/store.tsx";
 import styled from "styled-components";
 import {H2, Textarea} from "../../../styles/Theme.tsx";
 import {Button} from "../../Button/Button.tsx";
 import React from "react";
+import {mapDispatchToPropsType, mapStateToPropsType} from "./MyPostsContainer.tsx";
 
 
-type MyPostsPropsType = {
-    posts: PostsType[]
-    addPost: ()=>void
-    newPostText: string
-    updateNewPostText: (postText: string)=>void
-}
+type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
 export const MyPosts = (props: MyPostsPropsType) => {
     const newPostElement = React.createRef<HTMLTextAreaElement>();
     const AddPostHandler = () => {

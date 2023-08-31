@@ -1,18 +1,28 @@
-import {AddPostActionCreator, UpdateNewPostTextActionCreator} from "../../../redux/profile-reducer.ts";
+import {AddPostActionCreator, PostsType, UpdateNewPostTextActionCreator} from "../../../redux/profile-reducer.ts";
 import {MyPosts} from "./MyPosts.tsx";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store.ts";
-import {ActionType} from "../../../redux/store.tsx";
+import {ActionType} from "../../../redux/actions-types.ts";
 
 
-const mapStateToProps = (state: AppStateType) => {
+export type mapStateToPropsType = {
+    posts: PostsType[],
+    newPostText: string
+}
+
+export type mapDispatchToPropsType = {
+    addPost: ()=>void
+    updateNewPostText: (postText: string) =>void
+}
+
+const mapStateToProps = (state: AppStateType):mapStateToPropsType => {
     return {
         posts: state.ProfilePage.posts,
-        newPostText: state.ProfilePage.newPostText
+        newPostText: state.ProfilePage.newPostText,
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
+const mapDispatchToProps = (dispatch: (action: ActionType) => void): mapDispatchToPropsType => {
     return {
         addPost: ()=>{
             dispatch(AddPostActionCreator())

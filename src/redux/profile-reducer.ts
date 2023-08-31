@@ -1,4 +1,17 @@
-import {ActionType, ProfilePageType, UpdateNewPostTextActionType} from "./store.tsx";
+import {ActionType, UpdateNewPostTextActionType} from "./actions-types.ts";
+
+
+export type PostsType = {
+    id: number
+    likes: number
+    text: string
+}
+
+export type ProfilePageType = {
+    posts: PostsType[]
+    newPostText: string
+}
+
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -16,7 +29,7 @@ const initialState: ProfilePageType = {
     ],
     newPostText: '',
 }
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             state.posts.push({id: 5, likes: 0, text: state.newPostText})

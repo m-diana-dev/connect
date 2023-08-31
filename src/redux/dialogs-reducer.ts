@@ -1,14 +1,26 @@
-import {
-    ActionType, DialogsPageType,
-    SendMessageActionType,
-    UpdateNewMessageTextActionType,
-} from "./store.tsx";
 import avatar1 from "../images/users/avatar-1.png";
 import avatar2 from "../images/users/avatar-2.png";
 import avatar3 from "../images/users/avatar-3.jpg";
 import avatar4 from "../images/users/avatar-4.jpg";
 import avatar5 from "../images/users/main.png";
+import {ActionType, SendMessageActionType, UpdateNewMessageTextActionType} from "./actions-types.ts";
 
+export type DialogsType = {
+    id: number
+    img: string
+    name: string
+}
+export type MessagesType = {
+    id: number
+    my?: boolean
+    text: string
+}
+
+export type DialogsPageType = {
+    dialogs: DialogsType[]
+    messages: MessagesType[],
+    newMessageText: string
+}
 
 const SEND_MESSAGE = 'SEND-MESSAGE';
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
@@ -37,7 +49,7 @@ const initialState: DialogsPageType = {
     ],
     newMessageText: '',
 }
-export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionType) => {
+export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionType): DialogsPageType => {
     switch (action.type) {
         case SEND_MESSAGE:
             state.messages.push({id: 10, my: true, text: state.newMessageText})

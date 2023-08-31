@@ -2,7 +2,7 @@ import {NavLink} from "react-router-dom";
 import styled from "styled-components";
 import {H2} from "../../styles/Theme.tsx";
 import {Friend} from "../Friend/Friend.tsx";
-import {FriendsType} from "../../redux/store.tsx";
+import {FriendsType} from "../../redux/friends-reducer.ts";
 
 
 type NavbarPropsType = {

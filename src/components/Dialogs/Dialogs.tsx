@@ -1,21 +1,12 @@
 import {DialogsItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./Messages/Messages";
-import {
-    DialogsType,
-    MessagesType,
-} from "../../redux/store.tsx";
 import styled from "styled-components";
 import {H1, Textarea} from "../../styles/Theme.tsx";
 import {Button} from "../Button/Button.tsx";
 import {ChangeEvent} from "react";
+import {mapDispatchToPropsType, mapStateToPropsType} from "./DialogsContainer.tsx";
 
-type DialogsPropsType = {
-    newMessageText: string
-    dialogs: DialogsType[]
-    messages: MessagesType[]
-    sendMessage:() => void
-    updateNewMessageText: (messageText: string) => void
-}
+type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 export const Dialogs = (props: DialogsPropsType) => {
 
     const onChangeMessageHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
