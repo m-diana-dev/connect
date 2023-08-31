@@ -2,22 +2,20 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import styled from "styled-components";
 import banner from '../../images/banner.jpg'
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer.tsx";
-import {AppStateType} from "../../redux/redux-store.ts";
-import {Dispatch} from "redux";
 
 
-type ProfilePropsType = {
-    state: AppStateType
-    dispatch: Dispatch
-}
-export const Profile = (props: ProfilePropsType) => {
+// type ProfilePropsType = {
+    // state: AppStateType
+    // dispatch: Dispatch
+// }
+export const Profile = () => {
     return (
         <>
             <Banner>
                 <img src={banner}/>
             </Banner>
             <ProfileInfo/>
-            <MyPostsContainer state={props.state} dispatch={props.dispatch}/>
+            <MyPostsContainer/>
         </>
     )
 }
