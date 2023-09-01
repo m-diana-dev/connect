@@ -7,6 +7,7 @@ import {Section, Container, Theme, MainBlock, Flex} from "./styles/Theme.tsx";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer.tsx";
 import {Navbar} from "./components/Navbar/Navbar.tsx";
 import {AppStateType} from "./redux/redux-store.ts";
+import {UsersContainer} from "./components/Users/UsersContainer.tsx";
 
 
 type AppPropsType = {
@@ -29,6 +30,7 @@ const App = (props: AppPropsType) => {
                                                element={<Profile/>}/>
                                         <Route path="/messages/*"
                                                element={<DialogsContainer/>}/>
+                                        <Route path="/users" element={<UsersContainer/>}/>
                                         <Route path="/news" element={<News/>}/>
                                         <Route path="/music" element={<Music/>}/>
                                     </Routes>
