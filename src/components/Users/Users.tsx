@@ -7,17 +7,22 @@ import avatar4 from "../../images/users/avatar-4.jpg";
 import avatar5 from "../../images/users/main.png";
 import {User} from "./User.tsx";
 import styled from "styled-components";
+import axios from "axios";
 
 export type UserPropsType = mapStateToPropsType & mapDispatchToProps
 export const Users = (props: UserPropsType) => {
     if(props.users.length === 0){
-        props.setUsers([
-            {id: 1, img: avatar1, name: 'Anna Del', location: {country: 'Russia', city: 'Moscow'}, status: 'Hi!', follow: false},
-            {id: 2, img: avatar2, name: 'Dima Petrov', location: {country: 'Russia', city: 'Sochi'}, status: 'Good', follow: true},
-            {id: 3, img: avatar3, name: 'Lida', location: {country: 'Russia', city: 'Kirov'}, status: '^)', follow: true},
-            {id: 4, img: avatar4, name: 'Ivan Ivanov', location: {country: 'Russia', city: 'Krasnodar'}, status: 'Hot!!!!', follow: false},
-            {id: 5, img: avatar5, name: 'Mikkel', location: {country: 'Russia', city: 'Moscow'}, status: 'webdev', follow: false},
-        ])
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response: any)=>{
+            props.setUsers(response.data.items)
+        })
+
+        // props.setUsers([
+        //     {id: 1, img: avatar1, name: 'Anna Del', location: {country: 'Russia', city: 'Moscow'}, status: 'Hi!', follow: false},
+        //     {id: 2, img: avatar2, name: 'Dima Petrov', location: {country: 'Russia', city: 'Sochi'}, status: 'Good', follow: true},
+        //     {id: 3, img: avatar3, name: 'Lida', location: {country: 'Russia', city: 'Kirov'}, status: '^)', follow: true},
+        //     {id: 4, img: avatar4, name: 'Ivan Ivanov', location: {country: 'Russia', city: 'Krasnodar'}, status: 'Hot!!!!', follow: false},
+        //     {id: 5, img: avatar5, name: 'Mikkel', location: {country: 'Russia', city: 'Moscow'}, status: 'webdev', follow: false},
+        // ])
     }
     return (
         <>

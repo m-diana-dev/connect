@@ -21,7 +21,7 @@ export const User = (props: UserItemPropType) => {
             <UserItemWrapp>
                 <div>
                     <UserItemName>{props.name}</UserItemName>
-                    <UserItemLocation>{props.location.country}, {props.location.city}</UserItemLocation>
+                    {/*<UserItemLocation>{props.location.country}, {props.location.city}</UserItemLocation>*/}
                     <UserItemStatus>{props.status}</UserItemStatus>
                 </div>
             </UserItemWrapp>
