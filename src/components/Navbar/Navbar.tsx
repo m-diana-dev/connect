@@ -36,12 +36,25 @@ const Aside = styled.aside`
   top: 30px;
   width: calc(30% - 20px);
   height: 100%;
+  @media ${({theme}) => theme.media.tablet} {
+    width: calc(30% - 10px);
+  }
+  @media ${({theme}) => theme.media.mobile} {
+    width: 100%;
+    position: static;
+    height: auto;
+    margin-bottom: 20px;
+  }
 `
 const NavMenu = styled.nav`
   padding: 30px 20px;
   font-size: 20px;
   border: 1px solid ${({theme}) => theme.colors.border};
   border-radius: 10px;
+  @media ${({theme}) => theme.media.mobile} {
+    padding: 20px 15px;
+    font-size: 18px;
+  }
 
   &:not(:last-child) {
     margin-bottom: 20px;
@@ -50,9 +63,15 @@ const NavMenu = styled.nav`
   ul
   li {
     font-size: 20px;
+    @media ${({theme}) => theme.media.mobile} {
+      font-size: 18px;
+    }
 
     &:not(:last-child) {
       margin-bottom: 10px;
+      @media ${({theme}) => theme.media.mobile} {
+        margin-bottom: 7px;
+      }
     }
 
     a.active {

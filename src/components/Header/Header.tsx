@@ -18,6 +18,9 @@ export const Header = () => {
 const SiteHeader = styled.header`
   background-color: ${({theme})=>theme.colors.main};
   padding: 10px 0;
+  @media ${({theme}) => theme.media.mobile} {
+    padding: 5px 0;
+  }
 `
 const SiteLogo = styled.div`
   display: flex;
@@ -25,10 +28,16 @@ const SiteLogo = styled.div`
   img {
     width: 70px;
     margin-right: 10px;
+    @media ${({theme}) => theme.media.mobile} {
+      width: 60px;
+    }
   }
   span{
     color: #fff;
     font-size: 20px;
     font-weight: 800;
+    @media ${({theme}) => theme.media.mobile} {
+      font-size: 18px;
+    }
   }
 `

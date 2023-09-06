@@ -1,4 +1,4 @@
-import styled, {createGlobalStyle, ThemeProvider} from "styled-components";
+import styled, {createGlobalStyle, DefaultTheme, ThemeProvider} from "styled-components";
 import {ReactNode} from "react";
 
 
@@ -108,10 +108,15 @@ declare module 'styled-components' {
             Montserrat: string
         }
         transition: string
+        media: {
+            tablet: string,
+            mobile: string,
+            mobileSmall: string,
+        }
     }
 }
 
-const theme = {
+const theme: DefaultTheme = {
     colors: {
         main: '#A72DFF',
         second: '#EFB701',
@@ -128,18 +133,43 @@ const theme = {
     fontFamily: {
         Montserrat: 'Montserrat, sans-serif'
     },
-    transition: 'all .3s'
+    transition: 'all .3s',
+    media: {
+        tablet: '(max-width: 991px)',
+        mobile: '(max-width: 768px)',
+        mobileSmall: '(max-width: 480px)',
+    }
 }
 
 export const H1= styled.h1`
   font-size: ${({theme})=>theme.title.h1};
   margin-bottom: 20px;
   font-weight: 600;
+  @media ${({theme}) => theme.media.tablet} {
+    font-size: 26px;
+  }
+  @media ${({theme}) => theme.media.mobile} {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  @media ${({theme}) => theme.media.mobileSmall} {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
 `
 export const H2= styled.h1`
   font-size: ${({theme})=>theme.title.h2};
   margin-bottom: 15px;
   font-weight: 500;
+  @media ${({theme}) => theme.media.tablet} {
+    font-size: 22px;
+  }
+  @media ${({theme}) => theme.media.mobile} {
+    font-size: 20px;
+  }
+  @media ${({theme}) => theme.media.mobileSmall} {
+    font-size: 18px;
+  }
 `
 export const Textarea= styled.textarea`
   width: 100%;
@@ -150,6 +180,11 @@ export const Textarea= styled.textarea`
   border-radius: 10px;
   padding: 20px;
   font-size: 16px;
+  @media ${({theme}) => theme.media.mobileSmall} {
+    height: 120px;
+    margin-bottom: 10px;
+    padding: 15px;
+  }
 `
 
 export const Container = styled.div`
@@ -157,17 +192,30 @@ export const Container = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 0 30px;
+  @media ${({theme}) => theme.media.mobile} {
+    width: 100%;
+    padding: 0 15px;
+  }
 `
 
 export const Section= styled.section`
     padding: 20px 0;
 `
 export const Flex= styled.div`
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  @media ${({theme}) => theme.media.mobile} {
+    flex-direction: column;
+  }
 `
 export const MainBlock= styled.main`
-    width: calc(70% - 20px);
+  width: calc(70% - 20px);
+  @media ${({theme}) => theme.media.tablet} {
+    width: calc(70% - 10px);
+  }
+  @media ${({theme}) => theme.media.mobile} {
+    width: 100%;
+  }
 `
 
 type ThemeProps = {

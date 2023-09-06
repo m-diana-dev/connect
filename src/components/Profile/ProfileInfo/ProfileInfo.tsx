@@ -29,11 +29,34 @@ const MainBlockTop = styled.div`
   background-color: #fff;
   position: relative;
   z-index: 2;
+  @media ${({theme}) => theme.media.mobile} {
+    padding: 15px;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 375px) {
+    flex-direction: column;
+  }
 `
 export const Avatar = styled.div`
-  width: 150px;
-  height: 150px;
+  max-width: 150px;
+  max-height: 150px;
+  width: 100%;
+  height: 100%;
   margin-right: 50px;
+  @media ${({theme}) => theme.media.tablet} {
+    max-width: 125px;
+    max-height: 125px;
+    margin-right: 30px;
+  }
+  @media ${({theme}) => theme.media.mobileSmall} {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 15px;
+  }
+  @media (max-width: 375px) {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 
   img {
     width: 100%;
@@ -43,6 +66,8 @@ export const Avatar = styled.div`
   }
 `
 const UserInfo = styled.div`
-
+  @media (max-width: 375px) {
+    text-align: center;
+  }
 `
 

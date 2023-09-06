@@ -21,6 +21,13 @@ const FriendItem = styled.div`
   align-items: center;
   font-size: 18px;
   width: calc(33.333% - 10px);
+  @media ${({theme}) => theme.media.tablet} {
+    width: calc(50% - 10px);
+    font-size: 16px;
+  }
+  @media ${({theme}) => theme.media.mobile} {
+    width: calc(33.333% - 10px);
+  }
 
   img {
     display: block;

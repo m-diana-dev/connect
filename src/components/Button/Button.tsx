@@ -28,4 +28,13 @@ const SiteButton = styled.button`
   &:hover {
     background-color: ${({theme}) => theme.colors.second};
   }
+  @media ${({theme}) => theme.media.mobile} {
+    max-width: 150px;
+    font-size: 15px;
+    padding: 8px;
+    border-radius: 17px;
+  }
+  @media ${({theme}) => theme.media.mobileSmall} {
+    max-width: 100%;
+  }
 `
