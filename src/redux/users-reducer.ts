@@ -7,14 +7,13 @@ const UNFOLLOW_USER = 'UNFOLLOW-USER'
 
 export type UserType = {
     id: number
-    img: string
-    name: string
-    location: {
-        country: string
-        city: string
+    photos: {
+        large: string
+        small: string
     }
+    name: string
     status: string
-    follow: boolean
+    followed: boolean
 }
 
 export type UsersPageType = {
