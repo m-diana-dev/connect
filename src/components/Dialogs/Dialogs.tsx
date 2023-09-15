@@ -40,6 +40,9 @@ const DialogsWrapp = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  @media ${({theme}) => theme.media.tablet} {
+    flex-direction: column;
+  }
 `
 const DialogsItems = styled.div`
   position: sticky;
@@ -49,6 +52,11 @@ const DialogsItems = styled.div`
   padding: 30px 20px;
   border: 1px solid #DEDCFF;
   border-radius: 10px;
+  @media ${({theme}) => theme.media.tablet} {
+    position: static;
+    width: 100%;
+    margin-bottom: 20px;
+  }
 
   a.active {
     color: #A72DFF;
@@ -73,4 +81,7 @@ const MessageItems = styled.div`
 const MessageBlock = styled.div`
   width: calc(70% - 10px);
   height: 100%;
+  @media ${({theme}) => theme.media.tablet} {
+    width: 100%;
+  }
 `

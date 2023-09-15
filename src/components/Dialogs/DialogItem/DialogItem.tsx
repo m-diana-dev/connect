@@ -26,6 +26,11 @@ const DialogsItemAvatar =styled.div `
   min-width: 50px;
   height: 50px;
   margin-right: 10px;
+  @media (max-width: 1200px) {
+    max-width: 35px;
+    min-width: 35px;
+    height: 35px;
+  }
 
   img {
     width: 100%;
