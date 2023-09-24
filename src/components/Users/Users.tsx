@@ -3,40 +3,43 @@ import {mapDispatchToProps, mapStateToPropsType} from "./UsersContainer.tsx";
 import {User} from "./User.tsx";
 import styled from "styled-components";
 import axios from "axios";
-import {Button} from "../Button/Button.tsx";
+import React from "react";
 
 export type UserPropsType = mapStateToPropsType & mapDispatchToProps
-export const Users = (props: UserPropsType) => {
-    const getUsers = () => {
-        if(props.users.length === 0){
+
+export class Users extends React.Component<UserPropsType>{
+    constructor(props: UserPropsType) {
+        super(props);
+        if(this.props.users.length === 0){
             axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response)=>{
-                props.setUsers(response.data.items)
+                this.props.setUsers(response.data.items)
             })
         }
     }
-    return (
-        <>
-            <UsersTop>
-                <H1>Users</H1>
-                <span>{props.users.length}</span>
-            </UsersTop>
-            <UsersItems>
-                {props.users.map(el => {
-                    return (
-                        <User key={el.id}
-                              id={el.id}
-                              img={el.photos.small}
-                              name={el.name}
-                              followed={el.followed}
-                              status={el.status}
-                              unfollowUser={props.unfollowUser}
-                              followUser={props.followUser}/>
-                    )
-                })}
-            </UsersItems>
-            <Button name={'Get Users'} callback={getUsers}/>
-        </>
-    )
+    render() {
+        return (
+            <>
+                <UsersTop>
+                    <H1>Users</H1>
+                    <span>{this.props.users.length}</span>
+                </UsersTop>
+                <UsersItems>
+                    {this.props.users.map(el => {
+                        return (
+                            <User key={el.id}
+                                  id={el.id}
+                                  img={el.photos.small}
+                                  name={el.name}
+                                  followed={el.followed}
+                                  status={el.status}
+                                  unfollowUser={this.props.unfollowUser}
+                                  followUser={this.props.followUser}/>
+                        )
+                    })}
+                </UsersItems>
+            </>
+        )
+    }
 }
 
 const UsersTop = styled.div`
