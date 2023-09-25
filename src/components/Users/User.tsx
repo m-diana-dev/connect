@@ -68,7 +68,7 @@ const UserItem = styled.div<{followed?:boolean}>`
   }
   
   button{
-    background-color: ${(props) => !props.followed ? ({theme}) => theme.colors.main : '#D08EFF' 
+    background-color: ${(props) => !props.followed ? ({theme}) => theme.colors.main : '#D08EFF'}
   }
 `
 const UserItemWrapp = styled.div`
@@ -102,4 +102,8 @@ const UserItemName = styled.div`
 `
 const UserItemStatus = styled.div`
   font-style: italic;
+  @media ${({theme}) => theme.media.mobileSmall} {
+    margin-bottom: 10px;
+    text-align: center;
+  }
 `

@@ -4,6 +4,7 @@ import {User} from "./User.tsx";
 import styled from "styled-components";
 import axios from "axios";
 import React from "react";
+import {Button} from "../Button/Button.tsx";
 
 export type UserPropsType = mapStateToPropsType & mapDispatchToProps
 
@@ -52,9 +53,12 @@ export class Users extends React.Component<UserPropsType> {
                         )
                     })}
                 </UsersItems>
-                <div>
-                    {pages.map(el => <span onClick={() => this.onClickHandler(el)}>{el}</span>)}
-                </div>
+                <Pagination>
+                    {pages.map(el => <Button active={this.props.currentPage === el}
+                                             pagination={true}
+                                             callback={() => this.onClickHandler(el)}
+                                             name={el.toString()}></Button>)}
+                </Pagination>
             </>
         )
     }
@@ -78,5 +82,17 @@ const UsersTop = styled.div`
 const UsersItems = styled.div`
   &:not(:last-child) {
     margin-bottom: 40px;
+    @media ${({theme}) => theme.media.mobileSmall} {
+      margin-bottom: 60px;
+    }
+  }
+`
+const Pagination = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  @media ${({theme}) => theme.media.mobileSmall} {
+    flex-wrap: wrap;
   }
 `
