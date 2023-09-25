@@ -7,14 +7,31 @@ import React from "react";
 
 export type UserPropsType = mapStateToPropsType & mapDispatchToProps
 
-export class Users extends React.Component<UserPropsType>{
+export class Users extends React.Component<UserPropsType> {
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response)=>{
-            this.props.setUsers(response.data.items)
-        })
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
+            .then((response) => {
+                this.props.setUsers(response.data.items)
+                this.props.SetTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onClickHandler = (page: number) => {
+        this.props.setCurrentPage(page)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${page}`)
+            .then((response) => {
+                this.props.setUsers(response.data.items)
+            })
     }
 
     render() {
+        const pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        const pages = []
+        for (let i = 1; i <= pageCount; i++) {
+            if (pages.length < 10) {
+                pages.push(i)
+            }
+        }
         return (
             <>
                 <UsersTop>
@@ -35,6 +52,9 @@ export class Users extends React.Component<UserPropsType>{
                         )
                     })}
                 </UsersItems>
+                <div>
+                    {pages.map(el => <span onClick={() => this.onClickHandler(el)}>{el}</span>)}
+                </div>
             </>
         )
     }
@@ -44,17 +64,19 @@ const UsersTop = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 30px;
-  h1{
+
+  h1 {
     margin-bottom: 0;
   }
-  span{
+
+  span {
     color: #929CAB;
     font-size: 18px;
     margin-left: 15px;
   }
 `
 const UsersItems = styled.div`
-  &:not(:last-child){
+  &:not(:last-child) {
     margin-bottom: 40px;
   }
 `
