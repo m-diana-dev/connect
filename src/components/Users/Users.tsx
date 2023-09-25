@@ -1,67 +1,55 @@
 import {H1} from "../../styles/Theme.tsx";
-import {mapDispatchToProps, mapStateToPropsType} from "./UsersContainer.tsx";
 import {User} from "./User.tsx";
 import styled from "styled-components";
-import axios from "axios";
-import React from "react";
 import {Button} from "../Button/Button.tsx";
+import {UserType} from "../../redux/users-reducer.ts";
 
-export type UserPropsType = mapStateToPropsType & mapDispatchToProps
+type UserPropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    users: UserType[]
+    followUser: (id: number) => void
+    unfollowUser: (id: number) => void
+    onClickHandler: (page: number) => void
+}
 
-export class Users extends React.Component<UserPropsType> {
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
-            .then((response) => {
-                this.props.setUsers(response.data.items)
-                this.props.SetTotalUsersCount(response.data.totalCount)
-            })
-    }
-
-    onClickHandler = (page: number) => {
-        this.props.setCurrentPage(page)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${page}`)
-            .then((response) => {
-                this.props.setUsers(response.data.items)
-            })
-    }
-
-    render() {
-        const pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-        const pages = []
-        for (let i = 1; i <= pageCount; i++) {
-            if (pages.length < 10) {
-                pages.push(i)
-            }
+export const Users = (props: UserPropsType) => {
+    const pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    const pages = []
+    for (let i = 1; i <= pageCount; i++) {
+        if (pages.length < 10) {
+            pages.push(i)
         }
-        return (
-            <>
-                <UsersTop>
-                    <H1>Users</H1>
-                    <span>{this.props.users.length}</span>
-                </UsersTop>
-                <UsersItems>
-                    {this.props.users.map(el => {
-                        return (
-                            <User key={el.id}
-                                  id={el.id}
-                                  img={el.photos.small}
-                                  name={el.name}
-                                  followed={el.followed}
-                                  status={el.status}
-                                  unfollowUser={this.props.unfollowUser}
-                                  followUser={this.props.followUser}/>
-                        )
-                    })}
-                </UsersItems>
-                <Pagination>
-                    {pages.map(el => <Button active={this.props.currentPage === el}
-                                             pagination={true}
-                                             callback={() => this.onClickHandler(el)}
-                                             name={el.toString()}></Button>)}
-                </Pagination>
-            </>
-        )
     }
+    return (
+        <>
+            <UsersTop>
+                <H1>Users</H1>
+                <span>{props.users.length}</span>
+            </UsersTop>
+            <UsersItems>
+                {props.users.map(el => {
+                    return (
+                        <User key={el.id}
+                              id={el.id}
+                              img={el.photos.small}
+                              name={el.name}
+                              followed={el.followed}
+                              status={el.status}
+                              unfollowUser={props.unfollowUser}
+                              followUser={props.followUser}/>
+                    )
+                })}
+            </UsersItems>
+            <Pagination>
+                {pages.map(el => <Button active={props.currentPage === el}
+                                         pagination={true}
+                                         callback={() => props.onClickHandler(el)}
+                                         name={el.toString()}></Button>)}
+            </Pagination>
+        </>
+    )
 }
 
 const UsersTop = styled.div`
