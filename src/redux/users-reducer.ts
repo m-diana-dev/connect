@@ -6,6 +6,7 @@ const FOLLOW_USER = 'FOLLOW-USER'
 const UNFOLLOW_USER = 'UNFOLLOW-USER'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
+const TOGGLE_ISLOADING = 'TOGGLE-ISLOADING'
 
 export type UserType = {
     id: number
@@ -23,13 +24,15 @@ export type UsersPageType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isLoading: boolean
 }
 
 const initialState: UsersPageType = {
     users: [],
     pageSize: 10,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isLoading: false
 }
 export const usersReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
     switch (action.type) {
@@ -43,6 +46,8 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
             return {...state, currentPage: action.currentPage}
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.totalUsersCount}
+        case "TOGGLE-ISLOADING":
+            return {...state, isLoading: action.isLoading}
         default:
             return state
     }
@@ -53,3 +58,4 @@ export const FollowUserAC = (id: number) => ({type: FOLLOW_USER, id} as const)
 export const UnfollowUserAC = (id: number) => ({type: UNFOLLOW_USER, id} as const)
 export const SetCurrenPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const SetTotalUsersCountAC = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
+export const ToggleIsLoadingAC = (isLoading: boolean) => ({type: TOGGLE_ISLOADING, isLoading} as const)

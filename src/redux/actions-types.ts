@@ -1,5 +1,12 @@
 import {AddPostActionCreator} from "./profile-reducer.ts";
-import {FollowUserAC, SetCurrenPageAC, SetTotalUsersCountAC, SetUsersAC, UnfollowUserAC} from "./users-reducer.ts";
+import {
+    FollowUserAC,
+    SetCurrenPageAC,
+    SetTotalUsersCountAC,
+    SetUsersAC,
+    ToggleIsLoadingAC,
+    UnfollowUserAC
+} from "./users-reducer.ts";
 
 export type AddPostActionType = ReturnType<typeof AddPostActionCreator>
 
@@ -17,8 +24,9 @@ export type UpdateNewMessageTextActionType = {
 export type SetUsersActionType = ReturnType<typeof SetUsersAC>
 export type FollowUserActionType = ReturnType<typeof FollowUserAC>
 export type UnfollowUserActionType = ReturnType<typeof UnfollowUserAC>
-export type SetCurrentPage = ReturnType<typeof SetCurrenPageAC>
-export type SetTotalUsersCount = ReturnType<typeof SetTotalUsersCountAC>
+export type SetCurrentPageActionType = ReturnType<typeof SetCurrenPageAC>
+export type SetTotalUsersCountActionType = ReturnType<typeof SetTotalUsersCountAC>
+export type ToggleIsLoadingActionType = ReturnType<typeof ToggleIsLoadingAC>
 
 export type ActionType =
     AddPostActionType
@@ -28,5 +36,6 @@ export type ActionType =
     | SetUsersActionType
     | FollowUserActionType
     | UnfollowUserActionType
-    | SetCurrentPage
-    | SetTotalUsersCount
+    | SetCurrentPageActionType
+    | SetTotalUsersCountActionType
+    | ToggleIsLoadingActionType
