@@ -17,7 +17,7 @@ export type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToProps
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/3`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
             .then((res) => {
                 this.props.SetUserProfile(res.data)
             })
