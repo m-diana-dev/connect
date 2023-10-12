@@ -53,9 +53,9 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
     }
 }
 
-export const SetUsersAC = (users: UserType[]) => ({type: SET_USERS, users} as const)
-export const FollowUserAC = (id: number) => ({type: FOLLOW_USER, id} as const)
-export const UnfollowUserAC = (id: number) => ({type: UNFOLLOW_USER, id} as const)
-export const SetCurrenPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
-export const SetTotalUsersCountAC = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
-export const ToggleIsLoadingAC = (isLoading: boolean) => ({type: TOGGLE_ISLOADING, isLoading} as const)
+export const setUsers = (users: UserType[]) => ({type: SET_USERS, users} as const)
+export const followUser = (id: number) => ({type: FOLLOW_USER, id} as const)
+export const unfollowUser = (id: number) => ({type: UNFOLLOW_USER, id} as const)
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
+export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
+export const toggleIsLoading = (isLoading: boolean) => ({type: TOGGLE_ISLOADING, isLoading} as const)

@@ -1,13 +1,11 @@
 import {connect} from "react-redux";
 import {Users} from "./Users.tsx";
 import {AppStateType} from "../../redux/redux-store.ts";
-import {ActionType} from "../../redux/actions-types.ts";
 import {
-    FollowUserAC,
-    SetCurrenPageAC,
-    SetTotalUsersCountAC,
-    SetUsersAC, ToggleIsLoadingAC,
-    UnfollowUserAC,
+    followUser, setCurrentPage,
+    setTotalUsersCount,
+    setUsers, toggleIsLoading,
+    unfollowUser,
     UserType
 } from "../../redux/users-reducer.ts";
 import React from "react";
@@ -27,30 +25,30 @@ export type mapDispatchToProps = {
     followUser: (id: number) => void
     unfollowUser: (id: number) => void
     setCurrentPage: (page: number) => void
-    SetTotalUsersCount: (count: number) => void
-    ToggleIsLoading: (isLoading: boolean) => void
+    setTotalUsersCount: (count: number) => void
+    toggleIsLoading: (isLoading: boolean) => void
 }
 
 export type UserContainerAPIPropsType = mapStateToPropsType & mapDispatchToProps
 
 export class UsersContainerAPI extends React.Component<UserContainerAPIPropsType> {
     componentDidMount() {
-        this.props.ToggleIsLoading(true)
+        this.props.toggleIsLoading(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
             .then((response) => {
                 this.props.setUsers(response.data.items)
-                this.props.SetTotalUsersCount(response.data.totalCount)
-                this.props.ToggleIsLoading(false)
+                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.toggleIsLoading(false)
             })
     }
 
     onClickHandler = (page: number) => {
         this.props.setCurrentPage(page)
-        this.props.ToggleIsLoading(true)
+        this.props.toggleIsLoading(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${page}`)
             .then((response) => {
                 this.props.setUsers(response.data.items)
-                this.props.ToggleIsLoading(false)
+                this.props.toggleIsLoading(false)
             })
     }
 
@@ -82,26 +80,36 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: ActionType) => void): mapDispatchToProps => {
-    return {
-        setUsers: (users: UserType[]) => {
-            dispatch(SetUsersAC(users))
-        },
-        followUser: (id: number) => {
-            dispatch(FollowUserAC(id))
-        },
-        unfollowUser: (id: number) => {
-            dispatch(UnfollowUserAC(id))
-        },
-        setCurrentPage: (page: number) => {
-            dispatch(SetCurrenPageAC(page))
-        },
-        SetTotalUsersCount: (count: number) => {
-            dispatch((SetTotalUsersCountAC(count)))
-        },
-        ToggleIsLoading: (isLoading: boolean) => {
-            dispatch(ToggleIsLoadingAC(isLoading))
-        }
-    }
-}
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainerAPI)
+// const mapDispatchToProps = (dispatch: (action: ActionType) => void): mapDispatchToProps => {
+//     return {
+//         setUsers: (users: UserType[]) => {
+//             dispatch(SetUsersAC(users))
+//         },
+//         followUser: (id: number) => {
+//             dispatch(FollowUserAC(id))
+//         },
+//         unfollowUser: (id: number) => {
+//             dispatch(UnfollowUserAC(id))
+//         },
+//         setCurrentPage: (page: number) => {
+//             dispatch(SetCurrenPageAC(page))
+//         },
+//         SetTotalUsersCount: (count: number) => {
+//             dispatch((SetTotalUsersCountAC(count)))
+//         },
+//         ToggleIsLoading: (isLoading: boolean) => {
+//             dispatch(ToggleIsLoadingAC(isLoading))
+//         }
+//     }
+// }
+
+
+export const UsersContainer = connect(mapStateToProps,
+    {
+        setUsers,
+        followUser,
+        unfollowUser,
+        setCurrentPage,
+        setTotalUsersCount,
+        toggleIsLoading
+    })(UsersContainerAPI)
