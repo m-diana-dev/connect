@@ -1,17 +1,21 @@
 import styled from "styled-components";
 import {H1} from "../../../styles/Theme.tsx";
-import avatar from '../../../images/users/main.png'
+import defaultAvatar from "../../../images/users/avatar.webp";
 
-export const ProfileInfo = () => {
+export type ProfileInfoPropsType = {
+    profile: any
+}
+export const ProfileInfo = (props: ProfileInfoPropsType) => {
+    const img = props.profile.photos.large ? props.profile.photos.large : defaultAvatar
     return (
         <MainBlockTop>
             <Avatar>
                 <img
-                    src={avatar} alt="avatar"/>
+                    src={img} alt="avatar"/>
             </Avatar>
             <UserInfo>
-                <H1>Ivan, 21</H1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <H1>{props.profile.fullName}</H1>
+                <p>{props.profile.aboutMe}</p>
             </UserInfo>
         </MainBlockTop>
     )

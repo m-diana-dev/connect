@@ -1,5 +1,4 @@
 import {Header} from './components/Header/Header';
-import {Profile} from "./components/Profile/Profile";
 import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
@@ -8,6 +7,7 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer.tsx";
 import {Navbar} from "./components/Navbar/Navbar.tsx";
 import {AppStateType} from "./redux/redux-store.ts";
 import {UsersContainer} from "./components/Users/UsersContainer.tsx";
+import ProfileContainer from "./components/Profile/ProfileContainer.tsx";
 
 
 type AppPropsType = {
@@ -26,8 +26,8 @@ const App = (props: AppPropsType) => {
                                 <MainBlock>
                                     <Routes>
                                         <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                                        <Route path="/profile"
-                                               element={<Profile/>}/>
+                                        <Route path="/profile/*"
+                                               element={<ProfileContainer/>}/>
                                         <Route path="/messages/*"
                                                element={<DialogsContainer/>}/>
                                         <Route path="/users" element={<UsersContainer/>}/>

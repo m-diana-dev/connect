@@ -1,6 +1,7 @@
 import {Button} from "../Button/Button.tsx";
 import styled from "styled-components";
 import defaultAvatar from "../../images/users/avatar.webp";
+import {NavLink} from "react-router-dom";
 
 type UserItemPropType = {
     id: number
@@ -14,10 +15,14 @@ type UserItemPropType = {
 export const User = (props: UserItemPropType) => {
     return (
         <UserItem followed={props.followed}>
-            <img src={props.img ? props.img : defaultAvatar}/>
+            <NavLink to={`/profile/${props.id}`}>
+                <img src={props.img ? props.img : defaultAvatar}/>
+            </NavLink>
             <UserItemWrapp>
                 <div>
-                    <UserItemName>{props.name}</UserItemName>
+                    <UserItemName>
+                        <NavLink to={`/profile/${props.id}`}>{props.name}</NavLink>
+                    </UserItemName>
                     <UserItemStatus>{props.status}</UserItemStatus>
                 </div>
             </UserItemWrapp>
@@ -28,17 +33,19 @@ export const User = (props: UserItemPropType) => {
     );
 };
 
-const UserItem = styled.div<{followed?:boolean}>`
+const UserItem = styled.div<{ followed?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   @media ${({theme}) => theme.media.mobileSmall} {
     flex-direction: column;
   }
-  &:not(:last-child){
+
+  &:not(:last-child) {
     margin-bottom: 30px;
     position: relative;
-    &::before{
+
+    &::before {
       content: '';
       position: absolute;
       width: 100%;
@@ -66,8 +73,8 @@ const UserItem = styled.div<{followed?:boolean}>`
       margin-bottom: 10px;
     }
   }
-  
-  button{
+
+  button {
     background-color: ${(props) => !props.followed ? ({theme}) => theme.colors.main : '#D08EFF'}
   }
 `
