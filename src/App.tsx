@@ -25,9 +25,10 @@ const App = (props: AppPropsType) => {
                                 <Navbar friends={props.state.FriendsPage.friends}/>
                                 <MainBlock>
                                     <Routes>
-                                        <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                                        <Route path="/profile/*"
+                                        <Route path={'/'} element={<Navigate to={'/profile/:userID'}/>}/>
+                                        <Route path="/profile/:userID"
                                                element={<ProfileContainer/>}/>
+                                        <Route path='/profile' element={<ProfileContainer />} />
                                         <Route path="/messages/*"
                                                element={<DialogsContainer/>}/>
                                         <Route path="/users" element={<UsersContainer/>}/>
