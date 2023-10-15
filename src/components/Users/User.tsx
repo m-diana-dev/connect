@@ -30,7 +30,7 @@ export const User = (props: UserItemPropType) => {
             {props.followed
                 ? <Button name={'Unfollow'} callback={() => {
                     axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {withCredentials: true})
-                        .then((response: any) => {
+                        .then((response) => {
                             if (response.data.resultCode === 0) {
                                 props.unfollowUser(props.id)
                             }
@@ -39,7 +39,7 @@ export const User = (props: UserItemPropType) => {
                 }/>
                 : <Button name={'Follow'} callback={() => {
                     axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {}, {withCredentials: true})
-                        .then((response: any) => {
+                        .then((response) => {
                             if (response.data.resultCode === 0) {
                                 props.followUser(props.id)
                             }
