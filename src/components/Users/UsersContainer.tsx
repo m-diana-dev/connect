@@ -34,7 +34,7 @@ export type UserContainerAPIPropsType = mapStateToPropsType & mapDispatchToProps
 export class UsersContainerAPI extends React.Component<UserContainerAPIPropsType> {
     componentDidMount() {
         this.props.toggleIsLoading(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`, {withCredentials: true})
             .then((response) => {
                 this.props.setUsers(response.data.items)
                 this.props.setTotalUsersCount(response.data.totalCount)
@@ -45,7 +45,7 @@ export class UsersContainerAPI extends React.Component<UserContainerAPIPropsType
     onClickHandler = (page: number) => {
         this.props.setCurrentPage(page)
         this.props.toggleIsLoading(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${page}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${page}`, {withCredentials: true})
             .then((response) => {
                 this.props.setUsers(response.data.items)
                 this.props.toggleIsLoading(false)
