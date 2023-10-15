@@ -35,13 +35,14 @@ const initialState: UsersPageType = {
     isLoading: false
 }
 export const usersReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
+    // debugger
     switch (action.type) {
         case SET_USERS:
             return {...state, users: action.users}
         case FOLLOW_USER:
-            return {...state, users: state.users.map(el=>el.id===action.id?{...el, follow: true} : el)}
+            return {...state, users: state.users.map(el=>el.id===action.id?{...el, followed: true} : el)}
         case UNFOLLOW_USER:
-            return {...state, users: state.users.map(el=>el.id===action.id?{...el, follow: false} : el)}
+            return {...state, users: state.users.map(el=>el.id===action.id?{...el, followed: false} : el)}
         case SET_CURRENT_PAGE:
             return {...state, currentPage: action.currentPage}
         case SET_TOTAL_USERS_COUNT:

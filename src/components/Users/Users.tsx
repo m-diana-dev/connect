@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {Button} from "../Button/Button.tsx";
 import {UserType} from "../../redux/users-reducer.ts";
 
-type UserPropsType = {
+type UsersPropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
@@ -14,13 +14,19 @@ type UserPropsType = {
     onClickHandler: (page: number) => void
 }
 
-export const Users = (props: UserPropsType) => {
+export const Users = (props: UsersPropsType) => {
     const pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
     const pages = []
     for (let i = 1; i <= pageCount; i++) {
         if (pages.length < 10) {
             pages.push(i)
         }
+    }
+    const followUser = (userID: number) => {
+        props.followUser(userID)
+    }
+    const unfollowUser = (userID: number) => {
+        props.unfollowUser(userID)
     }
     return (
         <>
@@ -37,8 +43,8 @@ export const Users = (props: UserPropsType) => {
                               name={el.name}
                               followed={el.followed}
                               status={el.status}
-                              unfollowUser={props.unfollowUser}
-                              followUser={props.followUser}/>
+                              unfollowUser={unfollowUser}
+                              followUser={followUser}/>
                     )
                 })}
             </UsersItems>

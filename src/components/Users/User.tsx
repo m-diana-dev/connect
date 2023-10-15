@@ -27,8 +27,8 @@ export const User = (props: UserItemPropType) => {
                 </div>
             </UserItemWrapp>
             {props.followed
-                ? <Button name={'Unfollow'} callback={() => props.followUser(props.id)}/>
-                : <Button name={'Follow'} callback={() => props.unfollowUser(props.id)}/>}
+                ? <Button name={'Unfollow'} callback={() => props.unfollowUser(props.id)}/>
+                : <Button name={'Follow'} callback={() => props.followUser(props.id)}/>}
         </UserItem>
     );
 };
