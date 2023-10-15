@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {Profile} from "./Profile.tsx";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store.ts";
@@ -23,7 +23,8 @@ export type mapDispatchToProps = {
 
 export type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToProps
 type CommonProfileContainerPropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
-function withRouter(Component: typeof ProfileContainer) {
+
+function withRouter(Component: ComponentType<CommonProfileContainerPropsType>) {
     return function ComponentWithRouterProp(props: CommonProfileContainerPropsType) {
         const location = useLocation();
         const navigate = useNavigate();

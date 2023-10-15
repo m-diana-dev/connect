@@ -1,4 +1,3 @@
-import {Header} from './components/Header/Header';
 import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
@@ -8,6 +7,7 @@ import {Navbar} from "./components/Navbar/Navbar.tsx";
 import {AppStateType} from "./redux/redux-store.ts";
 import {UsersContainer} from "./components/Users/UsersContainer.tsx";
 import ProfileContainer from "./components/Profile/ProfileContainer.tsx";
+import HeaderContainer from "./components/Header/HeaderContainer.tsx";
 
 
 type AppPropsType = {
@@ -18,7 +18,7 @@ const App = (props: AppPropsType) => {
         <Theme>
             <BrowserRouter>
                 <div>
-                    <Header/>
+                    <HeaderContainer/>
                     <Section>
                         <Container>
                             <Flex>

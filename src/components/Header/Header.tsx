@@ -2,7 +2,12 @@ import styled from "styled-components";
 import {Container} from "../../styles/Theme.tsx";
 import logo from '../../images/logo.png'
 
-export const Header = () => {
+type HeaderPropsType = {
+    isAuth: boolean
+    login: string
+    SetUser: (id: number, login: string, email: string) => void
+}
+export const Header = (props: HeaderPropsType) => {
     return (
         <SiteHeader>
             <Container>
@@ -11,6 +16,9 @@ export const Header = () => {
                         <img src={logo} alt="logo"/>
                         <span>Connect</span>
                     </SiteLogo>
+                    <HeaderUser>
+                        {(props.isAuth) ? props.login : <a>Log In</a>}
+                    </HeaderUser>
                 </SiteHeaderWrapp>
             </Container>
         </SiteHeader>
@@ -48,5 +56,15 @@ const SiteLogo = styled.div`
     @media ${({theme}) => theme.media.mobile} {
       font-size: 18px;
     }
+  }
+`
+const HeaderUser = styled.div `
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .3s;
+  &:hover{
+    color: ${({theme}) => theme.colors.second}
   }
 `

@@ -7,6 +7,7 @@ import {
     toggleIsLoading,
     unfollowUser
 } from "./users-reducer.ts";
+import {SetUser} from "./auth-reducer.ts";
 
 export type AddPostActionType = ReturnType<typeof AddPostActionCreator>
 
@@ -28,6 +29,8 @@ export type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>
 export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
 export type ToggleIsLoadingActionType = ReturnType<typeof toggleIsLoading>
 export type SetUserProfileAT = ReturnType<typeof SetUserProfile>
+export type SetUserAT = ReturnType<typeof SetUser>
+
 
 export type ActionType =
     AddPostActionType
@@ -41,3 +44,4 @@ export type ActionType =
     | SetTotalUsersCountActionType
     | ToggleIsLoadingActionType
     | SetUserProfileAT
+    | SetUserAT
