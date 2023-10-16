@@ -1,6 +1,7 @@
 {
   "name": "samurai-way-new",
   "private": true,
+  "homepage": "https://m-diana-dev.github.io/connect",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

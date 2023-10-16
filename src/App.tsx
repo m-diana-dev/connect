@@ -5,6 +5,7 @@ type AppPropsType = {
     state: AppStateType
 }
 export const App = ({state}: AppPropsType) => {
+    console.log(state)
     return (
         <MainPagesContainer/>
     );
