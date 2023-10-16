@@ -2,15 +2,17 @@ import {connect} from "react-redux";
 import {Users} from "./Users.tsx";
 import {AppStateType} from "../../redux/redux-store.ts";
 import {
-    followUser, setCurrentPage,
+    followUser,
+    setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggleIsLoading,
+    setUsers,
+    toggleIsLoading,
     unfollowUser,
     UserType
 } from "../../redux/users-reducer.ts";
 import React from "react";
-import axios from "axios";
 import {Preloader} from "../Preloader/Preloader.tsx";
+import {connectAPI} from "../../api/api.ts";
 
 
 export type mapStateToPropsType = {
@@ -34,10 +36,10 @@ export type UserContainerAPIPropsType = mapStateToPropsType & mapDispatchToProps
 export class UsersContainerAPI extends React.Component<UserContainerAPIPropsType> {
     componentDidMount() {
         this.props.toggleIsLoading(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`, {withCredentials: true})
+        connectAPI.getUsers(this.props.pageSize, this.props.currentPage)
             .then((response) => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(response.items)
+                this.props.setTotalUsersCount(response.totalCount)
                 this.props.toggleIsLoading(false)
             })
     }
@@ -45,9 +47,9 @@ export class UsersContainerAPI extends React.Component<UserContainerAPIPropsType
     onClickHandler = (page: number) => {
         this.props.setCurrentPage(page)
         this.props.toggleIsLoading(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${page}`, {withCredentials: true})
+        connectAPI.getUsers(this.props.pageSize, page)
             .then((response) => {
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(response.items)
                 this.props.toggleIsLoading(false)
             })
     }
@@ -102,7 +104,6 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 //         }
 //     }
 // }
-
 
 export const UsersContainer = connect(mapStateToProps,
     {

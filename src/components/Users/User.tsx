@@ -2,7 +2,7 @@ import {Button} from "../Button/Button.tsx";
 import styled from "styled-components";
 import defaultAvatar from "../../images/users/avatar.webp";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {connectAPI} from "../../api/api.ts";
 
 type UserItemPropType = {
     id: number
@@ -29,18 +29,18 @@ export const User = (props: UserItemPropType) => {
             </UserItemWrapp>
             {props.followed
                 ? <Button name={'Unfollow'} callback={() => {
-                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {withCredentials: true})
+                    connectAPI.unfollowUser(props.id)
                         .then((response) => {
-                            if (response.data.resultCode === 0) {
+                            if (response.resultCode === 0) {
                                 props.unfollowUser(props.id)
                             }
                         })
                 }
                 }/>
                 : <Button name={'Follow'} callback={() => {
-                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {}, {withCredentials: true})
+                    connectAPI.followUser(props.id)
                         .then((response) => {
-                            if (response.data.resultCode === 0) {
+                            if (response.resultCode === 0) {
                                 props.followUser(props.id)
                             }
                         })

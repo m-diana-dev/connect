@@ -3,8 +3,8 @@ import {Profile} from "./Profile.tsx";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store.ts";
 import {ProfileInfoType, SetUserProfile} from "../../redux/profile-reducer.ts";
-import axios from "axios";
 import {useParams} from "react-router-dom";
+import {connectAPI} from "../../api/api.ts";
 
 
 export type mapStateToPropsType = {
@@ -26,9 +26,9 @@ export type PathParamsType = {
 function ProfileContainer(props: ProfileContainerPropsType) {
     const {userID} = useParams<PathParamsType>()
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID || 2}`)
+            connectAPI.getProfile(userID || 2)
             .then((res) => {
-                props.SetUserProfile(res.data)
+                props.SetUserProfile(res)
             })
     }, [userID]);
 

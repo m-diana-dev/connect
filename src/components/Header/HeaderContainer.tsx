@@ -1,10 +1,10 @@
 import React from "react";
 import {Header} from "./Header.tsx";
-import axios from "axios";
 import {connect} from "react-redux";
 import {SetUser} from "../../redux/auth-reducer.ts";
 import {AppStateType} from "../../redux/redux-store.ts";
 import {ProfileInfoType, SetUserProfile} from "../../redux/profile-reducer.ts";
+import {connectAPI} from "../../api/api.ts";
 
 type mapStateToPropsType = {
     isAuth: boolean
@@ -21,10 +21,10 @@ type HeaderContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.1/auth/me', {withCredentials: true})
+        connectAPI.authMe()
             .then(res => {
-                if (res.data.resultCode === 0) {
-                    const {id, login, email} = res.data.data
+                if (res.resultCode === 0) {
+                    const {id, login, email} = res.data
                     this.props.SetUser(id, login, email)
                 }
             })
