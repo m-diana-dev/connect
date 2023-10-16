@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/profile",
+  base: "/connect",
   plugins: [react()],
   server: {
     port: 3000, // Установите нужный вам порт

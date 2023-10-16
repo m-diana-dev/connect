@@ -25,15 +25,16 @@ const App = (props: AppPropsType) => {
                                 <Navbar friends={props.state.FriendsPage.friends}/>
                                 <MainBlock>
                                     <Routes>
-                                        <Route path={'/'} element={<Navigate to={'/profile/:userID'}/>}/>
-                                        <Route path="/profile/:userID"
+                                        <Route path={'/connect/'} element={<Navigate to={'/connect/profile'}/>}/>
+                                        <Route path="/connect/profile/:userID"
                                                element={<ProfileContainer/>}/>
-                                        <Route path='/profile' element={<ProfileContainer />} />
-                                        <Route path="/messages/*"
+                                        <Route path='/connect/profile' element={<ProfileContainer/>}/>
+
+                                        <Route path="/connect/messages/*"
                                                element={<DialogsContainer/>}/>
-                                        <Route path="/users" element={<UsersContainer/>}/>
-                                        <Route path="/news" element={<News/>}/>
-                                        <Route path="/music" element={<Music/>}/>
+                                        <Route path="/connect/users" element={<UsersContainer/>}/>
+                                        <Route path="/connect/news" element={<News/>}/>
+                                        <Route path="/connect/music" element={<Music/>}/>
                                     </Routes>
                                 </MainBlock>
                             </Flex>

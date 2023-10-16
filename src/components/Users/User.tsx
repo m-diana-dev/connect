@@ -16,13 +16,13 @@ type UserItemPropType = {
 export const User = (props: UserItemPropType) => {
     return (
         <UserItem followed={props.followed}>
-            <NavLink to={`/profile/${props.id}`}>
+            <NavLink to={`/connect/profile/${props.id}`}>
                 <img src={props.img ? props.img : defaultAvatar}/>
             </NavLink>
             <UserItemWrapp>
                 <div>
                     <UserItemName>
-                        <NavLink to={`/profile/${props.id}`}>{props.name}</NavLink>
+                        <NavLink to={`/connect/profile/${props.id}`}>{props.name}</NavLink>
                     </UserItemName>
                     <UserItemStatus>{props.status}</UserItemStatus>
                 </div>
