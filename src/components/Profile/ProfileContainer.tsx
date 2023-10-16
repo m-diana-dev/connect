@@ -1,66 +1,44 @@
-import React, {ComponentType} from "react";
+import {useEffect} from "react";
 import {Profile} from "./Profile.tsx";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store.ts";
 import {ProfileInfoType, SetUserProfile} from "../../redux/profile-reducer.ts";
 import axios from "axios";
-import {
-    RouteComponentProps,
-    useLocation,
-    useNavigate,
-    useParams,
-} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
-export type PathParamsType = {
-    userID: string
-}
+
 export type mapStateToPropsType = {
     profile: ProfileInfoType | null
 }
 export type mapDispatchToProps = {
     SetUserProfile: (profile: ProfileInfoType) => void
 }
-
 export type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToProps
-type CommonProfileContainerPropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
 
-function withRouter(Component: ComponentType<CommonProfileContainerPropsType>) {
-    return function ComponentWithRouterProp(props: CommonProfileContainerPropsType) {
-        const location = useLocation();
-        const navigate = useNavigate();
-        const params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{ location, navigate, params }}
-            />
-        );
-    }
+export type PathParamsType = {
+    userID: string
 }
 
-class ProfileContainer extends React.Component<CommonProfileContainerPropsType> {
-    componentDidMount() {
-        let userID;
-        this.props.router.params.userID ? userID = this.props.router.params.userID : userID = 2;
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`)
+/*
+    Changed the Class component to a Functional to use the UseParams hook.
+    For now with side effect, change it later
+ */
+function ProfileContainer(props: ProfileContainerPropsType) {
+    const {userID} = useParams<PathParamsType>()
+    useEffect(() => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID || 2}`)
             .then((res) => {
-                this.props.SetUserProfile(res.data)
+                props.SetUserProfile(res.data)
             })
-    }
+    }, [userID]);
 
-    render() {
-        return (
-            <Profile {...this.props} />
-        )
-    }
+    return <Profile {...props} />;
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        profile: state.ProfilePage.profile
-    }
-}
+        profile: state.ProfilePage.profile,
+    };
+};
 
-export default connect(mapStateToProps, {SetUserProfile})(withRouter(ProfileContainer)
-)
+export default connect(mapStateToProps, {SetUserProfile})(ProfileContainer);

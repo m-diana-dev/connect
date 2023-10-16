@@ -4,12 +4,10 @@ import banner from '../../images/banner.jpg'
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer.tsx";
 import {Preloader} from "../Preloader/Preloader.tsx";
 import {ProfileInfoType} from "../../redux/profile-reducer.ts";
-import {PathParamsType} from "./ProfileContainer.tsx";
-import {RouteComponentProps} from "react-router-dom";
 
-export type ProfilePropsType = RouteComponentProps<PathParamsType> & {
+export type ProfilePropsType = {
     profile: ProfileInfoType | null
-    SetUserProfile: (profile: ProfileInfoType) => void
+    SetUserProfile: (profile: ProfileInfoType) => void;
 }
 export const Profile = (props: ProfilePropsType) => {
     if (!props.profile) return <Preloader/>
