@@ -8,6 +8,7 @@ import {
     unfollowUser
 } from "./users-reducer.ts";
 import {SetUser} from "./auth-reducer.ts";
+import {SetFriends} from "./friends-reducer.ts";
 
 export type AddPostActionType = ReturnType<typeof AddPostActionCreator>
 
@@ -30,6 +31,7 @@ export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
 export type ToggleIsLoadingActionType = ReturnType<typeof toggleIsLoading>
 export type SetUserProfileAT = ReturnType<typeof SetUserProfile>
 export type SetUserAT = ReturnType<typeof SetUser>
+export type SetFriendsAT = ReturnType<typeof SetFriends>
 
 
 export type ActionType =
@@ -45,3 +47,4 @@ export type ActionType =
     | ToggleIsLoadingActionType
     | SetUserProfileAT
     | SetUserAT
+    | SetFriendsAT

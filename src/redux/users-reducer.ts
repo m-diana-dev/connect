@@ -2,11 +2,11 @@ import {ActionType} from "./actions-types.ts";
 
 
 const SET_USERS = 'SET-USERS'
-const FOLLOW_USER = 'FOLLOW-USER'
-const UNFOLLOW_USER = 'UNFOLLOW-USER'
+export const FOLLOW_USER = 'FOLLOW-USER'
+export const UNFOLLOW_USER = 'UNFOLLOW-USER'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
-const TOGGLE_ISLOADING = 'TOGGLE-ISLOADING'
+export const TOGGLE_ISLOADING = 'TOGGLE-ISLOADING'
 
 export type UserType = {
     id: number

@@ -1,34 +1,34 @@
-import avatar1 from "../images/users/avatar-1.png";
-import avatar2 from "../images/users/avatar-2.png";
-import avatar3 from "../images/users/avatar-3.jpg";
-import avatar4 from "../images/users/avatar-4.jpg";
-import avatar5 from "../images/users/main.png";
 import {ActionType} from "./actions-types.ts";
+import {FOLLOW_USER, TOGGLE_ISLOADING, UNFOLLOW_USER, UserType} from "./users-reducer.ts";
 
+const SET_FRIENDS = 'SET-FRIENDS'
 
-export type FriendsType = {
-    id: number
-    img: string
-    name: string
-}
 export type FriendsPageType = {
-    friends: FriendsType[]
+    friends: UserType[],
+    isLoading: boolean
 }
 
 const initialState: FriendsPageType = {
-    friends: [
-        {id: 1, img: avatar1, name: 'Anna Del'},
-        {id: 2, img: avatar2, name: 'Dima Petrov'},
-        {id: 3, img: avatar3, name: 'Lida'},
-        {id: 4, img: avatar4, name: 'Ivan Ivanov'},
-        {id: 5, img: avatar5, name: 'Mikkel'},
-    ]
+    friends: [],
+    isLoading: false
 }
 export const friendsReducer = (state: FriendsPageType = initialState, action: ActionType): FriendsPageType => {
     switch (action.type) {
+        case SET_FRIENDS:
+            return {...state, friends: [...action.friends]}
+        case TOGGLE_ISLOADING:
+            return {...state, isLoading: action.isLoading}
+        case FOLLOW_USER:
+            return {...state, friends: state.friends.map(el=>el.id===action.id?{...el, followed: true} : el)}
+        case UNFOLLOW_USER:
+            return {...state, friends: state.friends.map(el=>el.id===action.id?{...el, followed: false} : el)}
         default: return state
     }
 }
 
+export const SetFriends = (friends: UserType[]) => ({
+    type: SET_FRIENDS,
+    friends
+} as const)
 
 export default friendsReducer

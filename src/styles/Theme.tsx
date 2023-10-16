@@ -157,7 +157,7 @@ export const H1= styled.h1`
     margin-bottom: 10px;
   }
 `
-export const H2= styled.h1`
+export const H2= styled.h2`
   font-size: ${({theme})=>theme.title.h2};
   margin-bottom: 15px;
   font-weight: 500;

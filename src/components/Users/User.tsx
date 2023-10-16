@@ -78,6 +78,10 @@ const UserItem = styled.div<{ followed?: boolean }>`
     height: 90px;
     object-fit: cover;
     border-radius: 50%;
+    transition: all .3s;
+    &:hover{
+      transform: scale(1.05);
+    }
     @media ${({theme}) => theme.media.tablet} {
       width: 70px;
       height: 70px;
@@ -113,6 +117,10 @@ const UserItemName = styled.div`
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 5px;
+  transition: all .3s;
+  &:hover{
+    color: ${({theme}) => theme.colors.second}
+  }
   @media ${({theme}) => theme.media.tablet} {
     font-size: 18px;
   }

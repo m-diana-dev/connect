@@ -2,13 +2,25 @@ import {NavLink} from "react-router-dom";
 import styled from "styled-components";
 import {H2} from "../../styles/Theme.tsx";
 import {Friend} from "../Friend/Friend.tsx";
-import {FriendsType} from "../../redux/friends-reducer.ts";
+import {connect} from "react-redux";
+import {AppStateType} from "../../redux/redux-store.ts";
+import {UserType} from "../../redux/users-reducer.ts";
 
 
-type NavbarPropsType = {
-    friends: FriendsType[]
+type mapStateToPropsType = {
+    friends: UserType[]
 }
-export const Navbar = ({friends}: NavbarPropsType) => {
+
+type NavbarPropsType = mapStateToPropsType
+const Navbar = (props: NavbarPropsType) => {
+    const firstSixFriends = (friends: UserType[]) => {
+        const newArr: UserType[] = [];
+        for (let i = 0; i < 6 && i < friends.length; i++) {
+            newArr.push(friends[i])
+        }
+        return newArr
+    }
+
     return (
         <Aside>
             <NavMenu>
@@ -21,15 +33,27 @@ export const Navbar = ({friends}: NavbarPropsType) => {
                 </ul>
             </NavMenu>
             <FriendsBlock>
-                <H2>Friends</H2>
+                <FriendsBlockTop>
+                    <H2>Friends</H2>
+                    <NavLink to="/connect/friends">
+                        All
+                    </NavLink>
+                </FriendsBlockTop>
                 <FriendsItems>
-                    {friends.map(el => <Friend key={el.id} id={el.id} img={el.img} name={el.name}/>)}
+                    {firstSixFriends(props.friends).map(el => <Friend key={el.id} id={el.id} img={el.photos.small}
+                                                                      name={el.name}/>)}
                 </FriendsItems>
             </FriendsBlock>
         </Aside>
     )
 }
 
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+    return {
+        friends: state.FriendsPage.friends
+    }
+}
+export default connect(mapStateToProps, {})(Navbar)
 
 const Aside = styled.aside`
   position: sticky;
@@ -74,8 +98,16 @@ const NavMenu = styled.nav`
       }
     }
 
-    a.active {
-      color: ${({theme}) => theme.colors.main};
+    a {
+      transition: all .3s;
+
+      &:hover {
+        color: ${({theme}) => theme.colors.second};
+      }
+
+      &.active {
+        color: ${({theme}) => theme.colors.main};
+      }
     }
   }
 `
@@ -87,6 +119,32 @@ const FriendsBlock = styled.div`
 
   &:not(:last-child) {
     margin-bottom: 20px;
+  }
+
+`
+
+const FriendsBlockTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  h2{
+    margin-bottom: 0;
+  }
+  > a {
+    font-size: 18px;
+    font-weight: 500;
+    transition: all .3s;
+
+    &:hover {
+      color: ${({theme}) => theme.colors.main};
+    }
+    @media ${({theme}) => theme.media.tablet} {
+      font-size: 16px;
+    }
+    @media ${({theme}) => theme.media.mobileSmall} {
+      font-size: 14px;
+    }
   }
 `
 
