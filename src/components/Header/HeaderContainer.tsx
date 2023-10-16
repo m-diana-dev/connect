@@ -9,6 +9,7 @@ import {ProfileInfoType, SetUserProfile} from "../../redux/profile-reducer.ts";
 type mapStateToPropsType = {
     isAuth: boolean
     login: string
+    id: number
 }
 
 type mapDispatchToPropsType = {
@@ -36,7 +37,8 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
     isAuth: state.auth.isAuth,
-    login: state.auth.login
+    login: state.auth.login,
+    id: state.auth.id,
 })
 export default connect(mapStateToProps, {SetUser, SetUserProfile})(HeaderContainer)
 
