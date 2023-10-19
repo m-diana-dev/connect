@@ -22,7 +22,7 @@ type MainPagesPropsType = {
 export const MainPages = (props: MainPagesPropsType) => {
     return (
         <Theme>
-            <BrowserRouter basename="/connect">
+            <BrowserRouter>
                 <div>
                     <HeaderContainer/>
                     <Section>
