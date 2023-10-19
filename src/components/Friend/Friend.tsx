@@ -10,10 +10,10 @@ export type FriendPropsType = {
 export const Friend = ({id, img, name}: FriendPropsType) => {
     return (
         <FriendItem>
-            <NavLink to={`/connect/profile/${id}`}>
+            <NavLink to={`/profile/${id}`}>
                 <img src={img ? img : defaultAvatar}/>
             </NavLink>
-            <NavLink to={`/connect/profile/${id}`}>
+            <NavLink to={`/profile/${id}`}>
                 <span>{name}</span>
             </NavLink>
         </FriendItem>

@@ -22,7 +22,7 @@ type MainPagesPropsType = {
 export const MainPages = (props: MainPagesPropsType) => {
     return (
         <Theme>
-            <BrowserRouter>
+            <BrowserRouter basename="/connect">
                 <div>
                     <HeaderContainer/>
                     <Section>
@@ -31,17 +31,17 @@ export const MainPages = (props: MainPagesPropsType) => {
                                 <Navbar/>
                                 <MainBlock>
                                     <Routes>
-                                        <Route path={'/connect/'} element={<Navigate to={'/connect/profile'}/>}/>
-                                        <Route path="/connect/profile/:userID"
+                                        <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
+                                        <Route path="/profile/:userID"
                                                element={<ProfileContainer/>}/>
-                                        <Route path='/connect/profile' element={<ProfileContainer/>}/>
+                                        <Route path='/profile' element={<ProfileContainer/>}/>
 
-                                        <Route path="/connect/messages/*"
+                                        <Route path="/messages/*"
                                                element={<DialogsContainer/>}/>
-                                        <Route path="/connect/users" element={<UsersContainer/>}/>
-                                        <Route path="/connect/friends" element={<Friends {...props}/>}/>
-                                        <Route path="/connect/news" element={<News/>}/>
-                                        <Route path="/connect/music" element={<Music/>}/>
+                                        <Route path="/users" element={<UsersContainer/>}/>
+                                        <Route path="/friends" element={<Friends {...props}/>}/>
+                                        <Route path="/news" element={<News/>}/>
+                                        <Route path="/music" element={<Music/>}/>
                                     </Routes>
                                 </MainBlock>
                             </Flex>

@@ -14,14 +14,14 @@ export const Header = (props: HeaderPropsType) => {
         <SiteHeader>
             <Container>
                 <SiteHeaderWrapp>
-                    <NavLink to={`/connect/profile/${props.id}`}>
+                    <NavLink to={`/profile/${props.id}`}>
                         <SiteLogo>
                             <img src={logo} alt="logo"/>
                             <span>Connect</span>
                         </SiteLogo>
                     </NavLink>
                     <HeaderUser>
-                        {(props.isAuth) ? <NavLink to={`/connect/profile/${props.id}`}>{props.login}</NavLink> :
+                        {(props.isAuth) ? <NavLink to={`/profile/${props.id}`}>{props.login}</NavLink> :
                             <a>Log In</a>}
                     </HeaderUser>
                 </SiteHeaderWrapp>

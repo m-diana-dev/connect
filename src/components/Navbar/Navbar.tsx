@@ -25,17 +25,17 @@ const Navbar = (props: NavbarPropsType) => {
         <Aside>
             <NavMenu>
                 <ul>
-                    <li><NavLink to="/connect/profile">Profile</NavLink></li>
-                    <li><NavLink to="/connect/messages">Messages</NavLink></li>
-                    <li><NavLink to="/connect/users">Users</NavLink></li>
-                    <li><NavLink to="/connect/news">News</NavLink></li>
-                    <li><NavLink to="/connect/music">Music</NavLink></li>
+                    <li><NavLink to="/profile">Profile</NavLink></li>
+                    <li><NavLink to="/messages">Messages</NavLink></li>
+                    <li><NavLink to="/users">Users</NavLink></li>
+                    <li><NavLink to="/news">News</NavLink></li>
+                    <li><NavLink to="/music">Music</NavLink></li>
                 </ul>
             </NavMenu>
             <FriendsBlock>
                 <FriendsBlockTop>
                     <H2>Friends</H2>
-                    <NavLink to="/connect/friends">
+                    <NavLink to="/friends">
                         All
                     </NavLink>
                 </FriendsBlockTop>
