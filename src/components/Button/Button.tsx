@@ -5,11 +5,12 @@ type ButtonPropsType = {
     callback: () => void
     pagination?: boolean
     active?: boolean
+    disabled?: boolean
 }
 
-export const Button = ({name, callback, pagination, active}: ButtonPropsType) => {
+export const Button = ({name, callback, pagination, active, disabled}: ButtonPropsType) => {
     return (
-        <SiteButton active={active} pagination={pagination} onClick={callback}>{name}</SiteButton>
+        <SiteButton active={active} pagination={pagination} onClick={callback} disabled={disabled}>{name}</SiteButton>
     );
 };
 
@@ -38,6 +39,10 @@ const SiteButton = styled.button<{pagination?:boolean, active?:boolean}>`
     background-color: ${({theme}) => theme.colors.second};
     border-color: transparent;
     color: #fff;
+  }
+  &:disabled{
+    opacity: 0.5;
+    pointer-events: none;
   }
 
   @media ${({theme}) => theme.media.mobile} {

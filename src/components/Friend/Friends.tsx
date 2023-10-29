@@ -8,6 +8,8 @@ type FriendsPropsType = {
     toggleIsLoading: (isLoading: boolean) => void
     unfollowUser: (userID: number) => void
     followUser: (userID: number) => void
+    toggleIsFollowing: (isFollowing: boolean, userID: number) => void
+    isFollowing: number[]
 }
 export const Friends = (props: FriendsPropsType) => {
     const followUser = (userID: number) => {
@@ -16,7 +18,6 @@ export const Friends = (props: FriendsPropsType) => {
     const unfollowUser = (userID: number) => {
         props.unfollowUser(userID)
     }
-
     return (
         <>
             <H1>Friends</H1>
@@ -28,7 +29,9 @@ export const Friends = (props: FriendsPropsType) => {
                                                followed={el.followed}
                                                status={el.status}
                                                unfollowUser={unfollowUser}
-                                               followUser={followUser}/>)}
+                                               followUser={followUser}
+                                               isFollowing={props.isFollowing}
+                                               toggleIsFollowing={props.toggleIsFollowing}/>)}
             </div>
         </>
     )

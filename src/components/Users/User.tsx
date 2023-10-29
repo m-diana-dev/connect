@@ -12,6 +12,8 @@ type UserItemPropType = {
     status: string
     unfollowUser: (id: number) => void
     followUser: (id: number) => void
+    toggleIsFollowing: (isFollowing: boolean, userID: number) => void
+    isFollowing: number[]
 }
 export const User = (props: UserItemPropType) => {
     return (
@@ -28,21 +30,25 @@ export const User = (props: UserItemPropType) => {
                 </div>
             </UserItemWrapp>
             {props.followed
-                ? <Button name={'Unfollow'} callback={() => {
+                ? <Button name={'Unfollow'} disabled={props.isFollowing.some(id=>id===props.id)} callback={() => {
+                    props.toggleIsFollowing(true, props.id)
                     connectAPI.unfollowUser(props.id)
                         .then((response) => {
                             if (response.resultCode === 0) {
                                 props.unfollowUser(props.id)
                             }
+                            props.toggleIsFollowing(false, props.id)
                         })
                 }
                 }/>
-                : <Button name={'Follow'} callback={() => {
+                : <Button name={'Follow'} disabled={props.isFollowing.some(id=>id===props.id)} callback={() => {
+                    props.toggleIsFollowing(true, props.id)
                     connectAPI.followUser(props.id)
                         .then((response) => {
                             if (response.resultCode === 0) {
                                 props.followUser(props.id)
                             }
+                            props.toggleIsFollowing(false, props.id)
                         })
                 }
                 }/>}
@@ -96,7 +102,10 @@ const UserItem = styled.div<{ followed?: boolean }>`
   }
 
   button {
-    background-color: ${(props) => !props.followed ? ({theme}) => theme.colors.main : '#D08EFF'}
+    background-color: ${(props) => !props.followed ? ({theme}) => theme.colors.main : ({theme}) => theme.colors.second};
+    &:hover {
+      background-color: ${(props) => !props.followed ? ({theme}) => theme.colors.second : ({theme}) => theme.colors.main};
+    }
   }
 `
 const UserItemWrapp = styled.div`

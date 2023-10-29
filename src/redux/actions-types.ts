@@ -3,7 +3,7 @@ import {
     followUser,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers,
+    setUsers, toggleIsFollowing,
     toggleIsLoading,
     unfollowUser
 } from "./users-reducer.ts";
@@ -32,6 +32,7 @@ export type ToggleIsLoadingActionType = ReturnType<typeof toggleIsLoading>
 export type SetUserProfileAT = ReturnType<typeof SetUserProfile>
 export type SetUserAT = ReturnType<typeof SetUser>
 export type SetFriendsAT = ReturnType<typeof SetFriends>
+export type toggleIsFollowingAT = ReturnType<typeof toggleIsFollowing>
 
 
 export type ActionType =
@@ -48,3 +49,4 @@ export type ActionType =
     | SetUserProfileAT
     | SetUserAT
     | SetFriendsAT
+    | toggleIsFollowingAT

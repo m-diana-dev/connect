@@ -5,7 +5,7 @@ import {
     followUser,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers,
+    setUsers, toggleIsFollowing,
     toggleIsLoading,
     unfollowUser,
     UserType
@@ -21,6 +21,7 @@ export type mapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isLoading: boolean
+    isFollowing: number[]
 }
 export type mapDispatchToProps = {
     setUsers: (users: UserType[]) => void
@@ -29,6 +30,7 @@ export type mapDispatchToProps = {
     setCurrentPage: (page: number) => void
     setTotalUsersCount: (count: number) => void
     toggleIsLoading: (isLoading: boolean) => void
+    toggleIsFollowing: (isFollowing: boolean, userID: number) => void
 }
 
 export type UserContainerAPIPropsType = mapStateToPropsType & mapDispatchToProps
@@ -66,7 +68,9 @@ export class UsersContainerAPI extends React.Component<UserContainerAPIPropsType
                        users={this.props.users}
                        followUser={this.props.followUser}
                        unfollowUser={this.props.unfollowUser}
-                       onClickHandler={this.onClickHandler}/>
+                       onClickHandler={this.onClickHandler}
+                       toggleIsFollowing={this.props.toggleIsFollowing}
+                       isFollowing={this.props.isFollowing}/>
             }
         </>
     }
@@ -78,7 +82,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         pageSize: state.UsersPage.pageSize,
         totalUsersCount: state.UsersPage.totalUsersCount,
         currentPage: state.UsersPage.currentPage,
-        isLoading: state.UsersPage.isLoading
+        isLoading: state.UsersPage.isLoading,
+        isFollowing: state.UsersPage.isFollowing
     }
 }
 
@@ -112,5 +117,6 @@ export const UsersContainer = connect(mapStateToProps,
         unfollowUser,
         setCurrentPage,
         setTotalUsersCount,
-        toggleIsLoading
+        toggleIsLoading,
+        toggleIsFollowing
     })(UsersContainerAPI)

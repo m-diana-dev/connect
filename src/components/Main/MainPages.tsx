@@ -17,6 +17,8 @@ type MainPagesPropsType = {
     toggleIsLoading: (isLoading: boolean) => void
     unfollowUser: (userID: number) => void
     followUser: (userID: number) => void
+    toggleIsFollowing: (isFollowing: boolean, userID: number) => void
+    isFollowing: number[]
 }
 
 export const MainPages = (props: MainPagesPropsType) => {

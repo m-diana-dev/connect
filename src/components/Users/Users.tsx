@@ -12,6 +12,8 @@ type UsersPropsType = {
     followUser: (id: number) => void
     unfollowUser: (id: number) => void
     onClickHandler: (page: number) => void
+    toggleIsFollowing: (isFollowing: boolean, userID: number) => void
+    isFollowing: number[]
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -44,7 +46,9 @@ export const Users = (props: UsersPropsType) => {
                               followed={el.followed}
                               status={el.status}
                               unfollowUser={unfollowUser}
-                              followUser={followUser}/>
+                              followUser={followUser}
+                              toggleIsFollowing={props.toggleIsFollowing}
+                              isFollowing={props.isFollowing}/>
                     )
                 })}
             </UsersItems>

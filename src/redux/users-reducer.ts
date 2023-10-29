@@ -8,6 +8,8 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 export const TOGGLE_ISLOADING = 'TOGGLE-ISLOADING'
 
+export const TOGGLE_IS_FOLLOWING = 'TOGGLE-IS-FOLLOWING'
+
 export type UserType = {
     id: number
     photos: {
@@ -25,6 +27,7 @@ export type UsersPageType = {
     totalUsersCount: number
     currentPage: number
     isLoading: boolean
+    isFollowing: number[]
 }
 
 const initialState: UsersPageType = {
@@ -32,7 +35,8 @@ const initialState: UsersPageType = {
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
-    isLoading: false
+    isLoading: false,
+    isFollowing: []
 }
 export const usersReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
     // debugger
@@ -49,6 +53,10 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
             return {...state, totalUsersCount: action.totalUsersCount}
         case "TOGGLE-ISLOADING":
             return {...state, isLoading: action.isLoading}
+        case "TOGGLE-IS-FOLLOWING":
+            return {...state, isFollowing: action.isFollowing
+                    ? [...state.isFollowing, action.userID]
+                    : state.isFollowing.filter(el=>el !== action.userID)}
         default:
             return state
     }
@@ -60,3 +68,4 @@ export const unfollowUser = (id: number) => ({type: UNFOLLOW_USER, id} as const)
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
 export const toggleIsLoading = (isLoading: boolean) => ({type: TOGGLE_ISLOADING, isLoading} as const)
+export const toggleIsFollowing = (isFollowing: boolean, userID: number) => ({type: TOGGLE_IS_FOLLOWING, isFollowing, userID} as const)
