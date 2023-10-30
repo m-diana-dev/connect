@@ -1,4 +1,6 @@
 import {ActionType} from "./actions-types.ts";
+import {Dispatch} from "redux";
+import {connectAPI} from "../api/api.ts";
 
 
 const SET_USERS = 'SET-USERS'
@@ -62,6 +64,8 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
     }
 }
 
+//AC
+
 export const setUsers = (users: UserType[]) => ({type: SET_USERS, users} as const)
 export const followUser = (id: number) => ({type: FOLLOW_USER, id} as const)
 export const unfollowUser = (id: number) => ({type: UNFOLLOW_USER, id} as const)
@@ -69,3 +73,37 @@ export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE,
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
 export const toggleIsLoading = (isLoading: boolean) => ({type: TOGGLE_ISLOADING, isLoading} as const)
 export const toggleIsFollowing = (isFollowing: boolean, userID: number) => ({type: TOGGLE_IS_FOLLOWING, isFollowing, userID} as const)
+
+//TC
+
+export const getUsersTC = (pageSize: number, currentPage: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsLoading(true))
+    connectAPI.getUsers(pageSize, currentPage)
+        .then((response) => {
+            dispatch(setUsers(response.items))
+            dispatch(setTotalUsersCount(response.totalCount))
+            dispatch(toggleIsLoading(false))
+        })
+}
+
+export const followUsersTC = (userID: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFollowing(true, userID))
+    connectAPI.followUser(userID)
+        .then((response) => {
+            if (response.resultCode === 0) {
+                dispatch(followUser(userID))
+            }
+            dispatch(toggleIsFollowing(false, userID))
+        })
+}
+
+export const unfollowUsersTC = (userID: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFollowing(true, userID))
+    connectAPI.unfollowUser(userID)
+        .then((response) => {
+            if (response.resultCode === 0) {
+                dispatch(unfollowUser(userID))
+            }
+            dispatch(toggleIsFollowing(false, userID))
+        })
+}

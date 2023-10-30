@@ -7,7 +7,6 @@ import {ProfileInfoType} from "../../redux/profile-reducer.ts";
 
 export type ProfilePropsType = {
     profile: ProfileInfoType | null
-    SetUserProfile: (profile: ProfileInfoType) => void;
 }
 export const Profile = (props: ProfilePropsType) => {
     if (!props.profile) return <Preloader/>

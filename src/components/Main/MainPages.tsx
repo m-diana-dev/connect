@@ -15,10 +15,9 @@ type MainPagesPropsType = {
     friends: UserType[]
     SetFriends: (friends: UserType[]) => void
     toggleIsLoading: (isLoading: boolean) => void
-    unfollowUser: (userID: number) => void
-    followUser: (userID: number) => void
-    toggleIsFollowing: (isFollowing: boolean, userID: number) => void
     isFollowing: number[]
+    unfollowUsersTC: (userID: number) => void
+    followUsersTC: (userID: number) => void
 }
 
 export const MainPages = (props: MainPagesPropsType) => {

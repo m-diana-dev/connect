@@ -9,11 +9,10 @@ type UsersPropsType = {
     pageSize: number
     currentPage: number
     users: UserType[]
-    followUser: (id: number) => void
-    unfollowUser: (id: number) => void
     onClickHandler: (page: number) => void
-    toggleIsFollowing: (isFollowing: boolean, userID: number) => void
     isFollowing: number[]
+    unfollowUsersTC: (userID: number) => void
+    followUsersTC: (userID: number) => void
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -23,12 +22,6 @@ export const Users = (props: UsersPropsType) => {
         if (pages.length < 10) {
             pages.push(i)
         }
-    }
-    const followUser = (userID: number) => {
-        props.followUser(userID)
-    }
-    const unfollowUser = (userID: number) => {
-        props.unfollowUser(userID)
     }
     return (
         <>
@@ -45,10 +38,9 @@ export const Users = (props: UsersPropsType) => {
                               name={el.name}
                               followed={el.followed}
                               status={el.status}
-                              unfollowUser={unfollowUser}
-                              followUser={followUser}
-                              toggleIsFollowing={props.toggleIsFollowing}
-                              isFollowing={props.isFollowing}/>
+                              isFollowing={props.isFollowing}
+                              unfollowUsersTC={props.unfollowUsersTC}
+                              followUsersTC={props.followUsersTC}/>
                     )
                 })}
             </UsersItems>

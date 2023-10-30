@@ -1,4 +1,6 @@
 import {ActionType} from "./actions-types.ts";
+import {Dispatch} from "redux";
+import {connectAPI} from "../api/api.ts";
 
 const SET_USER = 'SET-USER';
 
@@ -29,4 +31,18 @@ export const authReducer = (state: AuthType = initialState, action: ActionType):
     }
 }
 
+
+//AC
 export const SetUser = (id: number, login: string, email: string) => ({type: SET_USER, id, login, email} as const)
+
+
+//TC
+export const authMeTC = () => (dispatch: Dispatch) => {
+    connectAPI.authMe()
+        .then(res => {
+            if (res.resultCode === 0) {
+                const {id, login, email} = res.data
+                dispatch(SetUser(id, login, email))
+            }
+        })
+}

@@ -7,7 +7,6 @@ type HeaderPropsType = {
     isAuth: boolean
     login: string
     id: number
-    SetUser: (id: number, login: string, email: string) => void
 }
 export const Header = (props: HeaderPropsType) => {
     return (

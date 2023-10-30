@@ -1,10 +1,8 @@
 import React from "react";
 import {Header} from "./Header.tsx";
 import {connect} from "react-redux";
-import {SetUser} from "../../redux/auth-reducer.ts";
+import {authMeTC} from "../../redux/auth-reducer.ts";
 import {AppStateType} from "../../redux/redux-store.ts";
-import {ProfileInfoType, SetUserProfile} from "../../redux/profile-reducer.ts";
-import {connectAPI} from "../../api/api.ts";
 
 type mapStateToPropsType = {
     isAuth: boolean
@@ -13,21 +11,14 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-    SetUser: (id: number, login: string, email: string) => void
-    SetUserProfile: (profile: ProfileInfoType) => void
+    authMeTC: () => void
 }
 
 type HeaderContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
     componentDidMount() {
-        connectAPI.authMe()
-            .then(res => {
-                if (res.resultCode === 0) {
-                    const {id, login, email} = res.data
-                    this.props.SetUser(id, login, email)
-                }
-            })
+        this.props.authMeTC()
     }
 
     render() {
@@ -40,5 +31,5 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
     login: state.auth.login,
     id: state.auth.id,
 })
-export default connect(mapStateToProps, {SetUser, SetUserProfile})(HeaderContainer)
+export default connect(mapStateToProps, {authMeTC})(HeaderContainer)
 

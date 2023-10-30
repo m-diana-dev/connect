@@ -2,16 +2,15 @@ import {useEffect} from "react";
 import {Profile} from "./Profile.tsx";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store.ts";
-import {ProfileInfoType, SetUserProfile} from "../../redux/profile-reducer.ts";
+import {ProfileInfoType, SetUserProfileTC} from "../../redux/profile-reducer.ts";
 import {useParams} from "react-router-dom";
-import {connectAPI} from "../../api/api.ts";
 
 
 export type mapStateToPropsType = {
     profile: ProfileInfoType | null
 }
 export type mapDispatchToProps = {
-    SetUserProfile: (profile: ProfileInfoType) => void
+    SetUserProfileTC: (userID: number) => void
 }
 export type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToProps
 
@@ -26,10 +25,7 @@ export type PathParamsType = {
 function ProfileContainer(props: ProfileContainerPropsType) {
     const {userID} = useParams<PathParamsType>()
     useEffect(() => {
-            connectAPI.getProfile(userID || 2)
-            .then((res) => {
-                props.SetUserProfile(res)
-            })
+        props.SetUserProfileTC(Number(userID) || 2)
     }, [userID]);
 
     return <Profile {...props} />;
@@ -41,4 +37,4 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     };
 };
 
-export default connect(mapStateToProps, {SetUserProfile})(ProfileContainer);
+export default connect(mapStateToProps, {SetUserProfileTC})(ProfileContainer);

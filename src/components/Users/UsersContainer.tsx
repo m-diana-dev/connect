@@ -2,17 +2,17 @@ import {connect} from "react-redux";
 import {Users} from "./Users.tsx";
 import {AppStateType} from "../../redux/redux-store.ts";
 import {
-    followUser,
+    followUsersTC,
+    getUsersTC,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggleIsFollowing,
+    setUsers,
     toggleIsLoading,
-    unfollowUser,
+    unfollowUsersTC,
     UserType
 } from "../../redux/users-reducer.ts";
 import React from "react";
 import {Preloader} from "../Preloader/Preloader.tsx";
-import {connectAPI} from "../../api/api.ts";
 
 
 export type mapStateToPropsType = {
@@ -25,35 +25,24 @@ export type mapStateToPropsType = {
 }
 export type mapDispatchToProps = {
     setUsers: (users: UserType[]) => void
-    followUser: (id: number) => void
-    unfollowUser: (id: number) => void
     setCurrentPage: (page: number) => void
     setTotalUsersCount: (count: number) => void
     toggleIsLoading: (isLoading: boolean) => void
-    toggleIsFollowing: (isFollowing: boolean, userID: number) => void
+    getUsersTC: (pageSize: number, currentPage: number) => void
+    unfollowUsersTC: (userID: number) => void
+    followUsersTC: (userID: number) => void
 }
 
 export type UserContainerAPIPropsType = mapStateToPropsType & mapDispatchToProps
 
 export class UsersContainerAPI extends React.Component<UserContainerAPIPropsType> {
     componentDidMount() {
-        this.props.toggleIsLoading(true)
-        connectAPI.getUsers(this.props.pageSize, this.props.currentPage)
-            .then((response) => {
-                this.props.setUsers(response.items)
-                this.props.setTotalUsersCount(response.totalCount)
-                this.props.toggleIsLoading(false)
-            })
+        this.props.getUsersTC(this.props.pageSize, this.props.currentPage)
     }
 
     onClickHandler = (page: number) => {
         this.props.setCurrentPage(page)
-        this.props.toggleIsLoading(true)
-        connectAPI.getUsers(this.props.pageSize, page)
-            .then((response) => {
-                this.props.setUsers(response.items)
-                this.props.toggleIsLoading(false)
-            })
+        this.props.getUsersTC(this.props.pageSize, page)
     }
 
     render() {
@@ -66,11 +55,10 @@ export class UsersContainerAPI extends React.Component<UserContainerAPIPropsType
                        pageSize={this.props.pageSize}
                        currentPage={this.props.currentPage}
                        users={this.props.users}
-                       followUser={this.props.followUser}
-                       unfollowUser={this.props.unfollowUser}
                        onClickHandler={this.onClickHandler}
-                       toggleIsFollowing={this.props.toggleIsFollowing}
-                       isFollowing={this.props.isFollowing}/>
+                       isFollowing={this.props.isFollowing}
+                       unfollowUsersTC={this.props.unfollowUsersTC}
+                       followUsersTC={this.props.followUsersTC}/>
             }
         </>
     }
@@ -113,10 +101,10 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 export const UsersContainer = connect(mapStateToProps,
     {
         setUsers,
-        followUser,
-        unfollowUser,
         setCurrentPage,
         setTotalUsersCount,
         toggleIsLoading,
-        toggleIsFollowing
+        getUsersTC,
+        unfollowUsersTC,
+        followUsersTC
     })(UsersContainerAPI)

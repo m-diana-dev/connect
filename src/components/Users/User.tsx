@@ -2,7 +2,6 @@ import {Button} from "../Button/Button.tsx";
 import styled from "styled-components";
 import defaultAvatar from "../../images/users/avatar.webp";
 import {NavLink} from "react-router-dom";
-import {connectAPI} from "../../api/api.ts";
 
 type UserItemPropType = {
     id: number
@@ -10,10 +9,9 @@ type UserItemPropType = {
     name: string
     followed: boolean
     status: string
-    unfollowUser: (id: number) => void
-    followUser: (id: number) => void
-    toggleIsFollowing: (isFollowing: boolean, userID: number) => void
     isFollowing: number[]
+    unfollowUsersTC: (userID: number) => void
+    followUsersTC: (userID: number) => void
 }
 export const User = (props: UserItemPropType) => {
     return (
@@ -30,27 +28,9 @@ export const User = (props: UserItemPropType) => {
                 </div>
             </UserItemWrapp>
             {props.followed
-                ? <Button name={'Unfollow'} disabled={props.isFollowing.some(id=>id===props.id)} callback={() => {
-                    props.toggleIsFollowing(true, props.id)
-                    connectAPI.unfollowUser(props.id)
-                        .then((response) => {
-                            if (response.resultCode === 0) {
-                                props.unfollowUser(props.id)
-                            }
-                            props.toggleIsFollowing(false, props.id)
-                        })
-                }
+                ? <Button name={'Unfollow'} disabled={props.isFollowing.some(id=>id===props.id)} callback={() => {props.unfollowUsersTC(props.id)}
                 }/>
-                : <Button name={'Follow'} disabled={props.isFollowing.some(id=>id===props.id)} callback={() => {
-                    props.toggleIsFollowing(true, props.id)
-                    connectAPI.followUser(props.id)
-                        .then((response) => {
-                            if (response.resultCode === 0) {
-                                props.followUser(props.id)
-                            }
-                            props.toggleIsFollowing(false, props.id)
-                        })
-                }
+                : <Button name={'Follow'} disabled={props.isFollowing.some(id=>id===props.id)} callback={() => {props.followUsersTC(props.id)}
                 }/>}
         </UserItem>
     );

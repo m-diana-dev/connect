@@ -1,4 +1,6 @@
 import {ActionType, UpdateNewPostTextActionType} from "./actions-types.ts";
+import {Dispatch} from "redux";
+import {connectAPI} from "../api/api.ts";
 
 
 export type PostsType = {
@@ -67,6 +69,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     }
 }
 
+
+//AC
 export const AddPostActionCreator = () => ({type: ADD_POST} as const)
 export const UpdateNewPostTextActionCreator = (postText: string): UpdateNewPostTextActionType => ({
     type: UPDATE_NEW_POST_TEXT,
@@ -74,4 +78,11 @@ export const UpdateNewPostTextActionCreator = (postText: string): UpdateNewPostT
 })
 export const SetUserProfile = (profile: ProfileInfoType) => ({type: SET_USER_PROFILE, profile} as const)
 
-export default profileReducer
+
+//TC
+export const SetUserProfileTC = (userID: number) => (dispatch: Dispatch) => {
+    connectAPI.getProfile(userID)
+        .then((res) => {
+            dispatch(SetUserProfile(res))
+        })
+}
