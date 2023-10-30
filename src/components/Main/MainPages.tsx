@@ -9,6 +9,7 @@ import HeaderContainer from "../Header/HeaderContainer.tsx";
 import Navbar from "../Navbar/Navbar.tsx";
 import {UserType} from "../../redux/users-reducer.ts";
 import {Friends} from "../Friend/Friends.tsx";
+import {Login} from "../Login/Login.tsx";
 
 
 type MainPagesPropsType = {
@@ -41,6 +42,7 @@ export const MainPages = (props: MainPagesPropsType) => {
                                                element={<DialogsContainer/>}/>
                                         <Route path="/users" element={<UsersContainer/>}/>
                                         <Route path="/friends" element={<Friends {...props}/>}/>
+                                        <Route path="/login" element={<Login/>}/>
                                         <Route path="/news" element={<News/>}/>
                                         <Route path="/music" element={<Music/>}/>
                                     </Routes>
