@@ -5,9 +5,8 @@ import {H1, Textarea} from "../../styles/Theme.tsx";
 import {Button} from "../Button/Button.tsx";
 import {ChangeEvent} from "react";
 import {mapDispatchToPropsType, mapStateToPropsType} from "./DialogsContainer.tsx";
-import {Navigate} from "react-router-dom";
 
-type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
+export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 export const Dialogs = (props: DialogsPropsType) => {
 
     const onChangeMessageHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
@@ -16,7 +15,6 @@ export const Dialogs = (props: DialogsPropsType) => {
     const sendMessageHandler = () => {
         props.sendMessage()
     }
-    if(!props.isAuth) return <Navigate to='/login'/>
     return (
         <div>
             <DialogsWrapp>
