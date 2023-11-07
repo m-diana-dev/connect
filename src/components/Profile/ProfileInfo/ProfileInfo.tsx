@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {H1} from "../../../styles/Theme.tsx";
 import defaultAvatar from "../../../images/users/avatar.webp";
 import {ProfileInfoType} from "../../../redux/profile-reducer.ts";
+import ProfileStatus from "../ProfileStatus.tsx";
 
 export type ProfileInfoPropsType = {
     profile: ProfileInfoType | null
@@ -97,6 +98,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                 </Avatar>
                 <UserInfo>
                     <H1>{props.profile.fullName}</H1>
+                    <ProfileStatus status={'Status'}/>
                     <p>{props.profile.aboutMe}</p>
                     <p>{props.profile.lookingForAJob ? 'I\'m looking for a job.' : 'I\'m not looking for a job.'}
                         {props.profile.lookingForAJobDescription ? ` (${props.profile.lookingForAJobDescription})` : ''}</p>
@@ -162,7 +164,7 @@ export const Avatar = styled.div`
   }
 `
 const UserInfo = styled.div`
-  p:not(:last-child) {
+  p:not(:last-child){
     margin-bottom: 10px;
     @media ${({theme}) => theme.media.mobileSmall} {
       margin-bottom: 7px;
