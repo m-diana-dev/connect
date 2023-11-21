@@ -1,12 +1,15 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import styled from "styled-components";
 
 type ProfileStatusPropsType = {
     status: string
+    UpdateUserStatusTC: (status: string) => void
 }
+
 class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     state = {
-        editMode: false
+        editMode: false,
+        status: this.props.status
     }
 
     editModeOn = () => {
@@ -19,6 +22,13 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         this.setState({
             editMode: false
         })
+        this.props.UpdateUserStatusTC(this.state.status);
+    }
+
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            status: e.currentTarget.value
+        })
     }
 
     render() {
@@ -26,11 +36,12 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
             <ProfileStatusBlock>
                 {
                     !this.state.editMode &&
-                    <p onDoubleClick={this.editModeOn}>{this.props.status}</p>
+                    <p onDoubleClick={this.editModeOn}>{this.props.status || '------'}</p>
                 }
                 {
                     this.state.editMode &&
-                    <input autoFocus={true} onDoubleClick={this.editModeOff} value={this.props.status} type="text"/>
+                    <input onChange={this.onStatusChange} autoFocus={true} onDoubleClick={this.editModeOff}
+                           value={this.state.status} type="text"/>
                 }
             </ProfileStatusBlock>
         )
@@ -45,7 +56,8 @@ const ProfileStatusBlock = styled.div`
   @media ${({theme}) => theme.media.mobileSmall} {
     margin-bottom: 7px;
   }
-  input{
+
+  input {
     padding: 0 5px;
     border-radius: 2px;
     border: 1px solid ${({theme}) => theme.colors.border};

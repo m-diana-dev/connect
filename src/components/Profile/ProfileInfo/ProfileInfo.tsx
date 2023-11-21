@@ -6,6 +6,8 @@ import ProfileStatus from "../ProfileStatus.tsx";
 
 export type ProfileInfoPropsType = {
     profile: ProfileInfoType | null
+    status: string
+    UpdateUserStatusTC: (status: string) => void
 }
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
     if (props.profile) {
@@ -98,7 +100,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                 </Avatar>
                 <UserInfo>
                     <H1>{props.profile.fullName}</H1>
-                    <ProfileStatus status={'Status'}/>
+                    <ProfileStatus status={props.status} UpdateUserStatusTC={props.UpdateUserStatusTC}/>
                     <p>{props.profile.aboutMe}</p>
                     <p>{props.profile.lookingForAJob ? 'I\'m looking for a job.' : 'I\'m not looking for a job.'}
                         {props.profile.lookingForAJobDescription ? ` (${props.profile.lookingForAJobDescription})` : ''}</p>

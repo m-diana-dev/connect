@@ -1,4 +1,4 @@
-import {AddPostActionCreator, SetUserProfile} from "./profile-reducer.ts";
+import {AddPostActionCreator, SetUserProfile, SetUserStatus} from "./profile-reducer.ts";
 import {
     followUser,
     setCurrentPage,
@@ -33,6 +33,7 @@ export type SetUserProfileAT = ReturnType<typeof SetUserProfile>
 export type SetUserAT = ReturnType<typeof SetUser>
 export type SetFriendsAT = ReturnType<typeof SetFriends>
 export type toggleIsFollowingAT = ReturnType<typeof toggleIsFollowing>
+export type SetUserStatusAT = ReturnType<typeof SetUserStatus>
 
 
 export type ActionType =
@@ -50,3 +51,4 @@ export type ActionType =
     | SetUserAT
     | SetFriendsAT
     | toggleIsFollowingAT
+    | SetUserStatusAT
