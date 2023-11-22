@@ -1,11 +1,11 @@
-import React, {ComponentProps} from 'react';
+import React, {InputHTMLAttributes} from 'react';
 import {Input} from "../Input/Input";
 import styled from "styled-components";
 
 
 export type CheckboxPropsType = {
     label?: string
-} & ComponentProps<'input'>
+} & InputHTMLAttributes<HTMLInputElement>
 export const Checkbox: React.FC<CheckboxPropsType> = (props) => {
     const {label, ...restProps} = props
     return (
@@ -45,6 +45,10 @@ const SiteCheckboxLabel = styled.label `
   align-items: center;
   position: relative;
   gap: 10px;
+  font-size: 16px;
+  @media ${({theme}) => theme.media.mobileSmall} {
+    font-size: 14px;
+  }
   &:before {
     content: "";
     align-self: flex-start;

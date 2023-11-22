@@ -3,14 +3,15 @@ import styled from "styled-components";
 
 
 type InputPropsType = {
-    
+
 } & InputHTMLAttributes<HTMLInputElement>
-export const Input: React.FC<InputPropsType> = (props) => {
+export const Input = React.forwardRef((props: InputPropsType, ref: React.ForwardedRef<HTMLInputElement>) => {
     const {...restProps} = props
+
     return (
-        <SiteInput {...restProps}/>
+        <SiteInput {...restProps} ref={ref}/>
     );
-}
+})
 
 
 const SiteInput = styled.input `
