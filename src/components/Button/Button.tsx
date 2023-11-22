@@ -16,7 +16,7 @@ export const Button = ({name, callback, pagination, active, disabled}: ButtonPro
 
 
 const SiteButton = styled.button<{pagination?:boolean, active?:boolean}>`
-  display: inline-block;
+  display: block;
   width: 100%;
   font-size: 16px;
   font-weight: 500;

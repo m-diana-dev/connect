@@ -15,6 +15,7 @@ export const Input: React.FC<InputPropsType> = (props) => {
 
 const SiteInput = styled.input `
   display: block;
+  width: 100%;
   padding: 0 20px;
   border-radius: 5px;
   border: 1px solid ${({theme}) => theme.colors.border};
