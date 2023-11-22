@@ -11,6 +11,13 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         editMode: false,
         status: this.props.status
     }
+    componentDidUpdate(prevProps: ProfileStatusPropsType) {
+        if(prevProps.status !== this.props.status){
+            this.setState({
+                status: this.props.status
+            })
+        }
+    }
 
     editModeOn = () => {
         this.setState({
