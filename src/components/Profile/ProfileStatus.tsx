@@ -1,5 +1,6 @@
 import React, {ChangeEvent} from "react";
 import styled from "styled-components";
+import {Input} from "../Input/Input.tsx";
 
 type ProfileStatusPropsType = {
     status: string
@@ -11,8 +12,9 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         editMode: false,
         status: this.props.status
     }
+
     componentDidUpdate(prevProps: ProfileStatusPropsType) {
-        if(prevProps.status !== this.props.status){
+        if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status
             })
@@ -47,7 +49,9 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
                 }
                 {
                     this.state.editMode &&
-                    <input onChange={this.onStatusChange} autoFocus={true} onDoubleClick={this.editModeOff}
+                    <Input onChange={this.onStatusChange}
+                           autoFocus={true}
+                           onDoubleClick={this.editModeOff}
                            value={this.state.status} type="text"/>
                 }
             </ProfileStatusBlock>
@@ -65,8 +69,7 @@ const ProfileStatusBlock = styled.div`
   }
 
   input {
-    padding: 0 5px;
-    border-radius: 2px;
-    border: 1px solid ${({theme}) => theme.colors.border};
+    height: 30px;
+    padding: 0 10px;
   }
 `
