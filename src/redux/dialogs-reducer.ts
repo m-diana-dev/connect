@@ -3,7 +3,7 @@ import avatar2 from "../images/users/avatar-2.png";
 import avatar3 from "../images/users/avatar-3.jpg";
 import avatar4 from "../images/users/avatar-4.jpg";
 import avatar5 from "../images/users/main.png";
-import {ActionType, SendMessageActionType, UpdateNewMessageTextActionType} from "./actions-types.ts";
+import {ActionType, SendMessageActionType} from "./actions-types.ts";
 
 export type DialogsType = {
     id: number
@@ -19,11 +19,9 @@ export type MessagesType = {
 export type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[],
-    newMessageText: string
 }
 
 const SEND_MESSAGE = 'SEND-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
 const initialState: DialogsPageType = {
     dialogs: [
@@ -46,23 +44,16 @@ const initialState: DialogsPageType = {
             my: true,
             text: 'Urna morbi pellentesque et eget est. Sodales justo mauris id amet amet, in et vitae molestie venenat'
         },
-    ],
-    newMessageText: '',
+    ]
 }
 export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionType): DialogsPageType => {
     switch (action.type) {
         case SEND_MESSAGE:
-            return {...state, messages: [...state.messages, {id: 10, my: true, text: state.newMessageText}], newMessageText: ''}
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return {...state, newMessageText: action.messageText}
+            return {...state, messages: [...state.messages, {id: 10, my: true, text: action.newMessageText}]}
         default: return state
     }
 }
 
-export const SendMessageActionCreator = (): SendMessageActionType => ({type: SEND_MESSAGE})
-export const UpdateNewMessageTextActionCreator = (messageText: string): UpdateNewMessageTextActionType => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    messageText
-})
+export const SendMessageActionCreator = (newMessageText: string): SendMessageActionType => ({type: SEND_MESSAGE, newMessageText})
 
 export default dialogsReducer

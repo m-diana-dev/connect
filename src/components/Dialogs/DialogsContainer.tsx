@@ -1,8 +1,7 @@
 import {
     DialogsType,
     MessagesType,
-    SendMessageActionCreator,
-    UpdateNewMessageTextActionCreator
+    SendMessageActionCreator
 } from "../../redux/dialogs-reducer.ts";
 import {Dialogs} from "./Dialogs.tsx";
 import {connect} from "react-redux";
@@ -14,18 +13,15 @@ import React from "react";
 
 
 export type mapStateToPropsType = {
-    newMessageText: string
     dialogs: DialogsType[]
     messages: MessagesType[]
 }
 
 export type mapDispatchToPropsType = {
-    updateNewMessageText: (messageText: string) => void
-    sendMessage: () => void
+    sendMessage: (newMessageText: string) => void
 }
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        newMessageText: state.DialogsPage.newMessageText,
         dialogs: state.DialogsPage.dialogs,
         messages: state.DialogsPage.messages,
     }
@@ -33,11 +29,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 
 const mapDispatchToProps = (dispatch: (action: ActionType)=>void): mapDispatchToPropsType => {
     return {
-        updateNewMessageText: (messageText: string) => {
-            dispatch(UpdateNewMessageTextActionCreator(messageText))
-        },
-        sendMessage: () => {
-            dispatch(SendMessageActionCreator())
+        sendMessage: (newMessageText: string) => {
+            dispatch(SendMessageActionCreator(newMessageText))
         },
     }
 }

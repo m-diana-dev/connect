@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 type ButtonPropsType = {
     name: string
-    callback: () => void
+    callback?: () => void
     pagination?: boolean
     active?: boolean
     disabled?: boolean

@@ -1,4 +1,4 @@
-import {ActionType, UpdateNewPostTextActionType} from "./actions-types.ts";
+import {ActionType} from "./actions-types.ts";
 import {Dispatch} from "redux";
 import {connectAPI} from "../api/api.ts";
 
@@ -33,7 +33,6 @@ export type ProfileInfoType = {
 
 export type ProfilePageType = {
     posts: PostsType[]
-    newPostText: string
     profile: ProfileInfoType | null
     status: string
 }
@@ -41,7 +40,6 @@ export type ProfilePageType = {
 
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_USER_STATUS = 'SET-USER-STATUS';
 
@@ -56,16 +54,13 @@ const initialState: ProfilePageType = {
             text: 'Fake It Until You Make It! Act As If You Had All The Confidence You Require Until It Becomes Your Reality!'
         },
     ],
-    newPostText: '',
     profile: null,
     status: ''
 }
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
-            return {...state, posts: [{id: 5, likes: 0, text: state.newPostText},...state.posts], newPostText: ''}
-        case UPDATE_NEW_POST_TEXT:
-            return {...state, newPostText: action.postText}
+            return {...state, posts: [{id: 5, likes: 0, text: action.newPostText}, ...state.posts]}
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
         case SET_USER_STATUS:
@@ -76,11 +71,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 
 
 //AC
-export const AddPostActionCreator = () => ({type: ADD_POST} as const)
-export const UpdateNewPostTextActionCreator = (postText: string): UpdateNewPostTextActionType => ({
-    type: UPDATE_NEW_POST_TEXT,
-    postText
-})
+export const AddPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
 export const SetUserProfile = (profile: ProfileInfoType) => ({type: SET_USER_PROFILE, profile} as const)
 export const SetUserStatus = (status: string) => ({type: SET_USER_STATUS, status} as const)
 

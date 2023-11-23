@@ -3,18 +3,24 @@ import {MessageItem} from "./Messages/Messages";
 import styled from "styled-components";
 import {H1, Textarea} from "../../styles/Theme.tsx";
 import {Button} from "../Button/Button.tsx";
-import {ChangeEvent} from "react";
 import {mapDispatchToPropsType, mapStateToPropsType} from "./DialogsContainer.tsx";
+import {useForm} from "react-hook-form";
 
 export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 export const Dialogs = (props: DialogsPropsType) => {
 
-    const onChangeMessageHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewMessageText(e.currentTarget.value)
+    const {
+        register,
+        formState:{isValid},
+        handleSubmit,
+        reset
+    } = useForm()
+
+    const onSubmitHandler = (formData: any) => {
+        props.sendMessage(formData.newMessageText)
+        reset()
     }
-    const sendMessageHandler = () => {
-        props.sendMessage()
-    }
+
     return (
         <div>
             <DialogsWrapp>
@@ -28,8 +34,10 @@ export const Dialogs = (props: DialogsPropsType) => {
                     <MessageItems>
                         {props.messages.map(el => <MessageItem key={el.id} my={el.my} text={el.text}/>)}
                     </MessageItems>
-                    <Textarea value={props.newMessageText} onChange={onChangeMessageHandler}/>
-                    <Button name={'Send'} callback={sendMessageHandler}/>
+                    <form onSubmit={handleSubmit(onSubmitHandler)}>
+                        <Textarea {...register('newMessageText', {required: 'Enter your message',})}/>
+                        <Button name={'Send'} disabled={!isValid}/>
+                    </form>
                 </MessageBlock>
             </DialogsWrapp>
         </div>

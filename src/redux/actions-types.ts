@@ -18,10 +18,7 @@ export type UpdateNewPostTextActionType = {
 }
 export type SendMessageActionType = {
     type: 'SEND-MESSAGE'
-}
-export type UpdateNewMessageTextActionType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    messageText: string
+    newMessageText: string
 }
 export type SetUsersActionType = ReturnType<typeof setUsers>
 export type FollowUserActionType = ReturnType<typeof followUser>
@@ -40,7 +37,6 @@ export type ActionType =
     AddPostActionType
     | UpdateNewPostTextActionType
     | SendMessageActionType
-    | UpdateNewMessageTextActionType
     | SetUsersActionType
     | FollowUserActionType
     | UnfollowUserActionType
