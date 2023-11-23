@@ -3,7 +3,7 @@ import {Input} from "../Input/Input.tsx";
 import {Button} from "../Button/Button.tsx";
 import styled from "styled-components";
 import {Checkbox} from "../Checkbox/Checkbox.tsx";
-import {useForm} from "react-hook-form";
+import {FieldValues, useForm} from "react-hook-form";
 
 export const Login = () => {
     const {
@@ -18,7 +18,7 @@ export const Login = () => {
         mode: "onBlur"
     })
 
-    const onSubmitHandler = (formData: any) => {
+    const onSubmitHandler = (formData: FieldValues) => {
         alert(JSON.stringify(formData));
         reset()
     }

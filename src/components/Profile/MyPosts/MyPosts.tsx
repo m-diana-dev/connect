@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {H2, Textarea} from "../../../styles/Theme.tsx";
 import {Button} from "../../Button/Button.tsx";
 import {mapDispatchToPropsType, mapStateToPropsType} from "./MyPostsContainer.tsx";
-import {useForm} from "react-hook-form";
+import {FieldValues, useForm} from "react-hook-form";
 
 
 type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -16,7 +16,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
         handleSubmit,
         reset
     } = useForm()
-    const onSubmitHandler = (formData: any) => {
+    const onSubmitHandler = (formData: FieldValues) => {
         props.addPost(formData.newPostText);
         reset()
     }

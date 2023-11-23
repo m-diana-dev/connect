@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {H1, Textarea} from "../../styles/Theme.tsx";
 import {Button} from "../Button/Button.tsx";
 import {mapDispatchToPropsType, mapStateToPropsType} from "./DialogsContainer.tsx";
-import {useForm} from "react-hook-form";
+import {FieldValues, useForm} from "react-hook-form";
 
 export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 export const Dialogs = (props: DialogsPropsType) => {
@@ -16,7 +16,7 @@ export const Dialogs = (props: DialogsPropsType) => {
         reset
     } = useForm()
 
-    const onSubmitHandler = (formData: any) => {
+    const onSubmitHandler = (formData: FieldValues) => {
         props.sendMessage(formData.newMessageText)
         reset()
     }
