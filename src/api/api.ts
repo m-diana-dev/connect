@@ -33,5 +33,13 @@ export const connectAPI = {
     updateStatus(status: string) {
         return instance.put(`/profile/status`, {status: status})
             .then(res => res.data)
+    },
+    loginUser(email: string, password: string, rememberMe:boolean){
+        return instance.post(`/auth/login`, {email, password, rememberMe})
+            .then(res => res.data)
+    },
+    logoutUser(){
+        return instance.delete(`/auth/login`)
+            .then(res => res.data)
     }
 }

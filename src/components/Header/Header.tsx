@@ -2,11 +2,14 @@ import styled from "styled-components";
 import {Container} from "../../styles/Theme.tsx";
 import logo from '../../images/logo.png'
 import {NavLink} from "react-router-dom";
+import {Button} from "../Button/Button.tsx";
+import logoutIcon from '../../images/icons/logout.svg'
 
 type HeaderPropsType = {
     isAuth: boolean
     login: string
     id: number
+    logoutUserTC: () => void
 }
 export const Header = (props: HeaderPropsType) => {
     return (
@@ -20,8 +23,9 @@ export const Header = (props: HeaderPropsType) => {
                         </SiteLogo>
                     </NavLink>
                     <HeaderUser>
-                        {(props.isAuth) ? <NavLink to={`/profile/${props.id}`}>{props.login}</NavLink> :
-                            <a>Log In</a>}
+                        {(props.isAuth) ? <Button callback={()=>props.logoutUserTC()} transparent={true}><span>{props.login}</span><img alt={'icon'} src={logoutIcon}/></Button> :
+                            <NavLink to={'/login'}>Log In</NavLink>
+                        }
                     </HeaderUser>
                 </SiteHeaderWrapp>
             </Container>
@@ -87,5 +91,9 @@ const HeaderUser = styled.div`
 
   &:hover {
     color: ${({theme}) => theme.colors.second}
+  }
+  
+  button{
+    max-width: 130px;
   }
 `

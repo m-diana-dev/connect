@@ -8,7 +8,7 @@ import HeaderContainer from "../Header/HeaderContainer.tsx";
 import Navbar from "../Navbar/Navbar.tsx";
 import {UserType} from "../../redux/users-reducer.ts";
 import {Friends} from "../Friend/Friends.tsx";
-import {Login} from "../Login/Login.tsx";
+import Login from "../Login/Login.tsx";
 import DialogsContainer from "../Dialogs/DialogsContainer.tsx";
 
 

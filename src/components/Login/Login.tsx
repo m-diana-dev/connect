@@ -3,9 +3,22 @@ import {Input} from "../Input/Input.tsx";
 import {Button} from "../Button/Button.tsx";
 import styled from "styled-components";
 import {Checkbox} from "../Checkbox/Checkbox.tsx";
-import {FieldValues, useForm} from "react-hook-form";
+import {Controller, FieldValues, useForm} from "react-hook-form";
+import {connect} from "react-redux";
+import {loginUserTC} from "../../redux/auth-reducer.ts";
+import {AppStateType} from "../../redux/redux-store.ts";
+import {Navigate} from "react-router-dom";
 
-export const Login = () => {
+
+type mapStateToPropsType = {
+    isAuth: boolean
+}
+type mapDispatchToPropsType = {
+    loginUserTC: (email: string, password: string, rememberMe:boolean) => void
+}
+
+type LoginPropsType = mapStateToPropsType & mapDispatchToPropsType
+const Login = (props: LoginPropsType) => {
     const {
         register,
         formState: {
@@ -13,15 +26,19 @@ export const Login = () => {
             isValid
         },
         handleSubmit,
-        reset
+        reset,
+        control
     } = useForm({
         mode: "onBlur"
     })
 
     const onSubmitHandler = (formData: FieldValues) => {
-        alert(JSON.stringify(formData));
+        const {email, password, rememberMe} = formData
+        props.loginUserTC(email, password, rememberMe)
         reset()
     }
+
+    if (props.isAuth) return <Navigate to={'/profile'}/>
 
     return (
         <LoginPage>
@@ -50,12 +67,26 @@ export const Login = () => {
                     })}
                        placeholder={'Password'}/>
                 {errors?.password && <FormError>{errors.password.message && errors.password.message.toString()}</FormError>}
-                <Checkbox label={'Remember me'}/>
-                <Button name={'Login'} callback={() => {}} disabled={!isValid}/>
+                <Controller
+                    name="rememberMe"
+                    control={control}
+                    defaultValue={false}
+                    render={({ field: { ref, ...rest } }) => <Checkbox {...rest} label={'Remember me'}/>}
+                />
+
+
+                <Button name={'Login'} disabled={!isValid}/>
             </LoginForm>
         </LoginPage>
     );
 };
+
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+    return {
+        isAuth: state.auth.isAuth
+    };
+};
+export default connect(mapStateToProps, {loginUserTC})(Login)
 
 const LoginPage = styled.div`
   p {
