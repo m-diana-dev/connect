@@ -12,6 +12,7 @@ import {Navigate} from "react-router-dom";
 
 type mapStateToPropsType = {
     isAuth: boolean
+    error: string
 }
 type mapDispatchToPropsType = {
     loginUserTC: (email: string, password: string, rememberMe:boolean) => void
@@ -26,16 +27,14 @@ const Login = (props: LoginPropsType) => {
             isValid
         },
         handleSubmit,
-        reset,
         control
     } = useForm({
         mode: "onBlur"
     })
 
     const onSubmitHandler = (formData: FieldValues) => {
-        const {email, password, rememberMe} = formData
-        props.loginUserTC(email, password, rememberMe)
-        reset()
+            const {email, password, rememberMe} = formData
+            props.loginUserTC(email, password, rememberMe)
     }
 
     if (props.isAuth) return <Navigate to={'/profile'}/>
@@ -53,6 +52,7 @@ const Login = (props: LoginPropsType) => {
             <p>Email: free@samuraijs.com</p>
             <p>Password: free</p>
             <LoginForm onSubmit={handleSubmit(onSubmitHandler)}>
+                {props.error && <FormError>{props.error}</FormError>}
                 <Input {...register('email',
                     {
                         required: 'required field',
@@ -65,7 +65,7 @@ const Login = (props: LoginPropsType) => {
                         required: 'required field',
                         minLength: {value: 5, message: 'min length - 5'}
                     })}
-                       placeholder={'Password'}/>
+                       placeholder={'Password'} type={'password'}/>
                 {errors?.password && <FormError>{errors.password.message && errors.password.message.toString()}</FormError>}
                 <Controller
                     name="rememberMe"
@@ -83,7 +83,8 @@ const Login = (props: LoginPropsType) => {
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        error: state.auth.error
     };
 };
 export default connect(mapStateToProps, {loginUserTC})(Login)
