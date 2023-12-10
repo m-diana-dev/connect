@@ -5,6 +5,7 @@ import {profileReducer} from "./profile-reducer.ts";
 import {usersReducer} from "./users-reducer.ts";
 import {authReducer} from "./auth-reducer.ts";
 import thunk, {ThunkAction} from "redux-thunk";
+import {appReducer} from "./app-reducer.ts";
 
 const RootReducer = combineReducers({
     DialogsPage: dialogsReducer,
@@ -12,6 +13,7 @@ const RootReducer = combineReducers({
     FriendsPage: friendsReducer,
     UsersPage: usersReducer,
     auth: authReducer,
+    app: appReducer
 })
 const store = createStore(RootReducer, applyMiddleware(thunk));
 

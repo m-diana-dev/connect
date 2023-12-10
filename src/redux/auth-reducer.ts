@@ -2,6 +2,7 @@ import {ActionType} from "./actions-types.ts";
 import {Dispatch} from "redux";
 import {connectAPI} from "../api/api.ts";
 import {AppThunk} from "./redux-store.ts";
+import {SetInitialized} from "./app-reducer.ts";
 
 const SET_USER = 'SET-USER';
 const SET_ERROR = 'SET-ERROR';
@@ -45,7 +46,7 @@ export const SetError= (error: string) => ({type: SET_ERROR, error} as const)
 
 //TC
 export const authMeTC = () => (dispatch: Dispatch) => {
-    connectAPI.authMe()
+    return connectAPI.authMe()
         .then(res => {
             if (res.resultCode === 0) {
                 const {id, login, email} = res.data
@@ -72,6 +73,7 @@ export const logoutUserTC = () => (dispatch: Dispatch) => {
         .then(res => {
             if (res.resultCode === 0) {
                 dispatch(SetUser(0, '', '', false))
+                dispatch(SetInitialized(false))
             }
         })
 }

@@ -5,17 +5,20 @@ import {followUsersTC, toggleIsLoading, unfollowUsersTC, UserType} from "../../r
 import {connectAPI} from "../../api/api.ts";
 import React from "react";
 import {MainPages} from "./MainPages.tsx";
+import {initializedAppTC} from "./../../redux/app-reducer.ts";
 
 
 type mapStateToPropsType = {
     friends: UserType[]
     isFollowing: number[]
+    initialized: boolean
 }
 type mapDispatchToPropsType = {
     SetFriends: (friends: UserType[]) => void
     toggleIsLoading: (isLoading: boolean) => void
     unfollowUsersTC: (userID: number) => void
     followUsersTC: (userID: number) => void
+    initializedAppTC: ()=>void
 }
 type MainPagesContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
 
@@ -40,12 +43,14 @@ class MainPagesContainer extends React.Component<MainPagesContainerPropsType> {
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         friends: state.FriendsPage.friends,
-        isFollowing: state.UsersPage.isFollowing
+        isFollowing: state.UsersPage.isFollowing,
+        initialized: state.app.initialized
     }
 }
 export default connect(mapStateToProps, {
     SetFriends,
     toggleIsLoading,
     unfollowUsersTC,
-    followUsersTC
+    followUsersTC,
+    initializedAppTC
 })(MainPagesContainer)
