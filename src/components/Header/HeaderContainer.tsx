@@ -3,6 +3,7 @@ import {Header} from "./Header.tsx";
 import {connect} from "react-redux";
 import {authMeTC, logoutUserTC} from "../../redux/auth-reducer.ts";
 import {AppStateType} from "../../redux/redux-store.ts";
+import {selectId, selectIsAuth, selectLogin} from "./../../redux/selectors/auth-selectors.ts";
 
 type mapStateToPropsType = {
     isAuth: boolean
@@ -28,9 +29,9 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
-    isAuth: state.auth.isAuth,
-    login: state.auth.login,
-    id: state.auth.id,
+    isAuth: selectIsAuth(state),
+    login: selectLogin(state),
+    id: selectId(state),
 })
 export default connect(mapStateToProps, {authMeTC, logoutUserTC})(HeaderContainer)
 

@@ -13,6 +13,12 @@ import {
 } from "../../redux/users-reducer.ts";
 import React from "react";
 import {Preloader} from "../Preloader/Preloader.tsx";
+import {
+    selectCurrentPage,
+    selectIsFollowing, selectIsLoading,
+    selectPageSize, selectUsers,
+    totalUsersCount
+} from "../../redux/selectors/users-selectors.ts";
 
 
 export type mapStateToPropsType = {
@@ -66,12 +72,12 @@ export class UsersContainerAPI extends React.Component<UserContainerAPIPropsType
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        users: state.UsersPage.users,
-        pageSize: state.UsersPage.pageSize,
-        totalUsersCount: state.UsersPage.totalUsersCount,
-        currentPage: state.UsersPage.currentPage,
-        isLoading: state.UsersPage.isLoading,
-        isFollowing: state.UsersPage.isFollowing
+        users: selectUsers(state),
+        pageSize: selectPageSize(state),
+        totalUsersCount: totalUsersCount(state),
+        currentPage: selectCurrentPage(state),
+        isLoading: selectIsLoading(state),
+        isFollowing: selectIsFollowing(state)
     }
 }
 

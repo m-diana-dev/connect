@@ -6,6 +6,8 @@ import {GetUserStatusTC, ProfileInfoType, SetUserProfileTC, UpdateUserStatusTC} 
 import {useParams} from "react-router-dom";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect.tsx";
 import {compose} from "redux";
+import {selectId, selectIsAuth} from "../../redux/selectors/auth-selectors.ts";
+import {selectProfile, selectProfileStatus} from "../../redux/selectors/profile-selectors.ts";
 
 export type mapStateToPropsType = {
     profile: ProfileInfoType | null
@@ -40,10 +42,10 @@ function ProfileContainer(props: ProfileContainerPropsType) {
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        profile: state.ProfilePage.profile,
-        status: state.ProfilePage.status,
-        authorizedUserId: state.auth.id,
-        isAuth: state.auth.isAuth,
+        profile: selectProfile(state),
+        status: selectProfileStatus(state),
+        authorizedUserId: selectId(state),
+        isAuth: selectIsAuth(state),
     };
 };
 

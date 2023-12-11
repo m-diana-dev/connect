@@ -10,6 +10,7 @@ import {ActionType} from "../../redux/actions-types.ts";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect.tsx";
 import {compose} from "redux";
 import React from "react";
+import {selectDialogs, selectMessages} from "../../redux/selectors/dialogs-selectors.ts";
 
 
 export type mapStateToPropsType = {
@@ -22,8 +23,8 @@ export type mapDispatchToPropsType = {
 }
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        dialogs: state.DialogsPage.dialogs,
-        messages: state.DialogsPage.messages,
+        dialogs: selectDialogs(state),
+        messages: selectMessages(state),
     }
 }
 

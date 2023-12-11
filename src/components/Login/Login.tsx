@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {loginUserTC} from "../../redux/auth-reducer.ts";
 import {AppStateType} from "../../redux/redux-store.ts";
 import {Navigate} from "react-router-dom";
+import {selectError, selectIsAuth} from "../../redux/selectors/auth-selectors.ts";
 
 
 type mapStateToPropsType = {
@@ -83,8 +84,8 @@ const Login = (props: LoginPropsType) => {
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        isAuth: state.auth.isAuth,
-        error: state.auth.error
+        isAuth: selectIsAuth(state),
+        error: selectError(state)
     };
 };
 export default connect(mapStateToProps, {loginUserTC})(Login)

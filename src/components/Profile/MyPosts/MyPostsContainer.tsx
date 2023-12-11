@@ -3,6 +3,7 @@ import {MyPosts} from "./MyPosts.tsx";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store.ts";
 import {ActionType} from "../../../redux/actions-types.ts";
+import {selectProfilePosts} from "../../../redux/selectors/profile-selectors.ts";
 
 
 export type mapStateToPropsType = {
@@ -15,7 +16,7 @@ export type mapDispatchToPropsType = {
 
 const mapStateToProps = (state: AppStateType):mapStateToPropsType => {
     return {
-        posts: state.ProfilePage.posts,
+        posts: selectProfilePosts(state),
     }
 }
 

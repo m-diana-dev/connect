@@ -5,6 +5,7 @@ import {Friend} from "../Friend/Friend.tsx";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store.ts";
 import {UserType} from "../../redux/users-reducer.ts";
+import {selectFriends} from "../../redux/selectors/friends-selectors.ts";
 
 
 type mapStateToPropsType = {
@@ -50,7 +51,7 @@ const Navbar = (props: NavbarPropsType) => {
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        friends: state.FriendsPage.friends
+        friends: selectFriends(state)
     }
 }
 export default connect(mapStateToProps, {})(Navbar)

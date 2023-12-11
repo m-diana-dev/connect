@@ -6,6 +6,9 @@ import {connectAPI} from "../../api/api.ts";
 import React from "react";
 import {MainPages} from "./MainPages.tsx";
 import {initializedAppTC} from "./../../redux/app-reducer.ts";
+import {selectFriends} from "../../redux/selectors/friends-selectors.ts";
+import {selectInitialized} from "../../redux/selectors/app-selectors.ts";
+import {selectIsFollowing} from "../../redux/selectors/users-selectors.ts";
 
 
 type mapStateToPropsType = {
@@ -42,9 +45,9 @@ class MainPagesContainer extends React.Component<MainPagesContainerPropsType> {
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        friends: state.FriendsPage.friends,
-        isFollowing: state.UsersPage.isFollowing,
-        initialized: state.app.initialized
+        friends: selectFriends(state),
+        isFollowing: selectIsFollowing(state),
+        initialized: selectInitialized(state)
     }
 }
 export default connect(mapStateToProps, {
