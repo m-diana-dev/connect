@@ -9,6 +9,7 @@ import {initializedAppTC} from "./../../redux/app-reducer.ts";
 import {selectFriends} from "../../redux/selectors/friends-selectors.ts";
 import {selectInitialized} from "../../redux/selectors/app-selectors.ts";
 import {selectIsFollowing} from "../../redux/selectors/users-selectors.ts";
+import {Preloader} from "../Preloader/Preloader.tsx";
 
 
 type mapStateToPropsType = {
@@ -21,7 +22,7 @@ type mapDispatchToPropsType = {
     toggleIsLoading: (isLoading: boolean) => void
     unfollowUsersTC: (userID: number) => void
     followUsersTC: (userID: number) => void
-    initializedAppTC: ()=>void
+    initializedAppTC: () => void
 }
 type MainPagesContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
 
@@ -34,9 +35,11 @@ class MainPagesContainer extends React.Component<MainPagesContainerPropsType> {
                 this.props.SetFriends(friends)
                 this.props.toggleIsLoading(false)
             })
+        this.props.initializedAppTC()
     }
 
     render() {
+        {if (!this.props.initialized) return <Preloader/>}
         return (
             <MainPages {...this.props}/>
         );
