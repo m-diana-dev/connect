@@ -2,7 +2,7 @@ import {ActionType} from "./actions-types.ts";
 import {authMeTC} from "./auth-reducer.ts";
 import {AppThunk} from "./redux-store.ts";
 
-const SET_INITIALIZED = 'SET-INITIALIZED';
+const SET_INITIALIZED = 'APP/SET-INITIALIZED';
 
 type AppType = {
     initialized: boolean

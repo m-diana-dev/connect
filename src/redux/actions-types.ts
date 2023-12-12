@@ -13,12 +13,8 @@ import {SetInitialized} from "./app-reducer.ts";
 
 export type AddPostActionType = ReturnType<typeof AddPostActionCreator>
 
-export type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    postText: string
-}
 export type SendMessageActionType = {
-    type: 'SEND-MESSAGE'
+    type: 'DIALOGS/SEND-MESSAGE'
     newMessageText: string
 }
 export type SetUsersActionType = ReturnType<typeof setUsers>
@@ -37,7 +33,6 @@ export type SetInitializedAT = ReturnType<typeof SetInitialized>
 
 export type ActionType =
     AddPostActionType
-    | UpdateNewPostTextActionType
     | SendMessageActionType
     | SetUsersActionType
     | FollowUserActionType

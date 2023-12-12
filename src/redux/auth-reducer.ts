@@ -4,8 +4,8 @@ import {connectAPI} from "../api/api.ts";
 import {AppThunk} from "./redux-store.ts";
 import {SetInitialized} from "./app-reducer.ts";
 
-const SET_USER = 'SET-USER';
-const SET_ERROR = 'SET-ERROR';
+const SET_USER = 'AUTH/SET-USER';
+const SET_ERROR = 'AUTH/SET-ERROR';
 
 type AuthType = {
     id: number
@@ -32,7 +32,7 @@ export const authReducer = (state: AuthType = initialState, action: ActionType):
                 email: action.email,
                 isAuth: action.isAuth
             }
-        case "SET-ERROR":
+        case SET_ERROR:
             return {...state, error: action.error}
         default: return state
     }

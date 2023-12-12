@@ -3,14 +3,14 @@ import {Dispatch} from "redux";
 import {connectAPI} from "../api/api.ts";
 
 
-const SET_USERS = 'SET-USERS'
-export const FOLLOW_USER = 'FOLLOW-USER'
-export const UNFOLLOW_USER = 'UNFOLLOW-USER'
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
-export const TOGGLE_ISLOADING = 'TOGGLE-ISLOADING'
+const SET_USERS = 'USERS/SET-USERS'
+export const FOLLOW_USER = 'USERS/FOLLOW-USER'
+export const UNFOLLOW_USER = 'USERS/UNFOLLOW-USER'
+const SET_CURRENT_PAGE = 'USERS/SET-CURRENT-PAGE'
+const SET_TOTAL_USERS_COUNT = 'USERS/SET-TOTAL-USERS-COUNT'
+export const TOGGLE_ISLOADING = 'USERS/TOGGLE-ISLOADING'
 
-export const TOGGLE_IS_FOLLOWING = 'TOGGLE-IS-FOLLOWING'
+export const TOGGLE_IS_FOLLOWING = 'USERS/TOGGLE-IS-FOLLOWING'
 
 export type UserType = {
     id: number
@@ -53,9 +53,9 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
             return {...state, currentPage: action.currentPage}
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.totalUsersCount}
-        case "TOGGLE-ISLOADING":
+        case TOGGLE_ISLOADING:
             return {...state, isLoading: action.isLoading}
-        case "TOGGLE-IS-FOLLOWING":
+        case TOGGLE_IS_FOLLOWING:
             return {...state, isFollowing: action.isFollowing
                     ? [...state.isFollowing, action.userID]
                     : state.isFollowing.filter(el=>el !== action.userID)}

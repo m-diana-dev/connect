@@ -1,7 +1,7 @@
 import {ActionType} from "./actions-types.ts";
 import {FOLLOW_USER, TOGGLE_ISLOADING, UNFOLLOW_USER, UserType} from "./users-reducer.ts";
 
-const SET_FRIENDS = 'SET-FRIENDS'
+const SET_FRIENDS = 'FRIENDS/SET-FRIENDS'
 
 export type FriendsPageType = {
     friends: UserType[],

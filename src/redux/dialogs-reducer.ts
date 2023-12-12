@@ -21,7 +21,7 @@ export type DialogsPageType = {
     messages: MessagesType[],
 }
 
-const SEND_MESSAGE = 'SEND-MESSAGE';
+const SEND_MESSAGE = 'DIALOGS/SEND-MESSAGE';
 
 const initialState: DialogsPageType = {
     dialogs: [
