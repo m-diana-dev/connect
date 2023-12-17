@@ -2,9 +2,7 @@ import React, {InputHTMLAttributes} from "react";
 import styled from "styled-components";
 
 
-type InputPropsType = {
-
-} & InputHTMLAttributes<HTMLInputElement>
+type InputPropsType = InputHTMLAttributes<HTMLInputElement>
 export const Input = React.forwardRef((props: InputPropsType, ref: React.ForwardedRef<HTMLInputElement>) => {
     const {...restProps} = props
 

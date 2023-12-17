@@ -38,7 +38,6 @@ export type ProfilePageType = {
 }
 
 
-
 const ADD_POST = 'PROFILE/ADD-POST';
 const SET_USER_PROFILE = 'PROFILE/SET-USER-PROFILE';
 const SET_USER_STATUS = 'PROFILE/SET-USER-STATUS';
@@ -65,7 +64,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return {...state, profile: action.profile}
         case SET_USER_STATUS:
             return {...state, status: action.status}
-        default: return state
+        default:
+            return state
     }
 }
 
@@ -77,25 +77,19 @@ export const SetUserStatus = (status: string) => ({type: SET_USER_STATUS, status
 
 
 //TC
-export const SetUserProfileTC = (userID: number) => (dispatch: Dispatch) => {
-    connectAPI.getProfile(userID)
-        .then((res) => {
-            dispatch(SetUserProfile(res))
-        })
+export const SetUserProfileTC = (userID: number) => async (dispatch: Dispatch) => {
+    const res = await connectAPI.getProfile(userID)
+    dispatch(SetUserProfile(res))
 }
 
-export const GetUserStatusTC = (userID: number) => (dispatch: Dispatch) => {
-    connectAPI.getStatus(userID)
-        .then((res) => {
-            dispatch(SetUserStatus(res))
-        })
+export const GetUserStatusTC = (userID: number) => async (dispatch: Dispatch) => {
+    const res = await connectAPI.getStatus(userID)
+    dispatch(SetUserStatus(res))
 }
 
-export const UpdateUserStatusTC = (status: string) => (dispatch: Dispatch) => {
-    connectAPI.updateStatus(status)
-        .then((res) => {
-            if(res.data.resultCode === 0){
-                dispatch(SetUserStatus(res))
-            }
-        })
+export const UpdateUserStatusTC = (status: string) => async (dispatch: Dispatch) => {
+    const res = await connectAPI.updateStatus(status)
+    if (res.data.resultCode === 0) {
+        dispatch(SetUserStatus(res))
+    }
 }

@@ -2,7 +2,7 @@ import {DialogsItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./Messages/Messages";
 import styled from "styled-components";
 import {H1, Textarea} from "../../styles/Theme.tsx";
-import {Button} from "../Button/Button.tsx";
+import {Button} from "../common/Button/Button.tsx";
 import {mapDispatchToPropsType, mapStateToPropsType} from "./DialogsContainer.tsx";
 import {FieldValues, useForm} from "react-hook-form";
 

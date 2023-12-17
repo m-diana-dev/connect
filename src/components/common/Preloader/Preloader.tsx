@@ -1,4 +1,4 @@
-import preloader from '../../images/loading.svg'
+import preloader from '../../../images/loading.svg'
 import styled from "styled-components";
 
 export const Preloader = () => {

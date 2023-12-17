@@ -9,7 +9,7 @@ import {initializedAppTC, SetInitialized} from "./../../redux/app-reducer.ts";
 import {selectFriends} from "../../redux/selectors/friends-selectors.ts";
 import {selectInitialized} from "../../redux/selectors/app-selectors.ts";
 import {selectIsFollowing, totalUsersCount} from "../../redux/selectors/users-selectors.ts";
-import {Preloader} from "../Preloader/Preloader.tsx";
+import {Preloader} from "../common/Preloader/Preloader.tsx";
 
 
 type mapStateToPropsType = {

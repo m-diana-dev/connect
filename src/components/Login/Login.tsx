@@ -1,8 +1,8 @@
 import {H1} from "../../styles/Theme.tsx";
-import {Input} from "../Input/Input.tsx";
-import {Button} from "../Button/Button.tsx";
+import {Input} from "../common/Input/Input.tsx";
+import {Button} from "../common/Button/Button.tsx";
 import styled from "styled-components";
-import {Checkbox} from "../Checkbox/Checkbox.tsx";
+import {Checkbox} from "../common/Checkbox/Checkbox.tsx";
 import {Controller, FieldValues, useForm} from "react-hook-form";
 import {connect} from "react-redux";
 import {loginUserTC} from "../../redux/auth-reducer.ts";

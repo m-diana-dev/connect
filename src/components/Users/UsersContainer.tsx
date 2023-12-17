@@ -12,7 +12,7 @@ import {
     UserType
 } from "../../redux/users-reducer.ts";
 import React from "react";
-import {Preloader} from "../Preloader/Preloader.tsx";
+import {Preloader} from "../common/Preloader/Preloader.tsx";
 import {
     selectCurrentPage,
     selectIsFollowing, selectIsLoading,

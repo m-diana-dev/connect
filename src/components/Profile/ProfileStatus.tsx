@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from "react";
 import styled from "styled-components";
-import {Input} from "../Input/Input.tsx";
+import {Input} from "../common/Input/Input.tsx";
 
 type ProfileStatusPropsType = {
     status: string

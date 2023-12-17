@@ -1,7 +1,7 @@
 import {Post} from "./Post/Posts";
 import styled from "styled-components";
 import {H2, Textarea} from "../../../styles/Theme.tsx";
-import {Button} from "../../Button/Button.tsx";
+import {Button} from "../../common/Button/Button.tsx";
 import {mapDispatchToPropsType, mapStateToPropsType} from "./MyPostsContainer.tsx";
 import {FieldValues, useForm} from "react-hook-form";
 

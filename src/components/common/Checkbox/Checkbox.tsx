@@ -1,5 +1,5 @@
 import React, {InputHTMLAttributes} from 'react';
-import {Input} from "../Input/Input";
+import {Input} from "../Input/Input.tsx";
 import styled from "styled-components";
 
 

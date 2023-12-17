@@ -1,8 +1,8 @@
 import {H1} from "../../styles/Theme.tsx";
 import {User} from "./User.tsx";
 import styled from "styled-components";
-import {Button} from "../Button/Button.tsx";
 import {UserType} from "../../redux/users-reducer.ts";
+import {Pagination} from "../common/Pagination/Pagination.tsx";
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -16,12 +16,9 @@ type UsersPropsType = {
 }
 
 export const Users = (props: UsersPropsType) => {
-    const pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
-    const pages = []
-    for (let i = 1; i <= pageCount; i++) {
-        if (pages.length < 10) {
-            pages.push(i)
-        }
+
+    const onClickHandler = (page: number) => {
+        props.onClickHandler(page)
     }
     return (
         <>
@@ -44,12 +41,10 @@ export const Users = (props: UsersPropsType) => {
                     )
                 })}
             </UsersItems>
-            <Pagination>
-                {pages.map(el => <Button active={props.currentPage === el}
-                                         pagination={true}
-                                         callback={() => props.onClickHandler(el)}
-                                         name={el.toString()}></Button>)}
-            </Pagination>
+            <Pagination onClickHandler={onClickHandler}
+                        totalUsersCount={props.totalUsersCount}
+                        pageSize={props.pageSize}
+                        currentPage={props.currentPage}/>
         </>
     )
 }
@@ -75,14 +70,5 @@ const UsersItems = styled.div`
     @media ${({theme}) => theme.media.mobileSmall} {
       margin-bottom: 60px;
     }
-  }
-`
-const Pagination = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  @media ${({theme}) => theme.media.mobileSmall} {
-    flex-wrap: wrap;
   }
 `
