@@ -1,4 +1,4 @@
-import {AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
+import {AnyAction, applyMiddleware, combineReducers, compose, createStore} from "redux";
 import dialogsReducer from "./dialogs-reducer.ts";
 import friendsReducer from "./friends-reducer.ts";
 import {profileReducer} from "./profile-reducer.ts";
@@ -15,13 +15,13 @@ const RootReducer = combineReducers({
     auth: authReducer,
     app: appReducer
 })
-const store = createStore(RootReducer, applyMiddleware(thunk));
+
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(RootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 export type AppStateType = ReturnType<typeof RootReducer>
 
 export type AppThunk = ThunkAction<void, AppStateType, unknown, AnyAction>
 
-
-//@ts-ignore
-window.store = store
 export default store
