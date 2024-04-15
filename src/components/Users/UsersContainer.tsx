@@ -104,7 +104,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 //     }
 // }
 
-export const UsersContainer = connect(mapStateToProps,
+const UsersContainer = connect(mapStateToProps,
     {
         setUsers,
         setCurrentPage,
@@ -114,3 +114,5 @@ export const UsersContainer = connect(mapStateToProps,
         unfollowUsersTC,
         followUsersTC
     })(UsersContainerAPI)
+
+export default UsersContainer
