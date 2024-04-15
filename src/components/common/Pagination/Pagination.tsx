@@ -1,27 +1,37 @@
 
 import styled from "styled-components";
 import {Button} from "../Button/Button.tsx";
+import {useState} from "react";
 
 type PaginationPropsType= {
     pageSize: number
     currentPage: number
-    totalUsersCount: number
+    totalItemsCount: number
+    portionSize: number
     onClickHandler: (page: number) => void
 }
 export const Pagination = (props: PaginationPropsType) => {
-    const pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    const [portionNumber, setPortionNumber] = useState(1)
+    const pageCount = Math.ceil(props.totalItemsCount / props.pageSize)
     const pages = []
     for (let i = 1; i <= pageCount; i++) {
-        if (pages.length < 10) {
             pages.push(i)
-        }
     }
+    console.log(portionNumber)
+
+    const portionCount = Math.ceil(pageCount / props.portionSize)
+    const leftPortionPageNumber = (portionNumber - 1) * props.portionSize + 1
+    const rightPortionPageNumber = portionNumber * props.portionSize
+
     return (
         <SitePagination>
-            {pages.map(el => <Button active={props.currentPage === el}
+            {portionNumber > 1 && <Button name={'prev'} callback={() => setPortionNumber(portionNumber - 1)}></Button>}
+            {pages.filter(el => el>= leftPortionPageNumber && el<= rightPortionPageNumber)
+                .map(el => <Button active={props.currentPage === el}
                                      pagination={true}
                                      callback={() => props.onClickHandler(el)}
                                      name={el.toString()}></Button>)}
+            {portionCount > portionNumber && <Button name={'next'} callback={() => setPortionNumber(portionNumber + 1)}></Button>}
         </SitePagination>
     );
 };

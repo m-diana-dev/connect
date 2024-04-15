@@ -42,9 +42,10 @@ export const Users = (props: UsersPropsType) => {
                 })}
             </UsersItems>
             <Pagination onClickHandler={onClickHandler}
-                        totalUsersCount={props.totalUsersCount}
+                        totalItemsCount={props.totalUsersCount}
                         pageSize={props.pageSize}
-                        currentPage={props.currentPage}/>
+                        currentPage={props.currentPage}
+                        portionSize={10}/>
         </>
     )
 }
