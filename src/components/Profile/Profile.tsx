@@ -9,6 +9,8 @@ export type ProfilePropsType = {
     profile: ProfileInfoType | null
     status: string
     UpdateUserStatusTC: (status: string) => void
+    isOwner: boolean
+    savePhotoTC: (photo: File) => void
 }
 export const Profile = (props: ProfilePropsType) => {
     if (!props.profile) return <Preloader/>
@@ -17,7 +19,8 @@ export const Profile = (props: ProfilePropsType) => {
             <Banner>
                 <img src={banner}/>
             </Banner>
-            <ProfileInfo profile={props.profile} status={props.status} UpdateUserStatusTC={props.UpdateUserStatusTC}/>
+            <ProfileInfo isOwner={props.isOwner} profile={props.profile} status={props.status}
+                         UpdateUserStatusTC={props.UpdateUserStatusTC} savePhotoTC={props.savePhotoTC}/>
             <MyPostsContainer/>
         </>
     )

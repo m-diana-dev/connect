@@ -2,7 +2,13 @@ import React, {useEffect} from "react";
 import {Profile} from "./Profile.tsx";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store.ts";
-import {GetUserStatusTC, ProfileInfoType, SetUserProfileTC, UpdateUserStatusTC} from "../../redux/profile-reducer.ts";
+import {
+    GetUserStatusTC,
+    ProfileInfoType,
+    savePhotoTC,
+    SetUserProfileTC,
+    UpdateUserStatusTC
+} from "../../redux/profile-reducer.ts";
 import {useParams} from "react-router-dom";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect.tsx";
 import {compose} from "redux";
@@ -19,6 +25,7 @@ export type mapDispatchToProps = {
     SetUserProfileTC: (userID: number) => void
     GetUserStatusTC: (userID: number) => void
     UpdateUserStatusTC: (status: string) => void
+    savePhotoTC: (photo: File) => void
 }
 export type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToProps
 
@@ -37,7 +44,7 @@ function ProfileContainer(props: ProfileContainerPropsType) {
         props.GetUserStatusTC(Number(userID) || props.authorizedUserId)
     }, [userID]);
 
-    return <Profile {...props} />;
+    return <Profile {...props} isOwner={!userID}/>;
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -50,6 +57,6 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 };
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {SetUserProfileTC, GetUserStatusTC, UpdateUserStatusTC}),
+    connect(mapStateToProps, {SetUserProfileTC, GetUserStatusTC, UpdateUserStatusTC, savePhotoTC}),
     WithAuthRedirect
 )(ProfileContainer)

@@ -41,6 +41,7 @@ export type ProfilePageType = {
 const ADD_POST = 'PROFILE/ADD-POST';
 const SET_USER_PROFILE = 'PROFILE/SET-USER-PROFILE';
 const SET_USER_STATUS = 'PROFILE/SET-USER-STATUS';
+const SET_USER_PHOTO = 'PROFILE/SET-USER-PHOTO';
 
 const initialState: ProfilePageType = {
     posts: [
@@ -64,6 +65,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return {...state, profile: action.profile}
         case SET_USER_STATUS:
             return {...state, status: action.status}
+        case SET_USER_PHOTO:
+            return {...state, profile: {...state.profile, photos: {large: action.photos.large, small: action.photos.small}}}
         default:
             return state
     }
@@ -74,6 +77,9 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 export const AddPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
 export const SetUserProfile = (profile: ProfileInfoType) => ({type: SET_USER_PROFILE, profile} as const)
 export const SetUserStatus = (status: string) => ({type: SET_USER_STATUS, status} as const)
+export const SetPhoto = (photos: { small: string, large: string }) => {
+    return ({type: SET_USER_PHOTO, photos} as const);
+}
 
 
 //TC
@@ -89,7 +95,13 @@ export const GetUserStatusTC = (userID: number) => async (dispatch: Dispatch) =>
 
 export const UpdateUserStatusTC = (status: string) => async (dispatch: Dispatch) => {
     const res = await connectAPI.updateStatus(status)
-    if (res.data.resultCode === 0) {
+    if (res.resultCode === 0) {
         dispatch(SetUserStatus(res))
+    }
+}
+export const savePhotoTC = (photo: File) => async (dispatch: Dispatch) => {
+    const res = await connectAPI.savePhoto(photo)
+    if (res.resultCode === 0) {
+        dispatch(SetPhoto(res.data.photos))
     }
 }

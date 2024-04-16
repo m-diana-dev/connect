@@ -3,13 +3,20 @@ import {H1} from "../../../styles/Theme.tsx";
 import defaultAvatar from "../../../images/users/avatar.webp";
 import {ProfileInfoType} from "../../../redux/profile-reducer.ts";
 import ProfileStatus from "../ProfileStatus.tsx";
+import {Input} from "../../common/Input/Input.tsx";
+import {ChangeEvent} from "react";
 
 export type ProfileInfoPropsType = {
     profile: ProfileInfoType | null
     status: string
     UpdateUserStatusTC: (status: string) => void
+    isOwner: boolean
+    savePhotoTC: (photo: File) => void
 }
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
+    const mainPhotoSelectHandler = (e: ChangeEvent<HTMLInputElement>) => {
+           if (e.target.files) props.savePhotoTC(e.target.files[0])
+    }
     if (props.profile) {
         const img = props.profile.photos.large ? props.profile.photos.large : defaultAvatar
         const facebook = props.profile.contacts.facebook ?
@@ -97,6 +104,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <Avatar>
                     <img
                         src={img} alt="avatar"/>
+                    {props.isOwner && <Input type={'file'} onChange={mainPhotoSelectHandler}/>}
                 </Avatar>
                 <UserInfo>
                     <H1>{props.profile.fullName}</H1>
@@ -166,7 +174,7 @@ export const Avatar = styled.div`
   }
 `
 const UserInfo = styled.div`
-  p:not(:last-child){
+  p:not(:last-child) {
     margin-bottom: 10px;
     @media ${({theme}) => theme.media.mobileSmall} {
       margin-bottom: 7px;
