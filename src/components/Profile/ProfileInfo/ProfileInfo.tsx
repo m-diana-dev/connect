@@ -49,7 +49,13 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <Avatar>
                     <img
                         src={img} alt="avatar"/>
-                    {props.isOwner && <Input type={'file'} onChange={mainPhotoSelectHandler}/>}
+                    {props.isOwner &&
+
+                        <label>
+                            <input type={'file'} onChange={mainPhotoSelectHandler}/>
+                            <Icon id={'photo-add'} width={'30'} height={'30'} viewBox={'0 0 25 25'}/>
+                        </label>
+                    }
                 </Avatar>
                 <UserInfo>
                     <H1>{props.profile.fullName}</H1>
@@ -91,6 +97,7 @@ const MainBlockTop = styled.div`
   }
 `
 export const Avatar = styled.div`
+  position: relative;
   max-width: 150px;
   max-height: 150px;
   width: 100%;
@@ -110,12 +117,61 @@ export const Avatar = styled.div`
     margin-right: 0;
     margin-bottom: 10px;
   }
+  &:hover{
+    &::before{
+      opacity: .5;
+    }
+    label{
+      pointer-events: auto;
+      opacity: 1;
+    }
+  }
+  
+  &::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0;
+    border-radius: 50%;
+    transition: all .3s;
+  }
 
   img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+  }
+
+  label{
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    transition: all .3s;
+  }
+
+  svg {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  input[type=file] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    display: block;
+    width: 0;
+    height: 0;
   }
 `
 const UserInfo = styled.div`
