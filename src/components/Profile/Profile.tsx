@@ -1,6 +1,6 @@
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import styled from "styled-components";
-import banner from '../../images/banner.jpg'
+import banner from '../../assets/images/banner.jpg'
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer.tsx";
 import {Preloader} from "../common/Preloader/Preloader.tsx";
 import {ProfileInfoType} from "../../redux/profile-reducer.ts";

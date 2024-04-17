@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import {Container} from "../../styles/Theme.tsx";
-import logo from '../../images/logo.png'
+import logo from '../../assets/images/logo.png'
 import {NavLink} from "react-router-dom";
-import {Button} from "../common/Button/Button.tsx";
-import logoutIcon from '../../images/icons/logout.svg'
+import {Button, SiteButton} from "../common/Button/Button.tsx";
+import {Icon} from "../common/Icon/Icon.tsx";
 
 type HeaderPropsType = {
     isAuth: boolean
@@ -16,15 +16,22 @@ export const Header = (props: HeaderPropsType) => {
         <SiteHeader>
             <Container>
                 <SiteHeaderWrapp>
-                    <NavLink to={`/profile/${props.id}`}>
+                    <NavLink to={`/profile`}>
                         <SiteLogo>
                             <img src={logo} alt="logo"/>
                             <span>Connect</span>
                         </SiteLogo>
                     </NavLink>
                     <HeaderUser>
-                        {(props.isAuth) ? <Button callback={()=>props.logoutUserTC()} transparent={true}><span>{props.login}</span><img alt={'icon'} src={logoutIcon}/></Button> :
-                            <NavLink to={'/login'}>Log In</NavLink>
+                        {
+                            (props.isAuth)
+                                ?
+                                <Button callback={() => props.logoutUserTC()} transparent={true}>
+                                    <span>{props.login}</span>
+                                    <Icon id={'logout'} height={'30'} width={'50'} viewBox={'0 0 500 500'}/>
+                                </Button>
+                                :
+                                <NavLink to={'/login'}>Log In</NavLink>
                         }
                     </HeaderUser>
                 </SiteHeaderWrapp>
@@ -48,11 +55,13 @@ const SiteHeaderWrapp = styled.div`
 const SiteLogo = styled.div`
   display: flex;
   align-items: center;
+
   &:hover {
-    span{
+    span {
       color: ${({theme}) => theme.colors.second}
     }
-    img{
+
+    img {
       transform: rotate(-43deg);
     }
   }
@@ -82,6 +91,11 @@ const HeaderUser = styled.div`
   font-weight: 500;
   cursor: pointer;
   transition: all .3s;
+  &:hover{
+    color: ${({theme}) => theme.colors.second};
+  }
+
+  
   @media ${({theme}) => theme.media.mobile} {
     font-size: 18px;
   }
@@ -89,11 +103,8 @@ const HeaderUser = styled.div`
     font-size: 16px;
   }
 
-  &:hover {
-    color: ${({theme}) => theme.colors.second}
-  }
-  
-  button{
+
+  ${SiteButton} {
     max-width: 130px;
   }
 `

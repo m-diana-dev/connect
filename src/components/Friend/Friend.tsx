@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import defaultAvatar from "../../images/users/avatar.webp";
+import defaultAvatar from "../../assets/images/users/avatar.webp";
 import {NavLink} from "react-router-dom";
 
 export type FriendPropsType = {

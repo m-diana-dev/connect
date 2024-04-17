@@ -18,7 +18,7 @@ export const Button = ({name, callback, pagination, active, disabled, children, 
 };
 
 
-const SiteButton = styled.button<{pagination?:boolean, active?:boolean, transparent?:boolean}>`
+export const SiteButton = styled.button<{pagination?:boolean, active?:boolean, transparent?:boolean}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,10 +39,7 @@ const SiteButton = styled.button<{pagination?:boolean, active?:boolean, transpar
           ? props.active ? '#fff' : ({theme}) => theme.colors.main
           : '#fff'};
   border-color: ${(props) => props.pagination ? ({theme}) => theme.colors.main : 'transparent'};
-  img{
-    margin-left: 5px;
-    width: 35px;
-    transform: scale(-1,1);
+  svg{
     transition: all .2s;
   }
   span {
@@ -56,8 +53,8 @@ const SiteButton = styled.button<{pagination?:boolean, active?:boolean, transpar
     background-color: ${(props) => props.transparent ? 'transparent' : ({theme}) => theme.colors.second};
     border-color: transparent;
     color: #fff;
-    img{
-      transform: scale(1,1);
+    svg{
+      transform: scale(-1,1);
     }
   }
   &:disabled{

@@ -1,8 +1,8 @@
-import avatar1 from "../images/users/avatar-1.png";
-import avatar2 from "../images/users/avatar-2.png";
-import avatar3 from "../images/users/avatar-3.jpg";
-import avatar4 from "../images/users/avatar-4.jpg";
-import avatar5 from "../images/users/main.png";
+import avatar1 from "../assets/images/users/avatar-1.png";
+import avatar2 from "../assets/images/users/avatar-2.png";
+import avatar3 from "../assets/images/users/avatar-3.jpg";
+import avatar4 from "../assets/images/users/avatar-4.jpg";
+import avatar5 from "../assets/images/users/main.png";
 import {ActionType, SendMessageActionType} from "./actions-types.ts";
 
 export type DialogsType = {
