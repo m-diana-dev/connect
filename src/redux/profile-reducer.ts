@@ -1,6 +1,7 @@
 import {ActionType} from "./actions-types.ts";
 import {Dispatch} from "redux";
 import {connectAPI} from "../api/api.ts";
+import {AppStateType} from "src/redux/redux-store.ts";
 
 
 export type PostsType = {
@@ -103,5 +104,12 @@ export const savePhotoTC = (photo: File) => async (dispatch: Dispatch) => {
     const res = await connectAPI.savePhoto(photo)
     if (res.resultCode === 0) {
         dispatch(SetPhoto(res.data.photos))
+    }
+}
+
+export const updateProfileTC = (data: any) => async (dispatch: any, getState: AppStateType) => {
+    const res = await connectAPI.updateProfile(data)
+    if (res.resultCode === 0) {
+        dispatch(SetUserProfileTC(getState().auth.id))
     }
 }

@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import {H1} from "../../../styles/Theme.tsx";
+import {H1, H2} from "../../../styles/Theme.tsx";
 import defaultAvatar from "../../../assets/images/users/avatar.webp";
 import {ProfileInfoType} from "../../../redux/profile-reducer.ts";
 import ProfileStatus from "../ProfileStatus.tsx";
-import {Input} from "../../common/Input/Input.tsx";
-import {ChangeEvent} from "react";
+import {ChangeEvent, useState} from "react";
 import {Icon} from "../../common/Icon/Icon.tsx";
+import {Input} from "../../common/Input/Input.tsx";
+import {Controller, FieldValues, useForm} from "react-hook-form";
+import {Checkbox} from "../../common/Checkbox/Checkbox.tsx";
+import {Button} from "../../common/Button/Button.tsx";
 
 export type ProfileInfoPropsType = {
     profile: ProfileInfoType | null
@@ -13,8 +16,26 @@ export type ProfileInfoPropsType = {
     UpdateUserStatusTC: (status: string) => void
     isOwner: boolean
     savePhotoTC: (photo: File) => void
+    updateProfileTC: (formData: any) => void
 }
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
+    const [editMode, setEditMode] = useState(false)
+    const {
+        register,
+        formState: {
+            errors,
+        },
+        handleSubmit,
+        control
+    } = useForm({
+        mode: "onBlur"
+    })
+
+    const onSubmitHandler = (formData: FieldValues) => {
+        props.updateProfileTC(formData)
+        setEditMode(false)
+    }
+
     const mainPhotoSelectHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) props.savePhotoTC(e.target.files[0])
     }
@@ -44,44 +65,97 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
             <a href={props.profile.contacts.github}>
                 <Icon id={'github'} height={'20'} width={'20'} viewBox={'0 0 52 52'}/>
             </a> : undefined
+        const website = props.profile.contacts.website?
+            <a href={props.profile.contacts.github}>
+                <Icon id={'website'} height={'20'} width={'20'} viewBox={'0 0 24 24'}/>
+            </a> : undefined
+        const link = props.profile.contacts.website?
+            <a href={props.profile.contacts.mainLink}>
+                <Icon id={'link'} height={'20'} width={'20'} viewBox={'0 0 24 24'}/>
+            </a> : undefined
         return (
-            <MainBlockTop>
-                <Avatar>
-                    <img
-                        src={img} alt="avatar"/>
-                    {props.isOwner &&
+            <>
+                {editMode ?
+                    <UserInfoSettings>
+                        <H2>Profile Settings</H2>
+                        <ProfileForm onSubmit={handleSubmit(onSubmitHandler)}>
+                            <Input {...register('fullName',
+                                {required: 'required field'})} placeholder={'Full name'} defaultValue={props.profile.fullName}/>
+                            {errors?.fullName &&
+                                <FormError>{errors.fullName.message && errors.fullName.message.toString()}</FormError>}
+                            <Input {...register('aboutMe',
+                                {required: 'required field'})} placeholder={'About me'} defaultValue={props.profile.aboutMe}/>
+                            {errors?.aboutMe &&
+                                <FormError>{errors.aboutMe.message && errors.aboutMe.message.toString()}</FormError>}
+                            <Controller
+                                name="lookingForAJob"
+                                control={control}
+                                defaultValue={props.profile.lookingForAJob}
+                                render={({field: {ref, ...rest}}) => <Checkbox {...rest}
+                                                                               label={'Looking for a job?'}/>}
+                            />
+                            <Input {...register('lookingForAJobDescription',
+                                {required: 'required field'})} placeholder={'Job description'} defaultValue={props.profile.lookingForAJobDescription}/>
+                            {errors?.lookingForAJobDescription &&
+                                <FormError>{errors.lookingForAJobDescription.message && errors.lookingForAJobDescription.message.toString()}</FormError>}
+                            {errors?.password &&
+                                <FormError>{errors.password.message && errors.password.message.toString()}</FormError>}
+                            <Input {...register('contacts.github')} placeholder={'Github'} defaultValue={props.profile.contacts.github}/>
+                            <Input {...register('contacts.vk')} placeholder={'VK'} defaultValue={props.profile.contacts.vk}/>
+                            <Input {...register('contacts.facebook')} placeholder={'Facebook'} defaultValue={props.profile.contacts.facebook}/>
+                            <Input {...register('contacts.instagram')} placeholder={'Instagram'} defaultValue={props.profile.contacts.instagram}/>
+                            <Input {...register('contacts.twitter')} placeholder={'Twitter'} defaultValue={props.profile.contacts.twitter}/>
+                            <Input {...register('contacts.website')} placeholder={'Website'} defaultValue={props.profile.contacts.website}/>
+                            <Input {...register('contacts.youtube')} placeholder={'Youtube'} defaultValue={props.profile.contacts.youtube}/>
+                            <Input {...register('contacts.mainLink')} placeholder={'Main Link'} defaultValue={props.profile.contacts.mainLink}/>
+                            <Button name={'Save'}/>
+                        </ProfileForm>
+                    </UserInfoSettings>
+                    :
+                    <MainBlockTop>
+                        <Avatar>
+                            <img
+                                src={img} alt="avatar"/>
+                            {props.isOwner &&
 
-                        <label>
-                            <input type={'file'} onChange={mainPhotoSelectHandler}/>
-                            <Icon id={'photo-add'} width={'30'} height={'30'} viewBox={'0 0 25 25'}/>
-                        </label>
-                    }
-                </Avatar>
-                <UserInfo>
-                    <H1>{props.profile.fullName}</H1>
-                    <ProfileStatus status={props.status} UpdateUserStatusTC={props.UpdateUserStatusTC}/>
-                    <p>{props.profile.aboutMe}</p>
-                    <p>{props.profile.lookingForAJob ? 'I\'m looking for a job.' : 'I\'m not looking for a job.'}
-                        {props.profile.lookingForAJobDescription ? ` (${props.profile.lookingForAJobDescription})` : ''}</p>
-                    <ContactsRow>
-                        {vk}
-                        {twitter}
-                        {instagram}
-                        {youtube}
-                        {github}
-                        {facebook}
-                    </ContactsRow>
-                </UserInfo>
-            </MainBlockTop>
+                                <label>
+                                    <input type={'file'} onChange={mainPhotoSelectHandler}/>
+                                    <Icon id={'photo-add'} width={'30'} height={'30'} viewBox={'0 0 25 25'}/>
+                                </label>
+                            }
+                        </Avatar>
+                        <UserInfo>
+                            <H1>{props.profile.fullName}</H1>
+                            <ProfileStatus status={props.status} UpdateUserStatusTC={props.UpdateUserStatusTC}/>
+                            <p>{props.profile.aboutMe}</p>
+                            <p>{props.profile.lookingForAJob ? 'I\'m looking for a job.' : 'I\'m not looking for a job.'}
+                                {props.profile.lookingForAJobDescription ? ` (${props.profile.lookingForAJobDescription})` : ''}</p>
+                            <ContactsRow>
+                                {vk}
+                                {twitter}
+                                {instagram}
+                                {youtube}
+                                {github}
+                                {facebook}
+                                {website}
+                                {link}
+                            </ContactsRow>
+                            <UserInfoSettingsButton onClick={() => setEditMode(true)}>
+                                <Icon id={'settings'} height={'30'} width={'30'} viewBox={'0 0 23 23'}/>
+                            </UserInfoSettingsButton>
+                        </UserInfo>
+                    </MainBlockTop>
+                }
+            </>
         )
     }
 }
 
 const MainBlockTop = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   margin-bottom: 50px;
-  margin-top: -50px;
   border: 1px solid ${({theme}) => theme.colors.border};
   border-radius: 10px;
   padding: 20px;
@@ -117,17 +191,19 @@ export const Avatar = styled.div`
     margin-right: 0;
     margin-bottom: 10px;
   }
-  &:hover{
-    &::before{
+
+  &:hover {
+    &::before {
       opacity: .5;
     }
-    label{
+
+    label {
       pointer-events: auto;
       opacity: 1;
     }
   }
-  
-  &::before{
+
+  &::before {
     content: '';
     position: absolute;
     width: 100%;
@@ -147,7 +223,7 @@ export const Avatar = styled.div`
     object-fit: cover;
   }
 
-  label{
+  label {
     position: absolute;
     opacity: 0;
     pointer-events: none;
@@ -225,6 +301,58 @@ const ContactsRow = styled.div`
     &:not(:last-child) {
       margin-right: 5px;
     }
+  }
+`
+
+const UserInfoSettingsButton = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+
+  &:hover {
+    svg {
+      transform: rotate(60deg);
+    }
+  }
+
+  svg {
+    transition: all .3s;
+  }
+`
+const UserInfoSettings = styled.div`
+  border: 1px solid ${({theme}) => theme.colors.border};
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #fff;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 30px;
+  @media ${({theme}) => theme.media.mobile} {
+    padding: 15px;
+  }
+`
+const ProfileForm = styled.form`
+  width: 100%;
+
+  input {
+    &:not(:last-child) {
+      margin-bottom: 20px;
+      @media ${({theme}) => theme.media.mobileSmall} {
+        margin-bottom: 10px;
+      }
+    }
+  }
+`
+
+const FormError = styled.div`
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: #c40a0a;
+  @media ${({theme}) => theme.media.mobileSmall} {
+    margin-bottom: 10px;
   }
 `
 

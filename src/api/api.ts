@@ -51,5 +51,9 @@ export const connectAPI = {
             }
         })
             .then(res => res.data)
+    },
+    updateProfile(data: any){
+        return instance.put(`/profile`, data)
+            .then(res => res.data)
     }
 }
