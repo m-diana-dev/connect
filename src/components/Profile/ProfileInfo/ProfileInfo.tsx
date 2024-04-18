@@ -140,9 +140,11 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                                 {website}
                                 {link}
                             </ContactsRow>
+                            {props.isOwner &&
                             <UserInfoSettingsButton onClick={() => setEditMode(true)}>
                                 <Icon id={'settings'} height={'30'} width={'30'} viewBox={'0 0 23 23'}/>
                             </UserInfoSettingsButton>
+                            }
                         </UserInfo>
                     </MainBlockTop>
                 }
@@ -193,27 +195,10 @@ export const Avatar = styled.div`
   }
 
   &:hover {
-    &::before {
-      opacity: .5;
-    }
-
     label {
       pointer-events: auto;
-      opacity: 1;
+      opacity: 0.7;
     }
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: #000;
-    opacity: 0;
-    border-radius: 50%;
-    transition: all .3s;
   }
 
   img {
@@ -225,19 +210,24 @@ export const Avatar = styled.div`
 
   label {
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
     pointer-events: none;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: inline-block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    border-radius: 50%;
+    cursor: pointer;
     transition: all .3s;
   }
 
   svg {
     position: relative;
     display: inline-block;
-    cursor: pointer;
     transition: all 0.3s;
   }
 

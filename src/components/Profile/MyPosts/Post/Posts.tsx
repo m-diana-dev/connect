@@ -1,14 +1,16 @@
 import styled from "styled-components";
-import avatar from '../../../../assets/images/users/main.png'
 import {Icon} from "../../../common/Icon/Icon.tsx";
+import defaultAvatar from '../../../../assets/images/users/avatar.webp'
 
 type PostPropsType = {
     id: number
     text: string
     likes: number
+    avatar?: string
 }
 
 export const Post = (props: PostPropsType) => {
+    const avatar = props.avatar ? props.avatar : defaultAvatar
     return (
         <PostItem>
             <PostItemAvatar>
@@ -17,7 +19,7 @@ export const Post = (props: PostPropsType) => {
             <PostContent>
                 <PostText>{props.text}</PostText>
                 <PostLike>
-                    <Icon id={'like'} height={'22'} width={'18'} viewBox={'0 0 22 22'}/>
+                    <Icon id={'like'} height={'20'} width={'20'} viewBox={'0 0 28 30'}/>
                     <span>{props.likes}</span>
                 </PostLike>
             </PostContent>
@@ -110,13 +112,10 @@ const PostLike = styled.div`
   
 
   span {
-    margin-top: 3px;
     font-size: 16px;
-    font-weight: 500;
-    margin-right: 5px;
+    margin-right: 2px;
     @media ${({theme}) => theme.media.mobile} {
       font-size: 14px;
-      margin-right: 3px;
     }
   }
 `

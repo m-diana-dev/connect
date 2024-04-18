@@ -24,20 +24,23 @@ export const MyPosts = (props: MyPostsPropsType) => {
     return (
         <>
             <Posts>
-                <H2>My Posts</H2>
-                <form onSubmit={handleSubmit(onSubmitHandler)}>
-                    <Textarea {...register('newPostText', {required: 'Enter post text'})}></Textarea>
-                    <Button name={'Send'} disabled={!isValid}></Button>
-                </form>
+                <H2>Posts</H2>
+                {props.profile?.userId === props.authId &&
+                    <form onSubmit={handleSubmit(onSubmitHandler)}>
+                        <Textarea {...register('newPostText', {required: 'Enter post text'})}></Textarea>
+                        <Button name={'Send'} disabled={!isValid}></Button>
+                    </form>
+                }
             </Posts>
             <div>
-                {props.posts.map(el=><Post key={el.id} id={el.id} text={el.text} likes={el.likes}/>)}
+                {props.posts.map(el => <Post key={el.id} id={el.id} text={el.text} likes={el.likes}
+                                             avatar={props.profile?.photos.small}/>)}
             </div>
         </>
     )
 }
 
-const Posts= styled.div `
-    margin-bottom: 30px;
+const Posts = styled.div`
+  margin-bottom: 30px;
 `
 

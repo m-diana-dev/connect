@@ -1,7 +1,7 @@
 import {ActionType} from "./actions-types.ts";
 import {Dispatch} from "redux";
 import {connectAPI} from "../api/api.ts";
-import {AppStateType} from "src/redux/redux-store.ts";
+import {AppStateType} from "../redux/redux-store.ts";
 
 
 export type PostsType = {

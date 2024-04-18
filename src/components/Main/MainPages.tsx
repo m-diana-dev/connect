@@ -2,7 +2,6 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import {News} from "../News/News.tsx";
 import {Music} from "../Music/Music.tsx";
 import {Container, Flex, MainBlock, Section} from "../../styles/Theme.tsx";
-// import {UsersContainer} from "../Users/UsersContainer.tsx";
 import ProfileContainer from "../Profile/ProfileContainer.tsx";
 import HeaderContainer from "../Header/HeaderContainer.tsx";
 import Navbar from "../Navbar/Navbar.tsx";
@@ -11,6 +10,7 @@ import {Friends} from "../Friend/Friends.tsx";
 import Login from "../Login/Login.tsx";
 import DialogsContainer from "../Dialogs/DialogsContainer.tsx";
 import {lazy} from "react";
+import {Error404} from "../Error404/Error404.tsx";
 
 const UsersContainer = lazy(() => import('../Users/UsersContainer.tsx'));
 
@@ -47,6 +47,8 @@ export function MainPages(props: MainPagesPropsType) {
                                 <Route path="/login" element={<Login/>}/>
                                 <Route path="/news" element={<News/>}/>
                                 <Route path="/music" element={<Music/>}/>
+                                <Route path="/404" element={<Error404 />} />
+                                <Route path="*" element={<Navigate to="/404" />} />
                             </Routes>
                         </MainBlock>
                     </Flex>
