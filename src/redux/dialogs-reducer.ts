@@ -1,8 +1,4 @@
-import avatar1 from "../assets/images/users/avatar-1.png";
-import avatar2 from "../assets/images/users/avatar-2.png";
-import avatar3 from "../assets/images/users/avatar-3.jpg";
-import avatar4 from "../assets/images/users/avatar-4.jpg";
-import avatar5 from "../assets/images/users/main.png";
+import avatar from "../assets/images/users/avatar.webp";
 import {ActionType, SendMessageActionType} from "./actions-types.ts";
 
 export type DialogsType = {
@@ -25,11 +21,11 @@ const SEND_MESSAGE = 'DIALOGS/SEND-MESSAGE';
 
 const initialState: DialogsPageType = {
     dialogs: [
-        {id: 1, img: avatar1, name: 'Anna Del'},
-        {id: 2, img: avatar2, name: 'Dima Petrov'},
-        {id: 3, img: avatar3, name: 'Lida'},
-        {id: 4, img: avatar4, name: 'Ivan Ivanov'},
-        {id: 5, img: avatar5, name: 'Mikkel'},
+        {id: 1, img: avatar, name: 'Anna Del'},
+        {id: 2, img: avatar, name: 'Dima Petrov'},
+        {id: 3, img: avatar, name: 'Lida'},
+        {id: 4, img: avatar, name: 'Ivan Ivanov'},
+        {id: 5, img: avatar, name: 'Mikkel'},
     ],
     messages: [
         {id: 1, text: 'Hi'},

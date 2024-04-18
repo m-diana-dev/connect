@@ -106,5 +106,10 @@ const HeaderUser = styled.div`
 
   ${SiteButton} {
     max-width: 130px;
+    &:hover{
+      svg{
+        transform: scale(-1,1);
+      }
+    }
   }
 `

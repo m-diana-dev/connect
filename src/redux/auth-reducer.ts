@@ -84,7 +84,7 @@ export const logoutUserTC = () => async (dispatch: Dispatch) => {
     const res = await connectAPI.logoutUser()
     if (res.resultCode === 0) {
         dispatch(SetUser(0, '', '', false))
-        dispatch(SetInitialized(false))
+        dispatch(SetInitialized(true))
     }
 }
 

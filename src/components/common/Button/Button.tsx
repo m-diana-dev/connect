@@ -53,9 +53,6 @@ export const SiteButton = styled.button<{pagination?:boolean, active?:boolean, t
     background-color: ${(props) => props.transparent ? 'transparent' : ({theme}) => theme.colors.second};
     border-color: transparent;
     color: #fff;
-    svg{
-      transform: scale(-1,1);
-    }
   }
   &:disabled{
     opacity: 0.5;

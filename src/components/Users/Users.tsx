@@ -24,7 +24,7 @@ export const Users = (props: UsersPropsType) => {
         <>
             <UsersTop>
                 <H1>Users</H1>
-                <span>{props.users.length}</span>
+                <span>{props.totalUsersCount}</span>
             </UsersTop>
             <UsersItems>
                 {props.users.map(el => {
