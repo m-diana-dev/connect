@@ -8,15 +8,16 @@ import {connect} from "react-redux";
 import {loginUserTC} from "../../redux/auth-reducer.ts";
 import {AppStateType} from "../../redux/redux-store.ts";
 import {Navigate} from "react-router-dom";
-import {selectError, selectIsAuth} from "../../redux/selectors/auth-selectors.ts";
+import {selectCaptcha, selectError, selectIsAuth} from "../../redux/selectors/auth-selectors.ts";
 
 
 type mapStateToPropsType = {
     isAuth: boolean
     error: string
+    captcha: string
 }
 type mapDispatchToPropsType = {
-    loginUserTC: (email: string, password: string, rememberMe:boolean) => void
+    loginUserTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
 
 type LoginPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -34,8 +35,8 @@ const Login = (props: LoginPropsType) => {
     })
 
     const onSubmitHandler = (formData: FieldValues) => {
-            const {email, password, rememberMe} = formData
-            props.loginUserTC(email, password, rememberMe)
+        const {email, password, rememberMe, captcha} = formData
+        props.loginUserTC(email, password, rememberMe, captcha)
     }
 
     if (props.isAuth) return <Navigate to={'/profile'}/>
@@ -67,15 +68,24 @@ const Login = (props: LoginPropsType) => {
                         minLength: {value: 5, message: 'min length - 5'}
                     })}
                        placeholder={'Password'} type={'password'}/>
-                {errors?.password && <FormError>{errors.password.message && errors.password.message.toString()}</FormError>}
+                {errors?.password &&
+                    <FormError>{errors.password.message && errors.password.message.toString()}</FormError>}
                 <Controller
                     name="rememberMe"
                     control={control}
                     defaultValue={false}
-                    render={({ field: { ref, ...rest } }) => <Checkbox {...rest} label={'Remember me'}/>}
+                    render={({field: {ref, ...rest}}) => <Checkbox {...rest} label={'Remember me'}/>}
                 />
 
-
+                {props.captcha && <Captcha src={props.captcha} alt='captcha'/>}
+                {
+                    props.captcha &&
+                    <Input {...register('captcha',
+                        {
+                            required: 'required field',
+                        })}
+                           placeholder={'Captcha'}/>
+                }
                 <Button name={'Login'} disabled={!isValid}/>
             </LoginForm>
         </LoginPage>
@@ -85,7 +95,8 @@ const Login = (props: LoginPropsType) => {
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         isAuth: selectIsAuth(state),
-        error: selectError(state)
+        error: selectError(state),
+        captcha: selectCaptcha(state)
     };
 };
 export default connect(mapStateToProps, {loginUserTC})(Login)
@@ -141,5 +152,16 @@ const FormError = styled.div`
   color: #c40a0a;
   @media ${({theme}) => theme.media.mobileSmall} {
     margin-bottom: 10px;
+  }
+`
+const Captcha = styled.img`
+  display: block;
+  border: 1px solid ${({theme}) => theme.colors.border};
+  width: 200px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  @media ${({theme}) => theme.media.mobileSmall} {
+    margin-bottom: 10px;
+    width: 150px;
   }
 `

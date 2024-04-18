@@ -7,7 +7,7 @@ import {
     toggleIsLoading,
     unfollowUser
 } from "./users-reducer.ts";
-import {SetError, SetUser} from "./auth-reducer.ts";
+import {SetCaptcha, SetError, SetUser} from "./auth-reducer.ts";
 import {SetFriends} from "./friends-reducer.ts";
 import {SetInitialized} from "./app-reducer.ts";
 
@@ -31,6 +31,7 @@ export type SetUserStatusAT = ReturnType<typeof SetUserStatus>
 export type SetErrorAT = ReturnType<typeof SetError>
 export type SetInitializedAT = ReturnType<typeof SetInitialized>
 export type SetPhotoAT = ReturnType<typeof SetPhoto>
+export type SetCaptchaAT = ReturnType<typeof SetCaptcha>
 
 export type ActionType =
     AddPostActionType
@@ -49,3 +50,4 @@ export type ActionType =
     | SetErrorAT
     | SetInitializedAT
     | SetPhotoAT
+    | SetCaptchaAT

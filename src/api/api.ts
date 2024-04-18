@@ -34,8 +34,8 @@ export const connectAPI = {
         return instance.put(`/profile/status`, {status: status})
             .then(res => res.data)
     },
-    loginUser(email: string, password: string, rememberMe:boolean){
-        return instance.post(`/auth/login`, {email, password, rememberMe})
+    loginUser(email: string, password: string, rememberMe:boolean, captcha: string){
+        return instance.post(`/auth/login`, {email, password, rememberMe, captcha})
             .then(res => res.data)
     },
     logoutUser(){
@@ -55,5 +55,8 @@ export const connectAPI = {
     updateProfile(data: any){
         return instance.put(`/profile`, data)
             .then(res => res.data)
+    },
+    getCaptcha(){
+        return instance.get('/security/get-captcha-url')
     }
 }

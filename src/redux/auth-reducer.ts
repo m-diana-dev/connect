@@ -6,6 +6,7 @@ import {SetInitialized} from "./app-reducer.ts";
 
 const SET_USER = 'AUTH/SET-USER';
 const SET_ERROR = 'AUTH/SET-ERROR';
+const SET_CAPTCHA = 'AUTH/SET-CAPTCHA';
 
 type AuthType = {
     id: number
@@ -13,6 +14,7 @@ type AuthType = {
     email: string
     isAuth: boolean
     error: string
+    captcha: string
 }
 
 const initialState: AuthType = {
@@ -20,7 +22,8 @@ const initialState: AuthType = {
     login: "",
     email: "",
     isAuth: false,
-    error: ''
+    error: '',
+    captcha: ''
 }
 export const authReducer = (state: AuthType = initialState, action: ActionType): AuthType => {
     switch (action.type) {
@@ -34,6 +37,8 @@ export const authReducer = (state: AuthType = initialState, action: ActionType):
             }
         case SET_ERROR:
             return {...state, error: action.error}
+        case "AUTH/SET-CAPTCHA":
+            return {...state, captcha: action.captcha}
         default:
             return state
     }
@@ -49,6 +54,7 @@ export const SetUser = (id: number, login: string, email: string, isAuth: boolea
     isAuth
 } as const)
 export const SetError = (error: string) => ({type: SET_ERROR, error} as const)
+export const SetCaptcha = (captcha: string) => ({type: SET_CAPTCHA, captcha} as const)
 
 
 //TC
@@ -60,13 +66,16 @@ export const authMeTC = () => async (dispatch: Dispatch) => {
     }
 }
 
-export const loginUserTC = (email: string, password: string, rememberMe: boolean): AppThunk => async (dispatch) => {
+export const loginUserTC = (email: string, password: string, rememberMe: boolean, captcha: string): AppThunk => async (dispatch) => {
     dispatch(SetError(''))
-    const res = await connectAPI.loginUser(email, password, rememberMe)
+    const res = await connectAPI.loginUser(email, password, rememberMe, captcha)
     if (res.resultCode === 0) {
         dispatch(authMeTC())
         dispatch(SetError(''))
     } else {
+        if (res.resultCode === 10) {
+            dispatch(getCaptchaTC())
+        }
         dispatch(SetError(res.messages[0]))
     }
 }
@@ -77,4 +86,9 @@ export const logoutUserTC = () => async (dispatch: Dispatch) => {
         dispatch(SetUser(0, '', '', false))
         dispatch(SetInitialized(false))
     }
+}
+
+export const getCaptchaTC = () => async (dispatch: Dispatch) => {
+    const res = await connectAPI.getCaptcha()
+    dispatch(SetCaptcha(res.data.url))
 }
