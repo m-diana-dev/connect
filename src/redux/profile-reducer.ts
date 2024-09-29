@@ -11,8 +11,8 @@ export type PostsType = {
 }
 
 export type ProfileInfoType = {
-    aboutMe: string
-    contacts: {
+    aboutMe?: string
+    contacts?: {
         facebook: string
         website: string
         vk: string
@@ -22,11 +22,11 @@ export type ProfileInfoType = {
         github: string
         mainLink: string
     },
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: {
+    lookingForAJob?: boolean
+    lookingForAJobDescription?: string
+    fullName?: string
+    userId?: number
+    photos?: {
         small: string
         large: string
     }
@@ -110,6 +110,6 @@ export const savePhotoTC = (photo: File) => async (dispatch: Dispatch) => {
 export const updateProfileTC = (data: any) => async (dispatch: any, getState: AppStateType) => {
     const res = await connectAPI.updateProfile(data)
     if (res.resultCode === 0) {
-        dispatch(SetUserProfileTC(getState().auth.id))
+        dispatch(SetUserProfileTC(getState.auth.id))
     }
 }
