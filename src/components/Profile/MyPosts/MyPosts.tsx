@@ -34,7 +34,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
             </Posts>
             <div>
                 {props.posts.map(el => <Post key={el.id} id={el.id} text={el.text} likes={el.likes}
-                                             avatar={props.profile?.photos.small}/>)}
+                                             avatar={props.profile?.photos?.small}/>)}
             </div>
         </>
     )

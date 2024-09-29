@@ -40,37 +40,37 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
         if (e.target.files) props.savePhotoTC(e.target.files[0])
     }
     if (props.profile) {
-        const img = props.profile.photos.large ? props.profile.photos.large : defaultAvatar
-        const facebook = props.profile.contacts.facebook ?
-            <a href={props.profile.contacts.facebook}>
+        const img = props.profile.photos?.large ? props.profile.photos?.large : defaultAvatar
+        const facebook = props.profile.contacts?.facebook ?
+            <a href={props.profile.contacts?.facebook}>
                 <Icon id={'facebook'} height={'20'} width={'20'} viewBox={'0 0 40 40'}/>
             </a> : undefined
-        const vk = props.profile.contacts.vk ?
-            <a href={props.profile.contacts.vk}>
+        const vk = props.profile.contacts?.vk ?
+            <a href={props.profile.contacts?.vk}>
                 <Icon id={'vk'} height={'20'} width={'20'} viewBox={'0 0 55 55'}/>
             </a> : undefined
-        const twitter = props.profile.contacts.twitter ?
-            <a href={props.profile.contacts.twitter}>
+        const twitter = props.profile.contacts?.twitter ?
+            <a href={props.profile.contacts?.twitter}>
                 <Icon id={'twitter'} height={'20'} width={'20'} viewBox={'0 0 50 55'}/>
             </a> : undefined
-        const instagram = props.profile.contacts.instagram ?
-            <a href={props.profile.contacts.instagram}>
+        const instagram = props.profile.contacts?.instagram ?
+            <a href={props.profile.contacts?.instagram}>
                 <Icon id={'instagram'} height={'20'} width={'20'} viewBox={'0 0 53 53'}/>
             </a> : undefined
-        const youtube = props.profile.contacts.youtube ?
-            <a href={props.profile.contacts.youtube}>
+        const youtube = props.profile.contacts?.youtube ?
+            <a href={props.profile.contacts?.youtube}>
                 <Icon id={'youtube'} height={'20'} width={'20'} viewBox={'0 0 440 550'}/>
             </a> : undefined
-        const github = props.profile.contacts.github ?
-            <a href={props.profile.contacts.github}>
+        const github = props.profile.contacts?.github ?
+            <a href={props.profile.contacts?.github}>
                 <Icon id={'github'} height={'20'} width={'20'} viewBox={'0 0 52 52'}/>
             </a> : undefined
-        const website = props.profile.contacts.website?
-            <a href={props.profile.contacts.github}>
+        const website = props.profile.contacts?.website?
+            <a href={props.profile.contacts?.github}>
                 <Icon id={'website'} height={'20'} width={'20'} viewBox={'0 0 24 24'}/>
             </a> : undefined
-        const link = props.profile.contacts.website?
-            <a href={props.profile.contacts.mainLink}>
+        const link = props.profile.contacts?.website?
+            <a href={props.profile.contacts?.mainLink}>
                 <Icon id={'link'} height={'20'} width={'20'} viewBox={'0 0 24 24'}/>
             </a> : undefined
         return (
@@ -100,14 +100,14 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                                 <FormError>{errors.lookingForAJobDescription.message && errors.lookingForAJobDescription.message.toString()}</FormError>}
                             {errors?.password &&
                                 <FormError>{errors.password.message && errors.password.message.toString()}</FormError>}
-                            <Input {...register('contacts.github')} placeholder={'Github'} defaultValue={props.profile.contacts.github}/>
-                            <Input {...register('contacts.vk')} placeholder={'VK'} defaultValue={props.profile.contacts.vk}/>
-                            <Input {...register('contacts.facebook')} placeholder={'Facebook'} defaultValue={props.profile.contacts.facebook}/>
-                            <Input {...register('contacts.instagram')} placeholder={'Instagram'} defaultValue={props.profile.contacts.instagram}/>
-                            <Input {...register('contacts.twitter')} placeholder={'Twitter'} defaultValue={props.profile.contacts.twitter}/>
-                            <Input {...register('contacts.website')} placeholder={'Website'} defaultValue={props.profile.contacts.website}/>
-                            <Input {...register('contacts.youtube')} placeholder={'Youtube'} defaultValue={props.profile.contacts.youtube}/>
-                            <Input {...register('contacts.mainLink')} placeholder={'Main Link'} defaultValue={props.profile.contacts.mainLink}/>
+                            <Input {...register('contacts.github')} placeholder={'Github'} defaultValue={props.profile.contacts?.github}/>
+                            <Input {...register('contacts.vk')} placeholder={'VK'} defaultValue={props.profile.contacts?.vk}/>
+                            <Input {...register('contacts.facebook')} placeholder={'Facebook'} defaultValue={props.profile.contacts?.facebook}/>
+                            <Input {...register('contacts.instagram')} placeholder={'Instagram'} defaultValue={props.profile.contacts?.instagram}/>
+                            <Input {...register('contacts.twitter')} placeholder={'Twitter'} defaultValue={props.profile.contacts?.twitter}/>
+                            <Input {...register('contacts.website')} placeholder={'Website'} defaultValue={props.profile.contacts?.website}/>
+                            <Input {...register('contacts.youtube')} placeholder={'Youtube'} defaultValue={props.profile.contacts?.youtube}/>
+                            <Input {...register('contacts.mainLink')} placeholder={'Main Link'} defaultValue={props.profile.contacts?.mainLink}/>
                             <Button name={'Save'}/>
                         </ProfileForm>
                     </UserInfoSettings>
